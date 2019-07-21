@@ -12,7 +12,7 @@ import xyz.phanta.algane.lasergun.LaserGunPart;
 public class TileGunWorkbench extends L9TileEntity {
 
     @AutoSerialize
-    private final L9AspectInventory inv = new L9AspectInventory.Observable(2, (i, o, n) -> setDirty())
+    private final L9AspectInventory inv = new L9AspectInventory.Observable(2, (i, o, n) -> markDirty())
             .withPredicate(0, s -> s.hasCapability(AlganeCaps.LASER_GUN, null))
             .withPredicate(1, s -> LaserGunPart.getPartType(s) != null);
 

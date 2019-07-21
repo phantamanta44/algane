@@ -2,6 +2,7 @@ package xyz.phanta.algane.item;
 
 import io.github.phantamanta44.libnine.capability.provider.CapabilityBroker;
 import io.github.phantamanta44.libnine.item.L9ItemSubs;
+import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.Vec3d;
@@ -46,7 +47,7 @@ public class ItemLaserCore extends L9ItemSubs {
             }
 
             @Override
-            public int fire(ItemStack stack, LaserGun gun, World world, Vec3d pos, Vec3d dir) {
+            public int fire(ItemStack stack, LaserGun gun, World world, Vec3d pos, Vec3d dir, @Nullable Entity owner) {
                 return 8;
             }
 

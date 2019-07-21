@@ -1,0 +1,30 @@
+{
+  "9s": "pi",
+  "archetype": {
+    "parent": "algane:item/laser_gun_model"
+  },
+  "mutations": {
+    "tier": {
+      "BASIC": {
+        "textures": {
+          "body": "algane:models/gun/body_0"
+        }
+      },
+      "ADVANCED": {
+        "textures": {
+          "body": "algane:models/gun/body_1"
+        }
+      },
+      "ELITE": {
+        "textures": {
+          "body": "algane:models/gun/body_2"
+        }
+      },
+      "ULTIMATE": {
+        "textures": {
+          "body": "algane:models/gun/body_3"
+        }
+      }
+    }
+  }
+}
