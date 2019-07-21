@@ -1,0 +1,26 @@
+itemGroup.algane=Algane
+
+item.algane:laser_gun0.name=Basic Laser Rifle
+item.algane:laser_gun1.name=Advanced Laser Rifle
+item.algane:laser_gun2.name=Elite Laser Rifle
+item.algane:laser_gun3.name=Ultimate Laser Rifle
+
+item.algane:laser_core0.name=Simple Laser Rifle Core
+item.algane:laser_core1.name=Repeating Laser Rifle Core
+item.algane:laser_core2.name=Beam Projector Core
+item.algane:laser_core3.name=Shock Rifle Core
+item.algane:laser_core4.name=Shock Orb Cannon Core
+item.algane:laser_core5.name=Gauss Rifle Core
+
+item.algane:misc0.name=Modifier Slot Unavailable
+
+tile.algane:laser_workbench0.name=Photonic Armament Assembler
+tile.algane:laser_workbench1.name=Modifier Manipulator
+
+algane.gui.laser_workbench=Photonic Armament Assembler
+
+algane.tooltip.energy=Energy: %s
+algane.tooltip.fraction=%s / %s
+
+algane.status.gun.missing_core=Laser rifle has no core!
+algane.status.gun.missing_energy=Laser rifle has no energy cell!
