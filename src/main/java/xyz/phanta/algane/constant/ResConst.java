@@ -29,4 +29,14 @@ public class ResConst {
         return Algane.INSTANCE.newTextureResource("textures/particle/" + key + ".png", width, height);
     }
 
+    private static final TextureResource OVERLAY_WEAPON = getOverlayResource("weapon_overlay", 256, 55);
+    public static final TextureRegion OVERLAY_WEAPON_BG = OVERLAY_WEAPON.getRegion(0, 0, 256, 32);
+    public static final TextureRegion OVERLAY_WEAPON_ENERGY = OVERLAY_WEAPON.getRegion(0, 32, 244, 20);
+    public static final TextureRegion OVERLAY_WEAPON_HEAT = OVERLAY_WEAPON.getRegion(0, 52, 121, 3);
+    public static final TextureRegion OVERLAY_WEAPON_HEAT_LOCK = OVERLAY_WEAPON.getRegion(121, 52, 121, 3);
+
+    private static TextureResource getOverlayResource(String key, int width, int height) {
+        return Algane.INSTANCE.newTextureResource("textures/overlay/" + key + ".png", width, height);
+    }
+
 }

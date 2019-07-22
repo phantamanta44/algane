@@ -18,9 +18,9 @@ import javax.annotation.Nullable;
 
 public class LaserGunCoreSimple implements LaserGunCore {
 
-    private static final int BASE_ENERGY = 500;
+    private static final int BASE_ENERGY = 800;
     private static final float BASE_DAMAGE = 4F;
-    private static final float BASE_HEAT = 25F;
+    private static final float BASE_HEAT = 32F;
     private static final float BASE_RANGE = 64F;
     private static final int BASE_COLOUR = 0x2196F3;
 
