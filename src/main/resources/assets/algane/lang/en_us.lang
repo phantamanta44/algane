@@ -1,9 +1,9 @@
 itemGroup.algane=Algane
 
-item.algane:laser_gun0.name=Basic Laser Rifle
-item.algane:laser_gun1.name=Advanced Laser Rifle
-item.algane:laser_gun2.name=Elite Laser Rifle
-item.algane:laser_gun3.name=Ultimate Laser Rifle
+item.algane:laser_gun0.name=Basic Laser Rifle Casing
+item.algane:laser_gun1.name=Advanced Laser Rifle Casing
+item.algane:laser_gun2.name=Elite Laser Rifle Casing
+item.algane:laser_gun3.name=Ultimate Laser Rifle Casing
 
 item.algane:laser_core0.name=Simple Laser Rifle Core
 item.algane:laser_core1.name=Repeating Laser Rifle Core
@@ -39,3 +39,15 @@ algane.status.gun.overheat=Laser rifle is overheating!
 algane.misc.stat_damage=Damage Output
 algane.misc.stat_energy=Energy Usage
 algane.misc.stat_overheat=Overheat Rate
+
+algane.misc.laser_tier.basic=Basic %s
+algane.misc.laser_tier.advanced=Advanced %s
+algane.misc.laser_tier.elite=Elite %s
+algane.misc.laser_tier.ultimate=Ultimate %s
+
+algane.misc.laser_core.simple=Laser Rifle
+algane.misc.laser_core.repeater=Laser Repeater
+algane.misc.laser_core.beam=Beam Projector
+algane.misc.laser_core.shock=Shock Rifle
+algane.misc.laser_core.orb=Shock Orb Cannon
+algane.misc.laser_core.gauss=Gauss Rifle

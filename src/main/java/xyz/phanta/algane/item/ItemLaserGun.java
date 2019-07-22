@@ -4,6 +4,7 @@ import io.github.phantamanta44.libnine.capability.provider.CapabilityBroker;
 import io.github.phantamanta44.libnine.client.model.ParameterizedItemModel;
 import io.github.phantamanta44.libnine.item.L9ItemSubs;
 import io.github.phantamanta44.libnine.util.format.FormatUtils;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -168,6 +169,14 @@ public class ItemLaserGun extends L9ItemSubs implements TickingItem, TickingUseI
     @Override
     public void getModelMutations(ItemStack stack, ParameterizedItemModel.Mutation m) {
         m.mutate("tier", getLaserTier(stack).name());
+    }
+
+    @Override
+    public String getItemStackDisplayName(ItemStack stack) {
+        return AlganeUtils.getLaserCore(AlganeUtils.getItemLaserGun(stack))
+                .map(core -> I18n.format(
+                        LangConst.getLaserTierName(getLaserTier(stack)), I18n.format(core.getTranslationKey())))
+                .orElse(super.getItemStackDisplayName(stack));
     }
 
     @Override
@@ -345,7 +354,7 @@ public class ItemLaserGun extends L9ItemSubs implements TickingItem, TickingUseI
         ELITE(3),
         ULTIMATE(4);
 
-        private static final Tier[] VALUES = values();
+        public static final Tier[] VALUES = values();
 
         public static Tier getForMeta(int meta) {
             return VALUES[meta];

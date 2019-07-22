@@ -6,6 +6,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.energy.IEnergyStorage;
+import xyz.phanta.algane.constant.LangConst;
+import xyz.phanta.algane.item.ItemLaserCore;
 import xyz.phanta.algane.lasergun.LaserGun;
 import xyz.phanta.algane.util.AlganeUtils;
 
@@ -31,6 +33,11 @@ public class LaserGunCoreSimple implements LaserGunCore {
             return 8;
         }
         return 0;
+    }
+
+    @Override
+    public String getTranslationKey() {
+        return LangConst.getLaserCoreName(ItemLaserCore.Type.SIMPLE);
     }
 
 }

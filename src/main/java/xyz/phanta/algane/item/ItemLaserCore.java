@@ -51,9 +51,14 @@ public class ItemLaserCore extends L9ItemSubs {
                 return 8;
             }
 
+            @Override
+            public String getTranslationKey() {
+                return "NOOP";
+            }
+
         }
 
-        private static final Type[] VALUES = values();
+        public static final Type[] VALUES = values();
 
         public static Type getForMeta(int meta) {
             return VALUES[meta];

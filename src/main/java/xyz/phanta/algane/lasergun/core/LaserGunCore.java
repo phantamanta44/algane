@@ -27,6 +27,8 @@ public interface LaserGunCore {
         return !getFiringParadigm().requiresFinish;
     }
 
+    String getTranslationKey();
+
     class Impl implements LaserGunCore {
 
         @Override
@@ -37,6 +39,11 @@ public interface LaserGunCore {
         @Override
         public int fire(ItemStack stack, LaserGun gun, World world, Vec3d pos, Vec3d dir, @Nullable Entity owner) {
             return 0;
+        }
+
+        @Override
+        public String getTranslationKey() {
+            return "<default impl>";
         }
 
     }
