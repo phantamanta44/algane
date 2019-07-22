@@ -36,9 +36,9 @@ public class ModifierAccumulator implements LaserGunModifier {
     }
 
     public void accumulate(LaserGunModifier mod) {
-        addPowerMod(mod.getPowerMod());
-        addEfficiencyMod(mod.getEfficiencyMod());
-        addHeatMod(mod.getHeatMod());
+        powerMod += mod.getPowerMod();
+        effMod += mod.getEfficiencyMod();
+        heatMod += mod.getHeatMod();
     }
 
     public void addPowerMod(float offset) {
