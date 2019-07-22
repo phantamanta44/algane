@@ -24,7 +24,7 @@ public class GuiModWorkbench extends L9GuiContainer {
     public GuiModWorkbench(ContainerModWorkbench cont) {
         super(cont, ResConst.GUI_MODIFIER_TABLE);
         this.cont = cont;
-        this.submitBtn = new GuiComponentSubmit(94, 57, true, this::onSubmit);
+        this.submitBtn = new GuiComponentSubmit(94, 57, true, LangConst.TT_BTN_AUGMENT, this::onSubmit);
         addComponent(submitBtn);
     }
 

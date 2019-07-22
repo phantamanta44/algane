@@ -2,16 +2,19 @@ package xyz.phanta.algane.client.gui.component;
 
 import io.github.phantamanta44.libnine.client.gui.component.GuiComponent;
 import io.github.phantamanta44.libnine.util.render.TextureRegion;
+import net.minecraft.client.resources.I18n;
 import xyz.phanta.algane.constant.ResConst;
 
 public class GuiComponentSubmit extends GuiComponent {
 
     private boolean disabled;
+    private final String tooltip;
     private final Runnable callback;
 
-    public GuiComponentSubmit(int x, int y, boolean disabled, Runnable callback) {
+    public GuiComponentSubmit(int x, int y, boolean disabled, String tooltip, Runnable callback) {
         super(x, y, 13, 13);
         this.disabled = disabled;
+        this.tooltip = tooltip;
         this.callback = callback;
     }
 
@@ -38,6 +41,11 @@ public class GuiComponentSubmit extends GuiComponent {
         } else {
             return false;
         }
+    }
+
+    @Override
+    public void renderTooltip(float partialTicks, int mX, int mY) {
+        drawTooltip(I18n.format(tooltip), mX, mY);
     }
 
 }

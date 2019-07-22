@@ -30,6 +30,10 @@ public class LangConst {
     public static final String TT_MOD_WEIGHT = TT_KEY + "mod_weight";
     public static final String TT_FRACTION = TT_KEY + "fraction";
 
+    private static final String TT_BTN_KEY = TT_KEY + "button.";
+    public static final String TT_BTN_INSTALL = TT_BTN_KEY + "install";
+    public static final String TT_BTN_AUGMENT = TT_BTN_KEY + "augment";
+
     private static final String STATUS_KEY = Algane.MOD_ID + ".status.";
 
     private static final String STATUS_GUN_KEY = STATUS_KEY + "gun.";

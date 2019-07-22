@@ -15,7 +15,7 @@ public class GuiGunWorkbench extends L9GuiContainer {
     public GuiGunWorkbench(ContainerGunWorkbench cont) {
         super(cont, ResConst.GUI_LASER_GUN_TABLE);
         this.cont = cont;
-        this.submitBtn = new GuiComponentSubmit(80, 48, true, this::onSubmit);
+        this.submitBtn = new GuiComponentSubmit(80, 48, true, LangConst.TT_BTN_INSTALL, this::onSubmit);
         addComponent(submitBtn);
     }
 

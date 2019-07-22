@@ -32,6 +32,9 @@ algane.tooltip.mod_overheat=Overheat Modifier: %s
 algane.tooltip.mod_weight=Magnitude: %s
 algane.tooltip.fraction=%s / %s
 
+algane.tooltip.button.install=Install!
+algane.tooltip.button.augment=Augment!
+
 algane.status.gun.missing_core=Laser rifle has no core!
 algane.status.gun.missing_energy=Laser rifle has no energy cell!
 algane.status.gun.overheat=Laser rifle is overheating!
