@@ -1,19 +1,28 @@
 package xyz.phanta.algane.lasergun.core;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.projectile.EntitySnowball;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.energy.IEnergyStorage;
 import xyz.phanta.algane.constant.LangConst;
+import xyz.phanta.algane.entity.EntityLaserBolt;
+import xyz.phanta.algane.init.AlganeSounds;
 import xyz.phanta.algane.item.ItemLaserCore;
 import xyz.phanta.algane.lasergun.LaserGun;
+import xyz.phanta.algane.lasergun.LaserGunModifier;
 import xyz.phanta.algane.util.AlganeUtils;
 
 import javax.annotation.Nullable;
 
 public class LaserGunCoreSimple implements LaserGunCore {
+
+    private static final int BASE_ENERGY = 500;
+    private static final float BASE_DAMAGE = 4F;
+    private static final float BASE_HEAT = 25F;
+    private static final float BASE_RANGE = 64F;
+    private static final int BASE_COLOUR = 0x2196F3;
 
     @Override
     public FiringParadigm getFiringParadigm() {
@@ -22,15 +31,19 @@ public class LaserGunCoreSimple implements LaserGunCore {
 
     @SuppressWarnings("OptionalGetWithoutIsPresent")
     @Override
-    public int fire(ItemStack stack, LaserGun gun, World world, Vec3d pos, Vec3d dir, @Nullable Entity owner) {
+    public int fire(ItemStack stack, LaserGun gun, World world, Vec3d pos, Vec3d dir, @Nullable EntityLivingBase owner) {
+        LaserGunModifier mods = AlganeUtils.computeTotalMods(gun);
+        int energyCost = AlganeUtils.computeEnergy(BASE_ENERGY, mods);
         IEnergyStorage energy = AlganeUtils.getLaserEnergy(gun).get();
-        if (energy.getEnergyStored() > 24) {
-            energy.extractEnergy(24, false);
-            EntitySnowball sb = new EntitySnowball(world, pos.x + dir.x, pos.y + dir.y, pos.z + dir.z);
-            sb.shoot(dir.x, dir.y, dir.z, 3F, 0F);
-            world.spawnEntity(sb);
-            AlganeUtils.incrementHeat(gun, 25F);
-            return 8;
+        int energySpent = energy.extractEnergy(energyCost, false);
+        if (energySpent > 0) {
+            EntityLaserBolt bolt = new EntityLaserBolt(world, pos, dir.scale(1.5D),
+                    AlganeUtils.computeDamage(BASE_DAMAGE * energySpent / energyCost, mods), BASE_RANGE, owner);
+            bolt.init(BASE_COLOUR);
+            world.spawnEntity(bolt);
+            world.playSound(null, pos.x, pos.y, pos.z, AlganeSounds.GUN_SIMPLE_FIRE, SoundCategory.MASTER, 1F, 1F);
+            AlganeUtils.incrementHeat(gun, AlganeUtils.computeHeat(BASE_HEAT, mods));
+            return 12;
         }
         return 0;
     }

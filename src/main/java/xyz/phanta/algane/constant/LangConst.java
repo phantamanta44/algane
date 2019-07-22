@@ -1,5 +1,6 @@
 package xyz.phanta.algane.constant;
 
+import net.minecraft.util.ResourceLocation;
 import xyz.phanta.algane.Algane;
 import xyz.phanta.algane.item.ItemLaserCore;
 import xyz.phanta.algane.item.ItemLaserGun;
@@ -21,6 +22,8 @@ public class LangConst {
     private static final String GUI_KEY = Algane.MOD_ID + ".gui.";
     public static final String GUI_LASER_GUN_TABLE = GUI_KEY + "laser_workbench";
     public static final String GUI_MODIFIER_TABLE = GUI_KEY + "mod_workbench";
+
+    public static final ResourceLocation ENTITY_LASER_BOLT = Algane.INSTANCE.newResourceLocation("laser_bolt");
 
     private static final String TT_KEY = Algane.MOD_ID + ".tooltip.";
     public static final String TT_ENERGY = TT_KEY + "energy";
@@ -63,5 +66,12 @@ public class LangConst {
     public static String getLaserCoreName(ItemLaserCore.Type type) {
         return LASER_CORE_NAMES[type.ordinal()];
     }
+
+    public static final String DMG_SRC_BOLT = "alganeBolt";
+    public static final String DMG_SRC_LASER = "alganeLaser";
+    public static final String DMG_SRC_ASMD = "alganeAsmd";
+    public static final String DMG_SRC_ORB = "alganeOrb";
+    public static final String DMG_SRC_COMBO = "alganeShockCombo";
+    public static final String DMG_SRC_GAUSS = "alganeGauss";
 
 }

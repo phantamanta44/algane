@@ -1,5 +1,7 @@
 package xyz.phanta.algane;
 
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -19,6 +21,10 @@ public class CommonProxy {
     }
 
     public void onPostInit(FMLPostInitializationEvent event) {
+        // NO-OP
+    }
+
+    public void spawnParticleBolt(World world, Vec3d pos, int colour) {
         // NO-OP
     }
 

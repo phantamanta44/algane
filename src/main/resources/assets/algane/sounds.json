@@ -1,0 +1,7 @@
+{
+  "algane.weapon.simple.fire": {
+    "sounds": [
+      "algane:weapon/simple/fire"
+    ]
+  }
+}

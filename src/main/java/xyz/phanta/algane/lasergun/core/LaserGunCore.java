@@ -1,6 +1,6 @@
 package xyz.phanta.algane.lasergun.core;
 
-import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
@@ -12,14 +12,14 @@ public interface LaserGunCore {
 
     FiringParadigm getFiringParadigm();
 
-    default int startFiring(ItemStack stack, LaserGun gun, World world, Vec3d pos, Vec3d dir, @Nullable Entity owner) {
+    default int startFiring(ItemStack stack, LaserGun gun, World world, Vec3d pos, Vec3d dir, @Nullable EntityLivingBase owner) {
         return 0;
     }
 
-    int fire(ItemStack stack, LaserGun gun, World world, Vec3d pos, Vec3d dir, @Nullable Entity owner);
+    int fire(ItemStack stack, LaserGun gun, World world, Vec3d pos, Vec3d dir, @Nullable EntityLivingBase owner);
 
-    default int finishFiring(ItemStack stack, LaserGun gun, World world, Vec3d pos, Vec3d dir, @Nullable Entity owner,
-                             boolean offCooldown) {
+    default int finishFiring(ItemStack stack, LaserGun gun, World world, Vec3d pos, Vec3d dir,
+                             @Nullable EntityLivingBase owner, boolean offCooldown) {
         return 0;
     }
 
@@ -37,7 +37,7 @@ public interface LaserGunCore {
         }
 
         @Override
-        public int fire(ItemStack stack, LaserGun gun, World world, Vec3d pos, Vec3d dir, @Nullable Entity owner) {
+        public int fire(ItemStack stack, LaserGun gun, World world, Vec3d pos, Vec3d dir, @Nullable EntityLivingBase owner) {
             return 0;
         }
 

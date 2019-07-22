@@ -13,14 +13,12 @@ import java.util.stream.Stream;
 // https://github.com/phantamanta44/ProjectCrossbow/blob/1.12.2/src/main/java/io/github/phantamanta44/pcrossbow/util/PhysicsUtils.java
 public class LasingUtils {
 
-    public static Stream<EntityLivingBase> laseEntities(World world, Vec3d from, Vec3d to) {
-        RayTraceResult trace = traceLaser(world, from, to);
-        Vec3d end = trace != null ? trace.hitVec : to;
-        return world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(from, end)).stream()
-                .filter(e -> intersectsLine(e.getEntityBoundingBox(), from, end));
+    public static Stream<EntityLivingBase> getEntitiesOnLine(World world, Vec3d from, Vec3d to) {
+        return world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(from, to)).stream()
+                .filter(e -> intersectsLine(e.getEntityBoundingBox(), from, to));
     }
 
-    private static boolean intersectsLine(AxisAlignedBB prism, Vec3d lineMin, Vec3d lineMax) {
+    public static boolean intersectsLine(AxisAlignedBB prism, Vec3d lineMin, Vec3d lineMax) {
         double x1 = lineMin.x, x2 = lineMax.x, dx = x2 - x1;
         double y1 = lineMin.y, y2 = lineMax.y, dy = y2 - y1;
         double z1 = lineMin.z, z2 = lineMax.z, dz = z2 - z1;
@@ -41,7 +39,7 @@ public class LasingUtils {
     }
 
     @Nullable
-    private static RayTraceResult traceLaser(World world, Vec3d initialPos, Vec3d end) {
+    public static RayTraceResult traceLaser(World world, Vec3d initialPos, Vec3d end) {
         if (!Double.isNaN(initialPos.x) && !Double.isNaN(initialPos.y) && !Double.isNaN(initialPos.z)) {
             if (!Double.isNaN(end.x) && !Double.isNaN(end.y) && !Double.isNaN(end.z)) {
                 int xf = MathHelper.floor(end.x);
