@@ -1,0 +1,13 @@
+{
+  "forge_marker": 1,
+  "variants": {
+    "type": {
+      "laser": {
+        "model": "algane:laser_workbench"
+      },
+      "modifier": {
+        "model": "algane:mod_workbench"
+      }
+    }
+  }
+}

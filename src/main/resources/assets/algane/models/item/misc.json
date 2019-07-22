@@ -1,0 +1,25 @@
+{
+  "9s": "pi",
+  "archetype": {
+    "parent": "item/generated"
+  },
+  "mutations": {
+    "type": {
+      "NO_MODIFIER": {
+        "textures": {
+          "layer0": "minecraft:items/barrier"
+        }
+      },
+      "MODIFIER_KIT": {
+        "textures": {
+          "layer0": "algane:items/modifier_kit"
+        }
+      },
+      "DUNGEON_MODIFIER_KIT": {
+        "textures": {
+          "layer0": "algane:items/modifier_kit_rare"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "9s": "pi",
+  "archetype": {},
+  "mutations": {
+    "type": {
+      "LASER": {
+        "parent": "algane:block/laser_workbench"
+      },
+      "MODIFIER": {
+        "parent": "algane:block/mod_workbench"
+      }
+    }
+  }
+}

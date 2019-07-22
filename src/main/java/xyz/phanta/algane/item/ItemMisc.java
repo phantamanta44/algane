@@ -1,5 +1,6 @@
 package xyz.phanta.algane.item;
 
+import io.github.phantamanta44.libnine.client.model.ParameterizedItemModel;
 import io.github.phantamanta44.libnine.item.L9ItemSubs;
 import io.github.phantamanta44.libnine.util.math.MathUtils;
 import net.minecraft.creativetab.CreativeTabs;
@@ -13,7 +14,7 @@ import net.minecraft.world.World;
 import xyz.phanta.algane.constant.LangConst;
 import xyz.phanta.algane.init.AlganeItems;
 
-public class ItemMisc extends L9ItemSubs {
+public class ItemMisc extends L9ItemSubs implements ParameterizedItemModel.IParamaterized {
 
     public ItemMisc() {
         super(LangConst.ITEM_MISC, Type.VALUES.length);
@@ -56,6 +57,11 @@ public class ItemMisc extends L9ItemSubs {
         player.dropItem(ItemLaserModifier.createStack(1,
                 (float)Math.cos(theta) * xz * weight, (float)Math.sin(phi) * weight, (float)Math.sin(theta) * xz * weight,
                 dungeon), false, true);
+    }
+
+    @Override
+    public void getModelMutations(ItemStack stack, ParameterizedItemModel.Mutation m) {
+        m.mutate("type", Type.getForStack(stack).name());
     }
 
     public enum Type {

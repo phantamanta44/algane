@@ -1,0 +1,20 @@
+{
+  "9s": "pi",
+  "archetype": {
+    "parent": "item/generated"
+  },
+  "mutations": {
+    "dungeon": {
+      "false": {
+        "textures": {
+          "layer0": "algane:items/modifier"
+        }
+      },
+      "true": {
+        "textures": {
+          "layer0": "algane:items/modifier_rare"
+        }
+      }
+    }
+  }
+}

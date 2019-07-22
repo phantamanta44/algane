@@ -1,0 +1,40 @@
+{
+  "9s": "pi",
+  "archetype": {
+    "parent": "item/generated"
+  },
+  "mutations": {
+    "type": {
+      "SIMPLE": {
+        "textures": {
+          "layer0": "algane:items/laser_core/simple"
+        }
+      },
+      "REPEATER": {
+        "textures": {
+          "layer0": "algane:items/laser_core/repeater"
+        }
+      },
+      "BEAM": {
+        "textures": {
+          "layer0": "algane:items/laser_core/beam"
+        }
+      },
+      "SHOCK": {
+        "textures": {
+          "layer0": "algane:items/laser_core/shock"
+        }
+      },
+      "ORB": {
+        "textures": {
+          "layer0": "algane:items/laser_core/orb"
+        }
+      },
+      "GAUSS": {
+        "textures": {
+          "layer0": "algane:items/laser_core/gauss"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "parent": "algane:block/base_workbench",
+  "textures": {
+    "up": "algane:blocks/workbench/gun_top",
+    "side": "algane:blocks/workbench/gun_side"
+  }
+}

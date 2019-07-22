@@ -1,6 +1,7 @@
 package xyz.phanta.algane.item;
 
 import io.github.phantamanta44.libnine.capability.provider.CapabilityBroker;
+import io.github.phantamanta44.libnine.client.model.ParameterizedItemModel;
 import io.github.phantamanta44.libnine.item.L9ItemSubs;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
@@ -17,7 +18,7 @@ import xyz.phanta.algane.lasergun.core.LaserGunCoreSimple;
 
 import javax.annotation.Nullable;
 
-public class ItemLaserCore extends L9ItemSubs {
+public class ItemLaserCore extends L9ItemSubs implements ParameterizedItemModel.IParamaterized {
 
     public ItemLaserCore() {
         super(LangConst.ITEM_LASER_CORE, Type.VALUES.length);
@@ -28,6 +29,11 @@ public class ItemLaserCore extends L9ItemSubs {
     @Override
     public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable NBTTagCompound nbt) {
         return new CapabilityBroker().with(AlganeCaps.LASER_GUN_CORE, Type.getForMeta(stack.getMetadata()).core);
+    }
+
+    @Override
+    public void getModelMutations(ItemStack stack, ParameterizedItemModel.Mutation m) {
+        m.mutate("type", Type.getForStack(stack).name());
     }
 
     public enum Type { // TODO modifiers
@@ -62,6 +68,10 @@ public class ItemLaserCore extends L9ItemSubs {
 
         public static Type getForMeta(int meta) {
             return VALUES[meta];
+        }
+
+        public static Type getForStack(ItemStack stack) {
+            return getForMeta(stack.getMetadata());
         }
 
         private final LaserGunCore core;
