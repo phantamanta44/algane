@@ -42,7 +42,8 @@ public interface LaserGun {
             case ENERGY_CELL:
                 return getEnergyCell().isEmpty();
             case MODIFIER:
-                for (int i = 0; i < getModifierCount(); i++) {
+                int modCount = getModifierCount();
+                for (int i = 0; i < modCount; i++) {
                     if (getModifier(i).isEmpty()) {
                         return true;
                     }
@@ -61,9 +62,11 @@ public interface LaserGun {
                 setEnergyCell(stack);
                 break;
             case MODIFIER:
-                for (int i = 0; i < getModifierCount(); i++) {
+                int modCount = getModifierCount();
+                for (int i = 0; i < modCount; i++) {
                     if (getModifier(i).isEmpty()) {
                         setModifier(i, stack);
+                        break;
                     }
                 }
                 break;

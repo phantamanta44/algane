@@ -12,16 +12,30 @@ item.algane:laser_core3.name=Shock Rifle Core
 item.algane:laser_core4.name=Shock Orb Cannon Core
 item.algane:laser_core5.name=Gauss Rifle Core
 
+item.algane:laser_mod0.name=Laser Modifier
+item.algane:laser_mod1.name=Rare Laser Modifier
+
 item.algane:misc0.name=Modifier Slot Unavailable
+item.algane:misc1.name=Modifier Kit
+item.algane:misc2.name=Rare Modifier Kit
 
 tile.algane:laser_workbench0.name=Photonic Armament Assembler
 tile.algane:laser_workbench1.name=Modifier Manipulator
 
 algane.gui.laser_workbench=Photonic Armament Assembler
+algane.gui.mod_workbench=Modifier Manipulator
 
 algane.tooltip.energy=Energy: %s
+algane.tooltip.mod_power=Power Modifier: %s
+algane.tooltip.mod_efficiency=Efficiency Modifier: %s
+algane.tooltip.mod_overheat=Overheat Modifier: %s
+algane.tooltip.mod_weight=Magnitude: %s
 algane.tooltip.fraction=%s / %s
 
 algane.status.gun.missing_core=Laser rifle has no core!
 algane.status.gun.missing_energy=Laser rifle has no energy cell!
 algane.status.gun.overheat=Laser rifle is overheating!
+
+algane.misc.stat_damage=Damage Output
+algane.misc.stat_energy=Energy Usage
+algane.misc.stat_overheat=Overheat Rate

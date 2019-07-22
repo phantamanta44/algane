@@ -49,7 +49,7 @@ public class BlockLaserGunTable extends L9BlockStated {
     private enum Type implements IStringSerializable {
 
         LASER(TileGunWorkbench::new, AlganeGuis.LASER_GUN_TABLE),
-        MODIFIER(TileModifierWorkbench::new, null);
+        MODIFIER(TileModifierWorkbench::new, AlganeGuis.MODIFIER_TABLE);
 
         private static final Type[] VALUES = values();
 

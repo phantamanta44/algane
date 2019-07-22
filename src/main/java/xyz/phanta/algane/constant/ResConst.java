@@ -8,6 +8,7 @@ import xyz.phanta.algane.Algane;
 public class ResConst {
 
     public static final ResourceLocation GUI_LASER_GUN_TABLE = getGuiResource("laser_workbench");
+    public static final ResourceLocation GUI_MODIFIER_TABLE = getGuiResource("mod_workbench");
 
     private static ResourceLocation getGuiResource(String key) {
         return Algane.INSTANCE.newResourceLocation("textures/gui/" + key + ".png");

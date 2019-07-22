@@ -1,13 +1,11 @@
 package xyz.phanta.algane.util;
 
-import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
-import xyz.phanta.algane.constant.LangConst;
 import xyz.phanta.algane.init.AlganeCaps;
 import xyz.phanta.algane.lasergun.LaserGun;
+import xyz.phanta.algane.lasergun.LaserGunModifier;
 import xyz.phanta.algane.lasergun.core.LaserGunCore;
 
 import java.util.Objects;
@@ -27,8 +25,50 @@ public class AlganeUtils {
         return OptUtils.getCapOpt(gun.getEnergyCell(), CapabilityEnergy.ENERGY);
     }
 
-    public static String formatFractionTooltip(String labelKey, String nom, String denom) {
-        return TextFormatting.GRAY + I18n.format(labelKey, TextFormatting.AQUA + I18n.format(LangConst.TT_FRACTION, nom, denom));
+    public static LaserGunModifier computeTotalMods(LaserGun gun) {
+        int modCount = gun.getModifierCount();
+        ModifierAccumulator acc = new ModifierAccumulator();
+        for (int i = 0; i < modCount; i++) {
+            ItemStack modStack = gun.getModifier(i);
+            if (modStack.hasCapability(AlganeCaps.LASER_GUN_MOD, null)) {
+                //noinspection ConstantConditions
+                acc.accumulate(modStack.getCapability(AlganeCaps.LASER_GUN_MOD, null));
+            }
+        }
+        return acc;
+    }
+
+    public static LaserGunModifier computeJoinedMods(LaserGunModifier a, LaserGunModifier b) {
+        float avgW = (a.computeWeight() + b.computeWeight()) / 2F;
+        float x = a.getPowerMod() + b.getPowerMod();
+        float y = a.getEfficiencyMod() + b.getEfficiencyMod();
+        float z = a.getHeatMod() + b.getHeatMod();
+        float mult = avgW / (float)Math.sqrt(x * x + y * y + z * z);
+        return new ModifierAccumulator(x * mult, y * mult, z * mult);
+    }
+
+    public static float getDamageMultiplier(LaserGunModifier mod) {
+        return 1F + mod.getPowerMod();
+    }
+
+    public static float computeDamage(float base, LaserGunModifier mod) {
+        return base * getDamageMultiplier(mod);
+    }
+
+    public static float getEnergyMultiplier(LaserGunModifier mod) {
+        return (1F + 1.75F * mod.getPowerMod()) / (1F + mod.getEfficiencyMod());
+    }
+
+    public static int computeEnergy(int base, LaserGunModifier mod) {
+        return (int)Math.ceil(base * getEnergyMultiplier(mod));
+    }
+
+    public static float getHeatMultiplier(LaserGunModifier mod) {
+        return 1F / (1F + mod.getHeatMod());
+    }
+
+    public static float computeHeat(float base, LaserGunModifier mod) {
+        return base * getHeatMultiplier(mod);
     }
 
     public static void incrementHeat(LaserGun gun, float amount) {
@@ -39,6 +79,10 @@ public class AlganeUtils {
         } else {
             gun.setOverheat(heat);
         }
+    }
+
+    public static LaserGunModifier getItemLaserMod(ItemStack stack) {
+        return Objects.requireNonNull(stack.getCapability(AlganeCaps.LASER_GUN_MOD, null));
     }
 
 }

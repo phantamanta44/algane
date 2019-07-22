@@ -29,6 +29,7 @@ import xyz.phanta.algane.lasergun.LaserGun;
 import xyz.phanta.algane.lasergun.core.LaserGunCore;
 import xyz.phanta.algane.util.AlganeUtils;
 import xyz.phanta.algane.util.OptUtils;
+import xyz.phanta.algane.util.TooltipUtils;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -172,7 +173,7 @@ public class ItemLaserGun extends L9ItemSubs implements TickingItem, TickingUseI
     @Override
     public void addInformation(ItemStack stack, @Nullable World world, List<String> tooltip, ITooltipFlag flag) {
         AlganeUtils.getLaserEnergy(AlganeUtils.getItemLaserGun(stack))
-                .ifPresent(energy -> tooltip.add(AlganeUtils.formatFractionTooltip(LangConst.TT_ENERGY,
+                .ifPresent(energy -> tooltip.add(TooltipUtils.formatFractionTooltip(LangConst.TT_ENERGY,
                         FormatUtils.formatSI(energy.getEnergyStored(), "FE"), FormatUtils.formatSI(energy.getMaxEnergyStored(), "FE"))));
     }
 

@@ -1,9 +1,15 @@
 package xyz.phanta.algane.item;
 
 import io.github.phantamanta44.libnine.item.L9ItemSubs;
+import io.github.phantamanta44.libnine.util.math.MathUtils;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.NonNullList;
+import net.minecraft.world.World;
 import xyz.phanta.algane.constant.LangConst;
 import xyz.phanta.algane.init.AlganeItems;
 
@@ -24,14 +30,48 @@ public class ItemMisc extends L9ItemSubs {
         }
     }
 
+    @Override
+    public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
+        ItemStack stack = player.getHeldItem(hand);
+        switch (Type.getForStack(stack)) {
+            case MODIFIER_KIT:
+                generateModifier(player, 0.1F + 0.24F * (float)Math.random(), false);
+                if (!player.capabilities.isCreativeMode) {
+                    stack.shrink(1);
+                }
+                return new ActionResult<>(EnumActionResult.SUCCESS, stack);
+            case DUNGEON_MODIFIER_KIT:
+                generateModifier(player, 0.25F + 0.25F * (float)Math.random(), true);
+                if (!player.capabilities.isCreativeMode) {
+                    stack.shrink(1);
+                }
+                return new ActionResult<>(EnumActionResult.SUCCESS, stack);
+        }
+        return new ActionResult<>(EnumActionResult.PASS, stack);
+    }
+
+    private static void generateModifier(EntityPlayer player, float weight, boolean dungeon) {
+        float theta = (float)Math.random() * MathUtils.PI_F / 2F, phi = (float)Math.random() * MathUtils.PI_F / 2F;
+        float xz = (float)Math.cos(phi);
+        player.dropItem(ItemLaserModifier.createStack(1,
+                (float)Math.cos(theta) * xz * weight, (float)Math.sin(phi) * weight, (float)Math.sin(theta) * xz * weight,
+                dungeon), false, true);
+    }
+
     public enum Type {
 
-        NO_MODIFIER(false);
+        NO_MODIFIER(false),
+        MODIFIER_KIT,
+        DUNGEON_MODIFIER_KIT;
 
         private static final Type[] VALUES = values();
 
         public static Type getByMeta(int meta) {
             return VALUES[meta];
+        }
+
+        public static Type getForStack(ItemStack stack) {
+            return getByMeta(stack.getMetadata());
         }
 
         private final boolean visible;

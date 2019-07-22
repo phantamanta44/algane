@@ -38,6 +38,7 @@ repositories {
 dependencies {
     compile 'io.github.phantamanta44.libnine:libnine-1.12.2:1.1.0'
     deobfCompile "mekanism:Mekanism:1.12.2:9.7.8.379"
+    deobfCompile "mekanism-generators:MekanismGenerators:1.12.2:9.7.8.379"
 }
 
 processResources {
