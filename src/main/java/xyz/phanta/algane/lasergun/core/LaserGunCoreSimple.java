@@ -27,6 +27,7 @@ public class LaserGunCoreSimple implements LaserGunCore {
             EntitySnowball sb = new EntitySnowball(world, pos.x + dir.x, pos.y + dir.y, pos.z + dir.z);
             sb.shoot(dir.x, dir.y, dir.z, 3F, 0F);
             world.spawnEntity(sb);
+            AlganeUtils.incrementHeat(gun, 25F);
             return 8;
         }
         return 0;

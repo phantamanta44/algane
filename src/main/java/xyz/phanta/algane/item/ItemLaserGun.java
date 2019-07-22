@@ -23,17 +23,19 @@ import net.minecraftforge.energy.IEnergyStorage;
 import xyz.phanta.algane.constant.LangConst;
 import xyz.phanta.algane.init.AlganeCaps;
 import xyz.phanta.algane.init.AlganeItems;
+import xyz.phanta.algane.item.base.TickingItem;
 import xyz.phanta.algane.item.base.TickingUseItem;
 import xyz.phanta.algane.lasergun.LaserGun;
 import xyz.phanta.algane.lasergun.core.LaserGunCore;
 import xyz.phanta.algane.util.AlganeUtils;
+import xyz.phanta.algane.util.OptUtils;
 
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-public class ItemLaserGun extends L9ItemSubs implements TickingUseItem, ParameterizedItemModel.IParamaterized {
+public class ItemLaserGun extends L9ItemSubs implements TickingItem, TickingUseItem, ParameterizedItemModel.IParamaterized {
 
     public ItemLaserGun() {
         super(LangConst.ITEM_LASER_GUN, Tier.VALUES.length);
@@ -55,32 +57,51 @@ public class ItemLaserGun extends L9ItemSubs implements TickingUseItem, Paramete
     }
 
     @Override
+    public void updateItem(ItemStack stack, EntityPlayer player) {
+        LaserGun gun = AlganeUtils.getItemLaserGun(stack);
+        float heat = gun.getOverheat();
+        if (heat > 0F) {
+            heat -= 1F;
+            if (heat <= 0F) {
+                gun.setOverheat(0F);
+                gun.setHeatLocked(false);
+            } else {
+                gun.setOverheat(heat);
+            }
+        }
+    }
+
+    @Override
     public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
         ItemStack stack = player.getHeldItem(hand);
         if (!world.isRemote) {
             CooldownTracker cooldowns = player.getCooldownTracker();
             if (!cooldowns.hasCooldown(this)) {
                 LaserGun gun = AlganeUtils.getItemLaserGun(stack);
-                Optional<LaserGunCore> coreOpt = AlganeUtils.getLaserCore(gun);
-                if (coreOpt.isPresent()) {
-                    if (AlganeUtils.getLaserEnergy(gun).isPresent()) {
-                        LaserGunCore core = coreOpt.get();
-                        int cooldown;
-                        if (core.getFiringParadigm().requiresTick) {
-                            cooldown = core.startFiring(stack, gun, world, player.getPositionEyes(1F), player.getLookVec(), player);
-                            player.setActiveHand(hand);
+                if (!gun.isHeatLocked()) {
+                    Optional<LaserGunCore> coreOpt = AlganeUtils.getLaserCore(gun);
+                    if (coreOpt.isPresent()) {
+                        if (AlganeUtils.getLaserEnergy(gun).isPresent()) {
+                            LaserGunCore core = coreOpt.get();
+                            int cooldown;
+                            if (core.getFiringParadigm().requiresTick) {
+                                cooldown = core.startFiring(stack, gun, world, player.getPositionEyes(1F), player.getLookVec(), player);
+                                player.setActiveHand(hand);
+                            } else {
+                                cooldown = core.fire(stack, gun, world, player.getPositionEyes(1F), player.getLookVec(), player);
+                            }
+                            if (cooldown > 0) {
+                                cooldowns.setCooldown(this, cooldown);
+                            }
+                            return new ActionResult<>(EnumActionResult.SUCCESS, stack);
                         } else {
-                            cooldown = core.fire(stack, gun, world, player.getPositionEyes(1F), player.getLookVec(), player);
+                            player.sendStatusMessage(new TextComponentTranslation(LangConst.STATUS_GUN_MISSING_ENERGY), true);
                         }
-                        if (cooldown > 0) {
-                            cooldowns.setCooldown(this, cooldown);
-                        }
-                        return new ActionResult<>(EnumActionResult.SUCCESS, stack);
                     } else {
-                        player.sendStatusMessage(new TextComponentTranslation(LangConst.STATUS_GUN_MISSING_ENERGY), true);
+                        player.sendStatusMessage(new TextComponentTranslation(LangConst.STATUS_GUN_MISSING_CORE), true);
                     }
                 } else {
-                    player.sendStatusMessage(new TextComponentTranslation(LangConst.STATUS_GUN_MISSING_CORE), true);
+                    player.sendStatusMessage(new TextComponentTranslation(LangConst.STATUS_GUN_OVERHEAT), true);
                 }
             }
         }
@@ -89,15 +110,19 @@ public class ItemLaserGun extends L9ItemSubs implements TickingUseItem, Paramete
 
     @Override
     public void whileItemInUse(ItemStack stack, EntityPlayer player) {
-        CooldownTracker cooldowns = player.getCooldownTracker();
-        if (!cooldowns.hasCooldown(this)) {
-            LaserGun gun = AlganeUtils.getItemLaserGun(stack);
-            AlganeUtils.getLaserCore(gun).filter(c -> c.getFiringParadigm().requiresTick).ifPresent(core -> {
-                int cooldown = core.fire(stack, gun, player.world, player.getPositionEyes(1F), player.getLookVec(), player);
-                if (cooldown > 0) {
-                    cooldowns.setCooldown(this, cooldown);
-                }
-            });
+        LaserGun gun = AlganeUtils.getItemLaserGun(stack);
+        if (gun.isHeatLocked()) {
+            player.resetActiveHand();
+        } else {
+            CooldownTracker cooldowns = player.getCooldownTracker();
+            if (!cooldowns.hasCooldown(this)) {
+                AlganeUtils.getLaserCore(gun).filter(c -> c.getFiringParadigm().requiresTick).ifPresent(core -> {
+                    int cooldown = core.fire(stack, gun, player.world, player.getPositionEyes(1F), player.getLookVec(), player);
+                    if (cooldown > 0) {
+                        cooldowns.setCooldown(this, cooldown);
+                    }
+                });
+            }
         }
     }
 
@@ -167,7 +192,7 @@ public class ItemLaserGun extends L9ItemSubs implements TickingUseItem, Paramete
 
         @Override
         public ItemStack getCore() {
-            return AlganeUtils.getTagOpt(stack)
+            return OptUtils.getTagOpt(stack)
                     .map(tag -> new ItemStack(tag.getCompoundTag("Core")))
                     .orElse(ItemStack.EMPTY);
         }
@@ -179,7 +204,7 @@ public class ItemLaserGun extends L9ItemSubs implements TickingUseItem, Paramete
 
         @Override
         public ItemStack getEnergyCell() {
-            return AlganeUtils.getTagOpt(stack)
+            return OptUtils.getTagOpt(stack)
                     .map(tag -> new ItemStack(tag.getCompoundTag("EnergyCell")))
                     .orElse(ItemStack.EMPTY);
         }
@@ -191,7 +216,7 @@ public class ItemLaserGun extends L9ItemSubs implements TickingUseItem, Paramete
 
         @Override
         public ItemStack getModifier(int slot) {
-            return AlganeUtils.getTagOpt(stack)
+            return OptUtils.getTagOpt(stack)
                     .map(tag -> tag.getTagList("Modifiers", Constants.NBT.TAG_COMPOUND))
                     .map(tag -> new ItemStack(tag.getCompoundTagAt(slot)))
                     .orElse(ItemStack.EMPTY);
@@ -221,7 +246,7 @@ public class ItemLaserGun extends L9ItemSubs implements TickingUseItem, Paramete
 
         @Override
         public int getFiringDuration() {
-            return AlganeUtils.getTagOpt(stack)
+            return OptUtils.getTagOpt(stack)
                     .map(tag -> tag.getInteger("FiringDuration"))
                     .orElse(0);
         }
@@ -229,6 +254,30 @@ public class ItemLaserGun extends L9ItemSubs implements TickingUseItem, Paramete
         @Override
         public void setFiringDuration(int ticks) {
             getOrCreateTag().setInteger("FiringDuration", ticks);
+        }
+
+        @Override
+        public float getOverheat() {
+            return OptUtils.getTagOpt(stack)
+                    .map(tag -> tag.getFloat("Heat"))
+                    .orElse(0F);
+        }
+
+        @Override
+        public void setOverheat(float ticks) {
+            getOrCreateTag().setFloat("Heat", ticks);
+        }
+
+        @Override
+        public boolean isHeatLocked() {
+            return OptUtils.getTagOpt(stack)
+                    .map(tag -> tag.getBoolean("HeatLock"))
+                    .orElse(false);
+        }
+
+        @Override
+        public void setHeatLocked(boolean heatLocked) {
+            getOrCreateTag().setBoolean("HeatLock", heatLocked);
         }
 
         private NBTTagCompound getOrCreateTag() {

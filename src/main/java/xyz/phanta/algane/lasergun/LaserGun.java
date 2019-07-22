@@ -27,6 +27,14 @@ public interface LaserGun {
         setFiringDuration(getFiringDuration() + 1);
     }
 
+    float getOverheat();
+
+    void setOverheat(float ticks);
+
+    boolean isHeatLocked();
+
+    void setHeatLocked(boolean heatLocked);
+
     default boolean canAttachPart(LaserGunPart part) {
         switch (part) {
             case CORE:
@@ -106,6 +114,26 @@ public interface LaserGun {
 
         @Override
         public void setFiringDuration(int ticks) {
+            // NO-OP
+        }
+
+        @Override
+        public float getOverheat() {
+            return 0;
+        }
+
+        @Override
+        public void setOverheat(float ticks) {
+            // NO-OP
+        }
+
+        @Override
+        public boolean isHeatLocked() {
+            return false;
+        }
+
+        @Override
+        public void setHeatLocked(boolean heatLocked) {
             // NO-OP
         }
 

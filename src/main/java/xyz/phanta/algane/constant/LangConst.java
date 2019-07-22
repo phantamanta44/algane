@@ -22,6 +22,7 @@ public class LangConst {
     private static final String STATUS_KEY = Algane.MOD_ID + ".status.";
 
     private static final String STATUS_GUN_KEY = STATUS_KEY + "gun.";
+    public static final String STATUS_GUN_OVERHEAT = STATUS_GUN_KEY + "overheat";
     public static final String STATUS_GUN_MISSING_CORE = STATUS_GUN_KEY + "missing_core";
     public static final String STATUS_GUN_MISSING_ENERGY = STATUS_GUN_KEY + "missing_energy";
 

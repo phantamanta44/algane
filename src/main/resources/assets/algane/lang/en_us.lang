@@ -24,3 +24,4 @@ algane.tooltip.fraction=%s / %s
 
 algane.status.gun.missing_core=Laser rifle has no core!
 algane.status.gun.missing_energy=Laser rifle has no energy cell!
+algane.status.gun.overheat=Laser rifle is overheating!
