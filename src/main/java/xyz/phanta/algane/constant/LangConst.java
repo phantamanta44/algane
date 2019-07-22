@@ -31,6 +31,9 @@ public class LangConst {
     public static final String TT_MOD_EFF = TT_KEY + "mod_efficiency";
     public static final String TT_MOD_HEAT = TT_KEY + "mod_overheat";
     public static final String TT_MOD_WEIGHT = TT_KEY + "mod_weight";
+    public static final String TT_STAT_DAMAGE = TT_KEY + "stat_damage";
+    public static final String TT_STAT_ENERGY = TT_KEY + "stat_energy";
+    public static final String TT_STAT_HEAT = TT_KEY + "stat_overheat";
     public static final String TT_FRACTION = TT_KEY + "fraction";
 
     private static final String TT_BTN_KEY = TT_KEY + "button.";

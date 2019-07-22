@@ -29,6 +29,9 @@ algane.tooltip.energy=Energy: %s
 algane.tooltip.mod_power=Power Modifier: %s
 algane.tooltip.mod_efficiency=Efficiency Modifier: %s
 algane.tooltip.mod_overheat=Overheat Modifier: %s
+algane.tooltip.stat_damage=Damage Output: %s
+algane.tooltip.stat_energy=Energy Usage: %s
+algane.tooltip.stat_overheat=Overheat Rate: %s
 algane.tooltip.mod_weight=Magnitude: %s
 algane.tooltip.fraction=%s / %s
 

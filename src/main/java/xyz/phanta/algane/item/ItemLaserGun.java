@@ -27,6 +27,7 @@ import xyz.phanta.algane.init.AlganeItems;
 import xyz.phanta.algane.item.base.TickingItem;
 import xyz.phanta.algane.item.base.TickingUseItem;
 import xyz.phanta.algane.lasergun.LaserGun;
+import xyz.phanta.algane.lasergun.LaserGunModifier;
 import xyz.phanta.algane.lasergun.core.LaserGunCore;
 import xyz.phanta.algane.util.AlganeUtils;
 import xyz.phanta.algane.util.OptUtils;
@@ -181,9 +182,13 @@ public class ItemLaserGun extends L9ItemSubs implements TickingItem, TickingUseI
 
     @Override
     public void addInformation(ItemStack stack, @Nullable World world, List<String> tooltip, ITooltipFlag flag) {
-        AlganeUtils.getLaserEnergy(AlganeUtils.getItemLaserGun(stack))
-                .ifPresent(energy -> tooltip.add(TooltipUtils.formatFractionTooltip(LangConst.TT_ENERGY,
-                        FormatUtils.formatSI(energy.getEnergyStored(), "FE"), FormatUtils.formatSI(energy.getMaxEnergyStored(), "FE"))));
+        LaserGun gun = AlganeUtils.getItemLaserGun(stack);
+        AlganeUtils.getLaserEnergy(gun).ifPresent(energy -> tooltip.add(TooltipUtils.formatFractionTooltip(LangConst.TT_ENERGY,
+                FormatUtils.formatSI(energy.getEnergyStored(), "FE"), FormatUtils.formatSI(energy.getMaxEnergyStored(), "FE"))));
+        LaserGunModifier mods = AlganeUtils.computeTotalMods(gun);
+        tooltip.add(TooltipUtils.formatPercentTooltip(LangConst.TT_STAT_DAMAGE, AlganeUtils.getDamageMultiplier(mods)));
+        tooltip.add(TooltipUtils.formatPercentTooltip(LangConst.TT_STAT_ENERGY, AlganeUtils.getEnergyMultiplier(mods)));
+        tooltip.add(TooltipUtils.formatPercentTooltip(LangConst.TT_STAT_HEAT, AlganeUtils.getHeatMultiplier(mods)));
     }
 
     private static Tier getLaserTier(ItemStack stack) {
