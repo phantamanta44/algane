@@ -14,6 +14,7 @@ import xyz.phanta.algane.init.AlganeCaps;
 import xyz.phanta.algane.init.AlganeItems;
 import xyz.phanta.algane.lasergun.LaserGun;
 import xyz.phanta.algane.lasergun.core.LaserGunCore;
+import xyz.phanta.algane.lasergun.core.LaserGunCoreRepeater;
 import xyz.phanta.algane.lasergun.core.LaserGunCoreSimple;
 
 import javax.annotation.Nullable;
@@ -36,10 +37,10 @@ public class ItemLaserCore extends L9ItemSubs implements ParameterizedItemModel.
         m.mutate("type", Type.getForStack(stack).name());
     }
 
-    public enum Type { // TODO modifiers
+    public enum Type {
 
         SIMPLE(new LaserGunCoreSimple()),
-        REPEATER(new LaserGunCoreNoop()), // TODO finish
+        REPEATER(new LaserGunCoreRepeater()),
         BEAM(new LaserGunCoreNoop()), // TODO finish
         SHOCK(new LaserGunCoreNoop()), // TODO finish
         ORB(new LaserGunCoreNoop()), // TODO finish
@@ -53,7 +54,7 @@ public class ItemLaserCore extends L9ItemSubs implements ParameterizedItemModel.
             }
 
             @Override
-            public int fire(ItemStack stack, LaserGun gun, World world, Vec3d pos, Vec3d dir, @Nullable EntityLivingBase owner) {
+            public int fire(ItemStack stack, LaserGun gun, World world, Vec3d pos, Vec3d dir, int ticks, @Nullable EntityLivingBase owner) {
                 return 8;
             }
 

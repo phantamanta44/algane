@@ -3,5 +3,10 @@
     "sounds": [
       "algane:weapon/simple/fire"
     ]
+  },
+  "algane.weapon.repeater.fire": {
+    "sounds": [
+      "algane:weapon/repeater/fire"
+    ]
   }
 }

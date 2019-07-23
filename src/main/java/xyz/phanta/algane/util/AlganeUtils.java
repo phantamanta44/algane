@@ -81,6 +81,13 @@ public class AlganeUtils {
         }
     }
 
+    public static float consumeEnergy(LaserGun gun, int baseEnergy, LaserGunModifier totalMods) {
+        int energyCost = AlganeUtils.computeEnergy(baseEnergy, totalMods);
+        //noinspection OptionalGetWithoutIsPresent
+        IEnergyStorage energy = AlganeUtils.getLaserEnergy(gun).get();
+        return energy.extractEnergy(energyCost, false) / (float)energyCost;
+    }
+
     public static LaserGunModifier getItemLaserMod(ItemStack stack) {
         return Objects.requireNonNull(stack.getCapability(AlganeCaps.LASER_GUN_MOD, null));
     }

@@ -16,10 +16,10 @@ public interface LaserGunCore {
         return 0;
     }
 
-    int fire(ItemStack stack, LaserGun gun, World world, Vec3d pos, Vec3d dir, @Nullable EntityLivingBase owner);
+    int fire(ItemStack stack, LaserGun gun, World world, Vec3d pos, Vec3d dir, int ticks, @Nullable EntityLivingBase owner);
 
     default int finishFiring(ItemStack stack, LaserGun gun, World world, Vec3d pos, Vec3d dir,
-                             @Nullable EntityLivingBase owner, boolean offCooldown) {
+                             int ticks, @Nullable EntityLivingBase owner, boolean offCooldown) {
         return 0;
     }
 
@@ -37,7 +37,8 @@ public interface LaserGunCore {
         }
 
         @Override
-        public int fire(ItemStack stack, LaserGun gun, World world, Vec3d pos, Vec3d dir, @Nullable EntityLivingBase owner) {
+        public int fire(ItemStack stack, LaserGun gun, World world, Vec3d pos, Vec3d dir, int ticks,
+                        @Nullable EntityLivingBase owner) {
             return 0;
         }
 

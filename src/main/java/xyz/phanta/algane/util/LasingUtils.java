@@ -1,5 +1,6 @@
 package xyz.phanta.algane.util;
 
+import io.github.phantamanta44.libnine.util.math.LinAlUtils;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.EnumFacing;
@@ -139,6 +140,18 @@ public class LasingUtils {
 
     private static boolean isObstructed(IBlockState state) {
         return state.isOpaqueCube() && state.getBlock().canCollideCheck(state, false);
+    }
+
+    public static Vec3d findOrthogonal(Vec3d vec) {
+        if (vec.x == 0D) {
+            return LinAlUtils.X_POS;
+        } else if (vec.y == 0D) {
+            return LinAlUtils.Y_POS;
+        } else if (vec.z == 0D) {
+            return LinAlUtils.Z_POS;
+        } else {
+            return new Vec3d(vec.x, -vec.y, (vec.y * vec.y - vec.x * vec.x) / vec.z);
+        }
     }
 
 }

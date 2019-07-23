@@ -25,7 +25,6 @@ import xyz.phanta.algane.constant.LangConst;
 import xyz.phanta.algane.init.AlganeCaps;
 import xyz.phanta.algane.init.AlganeItems;
 import xyz.phanta.algane.item.base.TickingItem;
-import xyz.phanta.algane.item.base.TickingUseItem;
 import xyz.phanta.algane.lasergun.LaserGun;
 import xyz.phanta.algane.lasergun.LaserGunModifier;
 import xyz.phanta.algane.lasergun.core.LaserGunCore;
@@ -38,7 +37,9 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-public class ItemLaserGun extends L9ItemSubs implements TickingItem, TickingUseItem, ParameterizedItemModel.IParamaterized {
+public class ItemLaserGun extends L9ItemSubs implements TickingItem, ParameterizedItemModel.IParamaterized {
+
+    private static final int MAX_USE_TICKS = 72000;
 
     public ItemLaserGun() {
         super(LangConst.ITEM_LASER_GUN, Tier.VALUES.length);
@@ -56,7 +57,13 @@ public class ItemLaserGun extends L9ItemSubs implements TickingItem, TickingUseI
     @Override
     public int getMaxItemUseDuration(ItemStack stack) {
         return AlganeUtils.getLaserCore(AlganeUtils.getItemLaserGun(stack))
-                .map(c -> c.getFiringParadigm().requiresTick ? 72000 : 0).orElse(0);
+                .map(c -> c.getFiringParadigm().requiresTick ? MAX_USE_TICKS : 0).orElse(0);
+    }
+
+    @Override
+    public boolean canContinueUsing(ItemStack oldStack, ItemStack newStack) {
+        return AlganeUtils.getLaserCore(AlganeUtils.getItemLaserGun(newStack))
+                .map(c -> c.getFiringParadigm().requiresTick).orElse(false);
     }
 
     @Override
@@ -91,7 +98,7 @@ public class ItemLaserGun extends L9ItemSubs implements TickingItem, TickingUseI
                                 cooldown = core.startFiring(stack, gun, world, player.getPositionEyes(1F), player.getLookVec(), player);
                                 player.setActiveHand(hand);
                             } else {
-                                cooldown = core.fire(stack, gun, world, player.getPositionEyes(1F), player.getLookVec(), player);
+                                cooldown = core.fire(stack, gun, world, player.getPositionEyes(1F), player.getLookVec(), 0, player);
                             }
                             if (cooldown > 0) {
                                 cooldowns.setCooldown(this, cooldown);
@@ -112,37 +119,39 @@ public class ItemLaserGun extends L9ItemSubs implements TickingItem, TickingUseI
     }
 
     @Override
-    public void whileItemInUse(ItemStack stack, EntityPlayer player) {
-        LaserGun gun = AlganeUtils.getItemLaserGun(stack);
-        if (gun.isHeatLocked()) {
-            player.resetActiveHand();
-        } else {
-            CooldownTracker cooldowns = player.getCooldownTracker();
-            if (!cooldowns.hasCooldown(this)) {
-                AlganeUtils.getLaserCore(gun).filter(c -> c.getFiringParadigm().requiresTick).ifPresent(core -> {
-                    int cooldown = core.fire(stack, gun, player.world, player.getPositionEyes(1F), player.getLookVec(), player);
-                    if (cooldown > 0) {
-                        cooldowns.setCooldown(this, cooldown);
-                    }
-                });
+    public void onUsingTick(ItemStack stack, EntityLivingBase player, int count) {
+        if (player instanceof EntityPlayer && !player.world.isRemote) {
+            LaserGun gun = AlganeUtils.getItemLaserGun(stack);
+            if (gun.isHeatLocked()) {
+                player.resetActiveHand();
+            } else {
+                CooldownTracker cooldowns = ((EntityPlayer)player).getCooldownTracker();
+                if (!cooldowns.hasCooldown(this)) {
+                    AlganeUtils.getLaserCore(gun).filter(c -> c.getFiringParadigm().requiresTick).ifPresent(core -> {
+                        int cooldown = core.fire(stack, gun, player.world, player.getPositionEyes(1F), player.getLookVec(),
+                                MAX_USE_TICKS - count, player);
+                        if (cooldown > 0) {
+                            cooldowns.setCooldown(this, cooldown);
+                        }
+                    });
+                }
             }
         }
     }
 
     @Override
-    public ItemStack onItemUseFinish(ItemStack stack, World world, EntityLivingBase player) {
+    public void onPlayerStoppedUsing(ItemStack stack, World world, EntityLivingBase player, int timeLeft) {
         if (!world.isRemote && player instanceof EntityPlayer) {
             CooldownTracker cooldowns = ((EntityPlayer)player).getCooldownTracker();
             LaserGun gun = AlganeUtils.getItemLaserGun(stack);
             AlganeUtils.getLaserCore(gun).filter(c -> c.getFiringParadigm().requiresFinish).ifPresent(core -> {
-                int cooldown = core.finishFiring(
-                        stack, gun, world, player.getPositionEyes(1F), player.getLookVec(), player, !cooldowns.hasCooldown(this));
+                int cooldown = core.finishFiring(stack, gun, world, player.getPositionEyes(1F), player.getLookVec(),
+                        MAX_USE_TICKS - timeLeft, player, !cooldowns.hasCooldown(this));
                 if (cooldown > 0) {
                     cooldowns.setCooldown(this, cooldown);
                 }
             });
         }
-        return stack;
     }
 
     @Override
@@ -257,18 +266,6 @@ public class ItemLaserGun extends L9ItemSubs implements TickingItem, TickingUseI
         @Override
         public int getModifierCount() {
             return modCount;
-        }
-
-        @Override
-        public int getFiringDuration() {
-            return OptUtils.getTagOpt(stack)
-                    .map(tag -> tag.getInteger("FiringDuration"))
-                    .orElse(0);
-        }
-
-        @Override
-        public void setFiringDuration(int ticks) {
-            getOrCreateTag().setInteger("FiringDuration", ticks);
         }
 
         @Override

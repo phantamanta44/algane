@@ -1,5 +1,6 @@
 package xyz.phanta.algane.lasergun.core;
 
+import io.github.phantamanta44.libnine.util.math.MathUtils;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.SoundCategory;
@@ -12,20 +13,21 @@ import xyz.phanta.algane.item.ItemLaserCore;
 import xyz.phanta.algane.lasergun.LaserGun;
 import xyz.phanta.algane.lasergun.LaserGunModifier;
 import xyz.phanta.algane.util.AlganeUtils;
+import xyz.phanta.algane.util.LasingUtils;
 
 import javax.annotation.Nullable;
 
-public class LaserGunCoreSimple implements LaserGunCore {
+public class LaserGunCoreRepeater implements LaserGunCore {
 
-    private static final int BASE_ENERGY = 800;
-    private static final float BASE_DAMAGE = 4F;
-    private static final float BASE_HEAT = 32F;
-    private static final float BASE_RANGE = 64F;
-    private static final int BASE_COLOUR = 0x2196F3;
+    private static final int BASE_ENERGY = 300;
+    private static final float BASE_DAMAGE = 1.5F;
+    private static final float BASE_HEAT = 6F;
+    private static final float BASE_RANGE = 48F;
+    private static final int BASE_COLOUR = 0xF44336;
 
     @Override
     public FiringParadigm getFiringParadigm() {
-        return FiringParadigm.SEMI_AUTO;
+        return FiringParadigm.AUTO;
     }
 
     @Override
@@ -33,20 +35,25 @@ public class LaserGunCoreSimple implements LaserGunCore {
         LaserGunModifier mods = AlganeUtils.computeTotalMods(gun);
         float energyUse = AlganeUtils.consumeEnergy(gun, BASE_ENERGY, mods);
         if (energyUse > 0) {
-            EntityLaserBolt bolt = new EntityLaserBolt(world, pos, dir.scale(1.5D),
+            Vec3d inaccU = LasingUtils.findOrthogonal(dir).normalize();
+            Vec3d inaccV = inaccU.crossProduct(dir).normalize();
+            float inaccTheta = world.rand.nextFloat() * MathUtils.PI_F * 2F;
+            EntityLaserBolt bolt = new EntityLaserBolt(world, pos,
+                    dir.add(inaccU.scale(Math.cos(inaccTheta)).add(inaccV.scale(Math.sin(inaccTheta)))
+                            .scale(world.rand.nextFloat() * Math.min(ticks / 120F, 0.15F))).scale(2D),
                     AlganeUtils.computeDamage(BASE_DAMAGE * energyUse, mods), BASE_RANGE, owner);
             bolt.init(BASE_COLOUR);
             world.spawnEntity(bolt);
-            world.playSound(null, pos.x, pos.y, pos.z, AlganeSounds.GUN_SIMPLE_FIRE, SoundCategory.MASTER, 1F, 1F);
+            world.playSound(null, pos.x, pos.y, pos.z, AlganeSounds.GUN_REPEATER_FIRE, SoundCategory.MASTER, 0.75F, 1F);
             AlganeUtils.incrementHeat(gun, AlganeUtils.computeHeat(BASE_HEAT, mods));
-            return 12;
+            return 2;
         }
         return 0;
     }
 
     @Override
     public String getTranslationKey() {
-        return LangConst.getLaserCoreName(ItemLaserCore.Type.SIMPLE);
+        return LangConst.getLaserCoreName(ItemLaserCore.Type.REPEATER);
     }
 
 }

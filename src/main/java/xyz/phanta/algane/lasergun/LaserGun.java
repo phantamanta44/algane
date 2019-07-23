@@ -19,14 +19,6 @@ public interface LaserGun {
 
     int getModifierCount();
 
-    int getFiringDuration();
-
-    void setFiringDuration(int ticks);
-
-    default void incrementFiringDuration() {
-        setFiringDuration(getFiringDuration() + 1);
-    }
-
     float getOverheat();
 
     void setOverheat(float ticks);
@@ -108,16 +100,6 @@ public interface LaserGun {
         @Override
         public int getModifierCount() {
             return 0;
-        }
-
-        @Override
-        public int getFiringDuration() {
-            return 0;
-        }
-
-        @Override
-        public void setFiringDuration(int ticks) {
-            // NO-OP
         }
 
         @Override
