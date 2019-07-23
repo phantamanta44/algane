@@ -43,7 +43,7 @@ public class WeaponOverlayRenderer {
                             0F, 0F, stored / (float)energyCell.getMaxEnergyStored(), 1F);
                     return stored;
                 }).orElse(0F);
-                float heat = Math.max(gun.getOverheat() - event.getPartialTicks(), 0F);
+                float heat = gun.getOverheat();
                 if (heat > 0) {
                     if (gun.isHeatLocked()) {
                         GlStateManager.color(1F, 1F, 1F, 0.75F + 0.25F * (float)Math.sin(System.currentTimeMillis() * 0.0125664D));
