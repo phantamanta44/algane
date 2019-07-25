@@ -39,4 +39,13 @@ public class ResConst {
         return Algane.INSTANCE.newTextureResource("textures/overlay/" + key + ".png", width, height);
     }
 
+    public static final ResourceLocation SHADER_GENERIC_VERT  = getShaderResource("generic.vert");
+    public static final ResourceLocation SHADER_WHITE_FRAG = getShaderResource("white.frag");
+    public static final ResourceLocation SHADER_BLOOM_VERT = getShaderResource("bloom.vert");
+    public static final ResourceLocation SHADER_BLOOM_FRAG = getShaderResource("bloom.frag");
+
+    private static ResourceLocation getShaderResource(String key) {
+        return Algane.INSTANCE.newResourceLocation("shader/" + key);
+    }
+
 }

@@ -1,6 +1,7 @@
 package xyz.phanta.algane.entity;
 
 import io.github.phantamanta44.libnine.util.LazyConstant;
+import io.github.phantamanta44.libnine.util.math.MathUtils;
 import io.github.phantamanta44.libnine.util.tuple.IPair;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -8,10 +9,10 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import xyz.phanta.algane.Algane;
 import xyz.phanta.algane.lasergun.damage.DamageProjectile;
 import xyz.phanta.algane.util.LasingUtils;
 
@@ -23,6 +24,7 @@ import java.util.UUID;
 public class EntityLaserBolt extends Entity {
 
     private static final DataParameter<Integer> COLOUR = EntityDataManager.createKey(EntityLaserBolt.class, DataSerializers.VARINT);
+    private static final DataParameter<Float> RADIUS = EntityDataManager.createKey(EntityLaserBolt.class, DataSerializers.FLOAT);
 
     private float damage;
     private float speed;
@@ -32,16 +34,14 @@ public class EntityLaserBolt extends Entity {
 
     public EntityLaserBolt(World world, Vec3d pos, Vec3d vel, float damage, float range, @Nullable EntityLivingBase owner) {
         super(world);
-        this.posX = pos.x;
-        this.posY = pos.y;
-        this.posZ = pos.z;
-        this.motionX = vel.x;
-        this.motionY = vel.y;
-        this.motionZ = vel.z;
+        setPosition(pos.x, pos.y, pos.z);
+        setVelocity(vel.x, vel.y, vel.z);
         this.damage = damage;
         this.speed = (float)vel.length();
         this.range = range;
         this.ownerSupplier = new LazyConstant<>(() -> owner);
+        this.rotationYaw = (float)MathHelper.atan2(motionX, motionZ) * MathUtils.R2D_F;
+        this.rotationPitch = (float)Math.asin(motionY / speed) * MathUtils.R2D_F;
     }
 
     @Deprecated
@@ -49,8 +49,25 @@ public class EntityLaserBolt extends Entity {
         super(world);
     }
 
-    public void init(int colour) {
+    public void init(int colour, float radius) {
+        setColour(colour);
+        setRadius(radius);
+    }
+
+    public int getColour() {
+        return dataManager.get(COLOUR);
+    }
+
+    public void setColour(int colour) {
         dataManager.set(COLOUR, colour);
+    }
+
+    public float getRadius() {
+        return dataManager.get(RADIUS);
+    }
+
+    public void setRadius(float radius) {
+        dataManager.set(RADIUS, radius);
     }
 
     @Nullable
@@ -61,14 +78,15 @@ public class EntityLaserBolt extends Entity {
     @Override
     protected void entityInit() {
         dataManager.register(COLOUR, 0);
+        dataManager.register(RADIUS, 0F);
     }
 
     @Override
     public void onUpdate() {
         Vec3d oldPos = getPositionVector();
-        lastTickPosX = oldPos.x;
-        lastTickPosY = oldPos.y;
-        lastTickPosZ = oldPos.z;
+        lastTickPosX = prevPosX = oldPos.x;
+        lastTickPosY = prevPosY = oldPos.y;
+        lastTickPosZ = prevPosZ = oldPos.z;
         if (speed > 0) {
             Vec3d newPos = oldPos.add(motionX, motionY, motionZ);
             RayTraceResult trace = LasingUtils.traceLaser(world, oldPos, newPos);
@@ -95,24 +113,22 @@ public class EntityLaserBolt extends Entity {
                     setDead();
                 }
             }
-            posX = newPos.x;
-            posY = newPos.y;
-            posZ = newPos.z;
+            setPosition(newPos.x, newPos.y, newPos.z);
         }
-        Algane.PROXY.spawnParticleBolt(world, oldPos, dataManager.get(COLOUR));
+//        Algane.PROXY.spawnParticleBolt(world, oldPos, getColour()); FIXME
     }
 
-    @Override
-    public boolean shouldRenderInPass(int pass) {
-        return false;
-    }
+//    @Override
+//    public boolean shouldRenderInPass(int pass) {
+//        return false;
+//    }
 
     @Override
     protected void readEntityFromNBT(NBTTagCompound tag) {
         damage = tag.getFloat("BoltDamage");
         speed = tag.getFloat("BoltSpeed");
         range = tag.getFloat("BoltRange");
-        dataManager.set(COLOUR, tag.getInteger("BoltColour"));
+        setColour(tag.getInteger("BoltColour"));
         if (tag.hasKey("Owner")) {
             UUID ownerId = UUID.fromString(tag.getString("Owner"));
             ownerSupplier = new LazyConstant<>(() -> world.getPlayerEntityByUUID(ownerId));
@@ -126,7 +142,7 @@ public class EntityLaserBolt extends Entity {
         tag.setFloat("BoltDamage", damage);
         tag.setFloat("BoltSpeed", speed);
         tag.setFloat("BoltRange", range);
-        tag.setInteger("BoltColour", dataManager.get(COLOUR));
+        tag.setInteger("BoltColour", getColour());
         EntityLivingBase owner = getOwner();
         if (owner != null) {
             tag.setString("Owner", owner.getUniqueID().toString());

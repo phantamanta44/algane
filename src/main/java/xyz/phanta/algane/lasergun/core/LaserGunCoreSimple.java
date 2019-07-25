@@ -35,7 +35,7 @@ public class LaserGunCoreSimple implements LaserGunCore {
         if (energyUse > 0) {
             EntityLaserBolt bolt = new EntityLaserBolt(world, pos, dir.scale(1.5D),
                     AlganeUtils.computeDamage(BASE_DAMAGE * energyUse, mods), BASE_RANGE, owner);
-            bolt.init(BASE_COLOUR);
+            bolt.init(BASE_COLOUR, 0.1F);
             world.spawnEntity(bolt);
             world.playSound(null, pos.x, pos.y, pos.z, AlganeSounds.GUN_SIMPLE_FIRE, SoundCategory.MASTER, 1F, 1F);
             AlganeUtils.incrementHeat(gun, AlganeUtils.computeHeat(BASE_HEAT, mods));

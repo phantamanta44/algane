@@ -23,7 +23,7 @@ public class LaserGunCoreRepeater implements LaserGunCore {
     private static final float BASE_DAMAGE = 1.5F;
     private static final float BASE_HEAT = 6F;
     private static final float BASE_RANGE = 48F;
-    private static final int BASE_COLOUR = 0xF44336;
+    private static final int BASE_COLOUR = 0xEF5350;
 
     @Override
     public FiringParadigm getFiringParadigm() {
@@ -42,7 +42,7 @@ public class LaserGunCoreRepeater implements LaserGunCore {
                     dir.add(inaccU.scale(Math.cos(inaccTheta)).add(inaccV.scale(Math.sin(inaccTheta)))
                             .scale(world.rand.nextFloat() * Math.min(ticks / 120F, 0.15F))).scale(2D),
                     AlganeUtils.computeDamage(BASE_DAMAGE * energyUse, mods), BASE_RANGE, owner);
-            bolt.init(BASE_COLOUR);
+            bolt.init(BASE_COLOUR, 0.015F);
             world.spawnEntity(bolt);
             world.playSound(null, pos.x, pos.y, pos.z, AlganeSounds.GUN_REPEATER_FIRE, SoundCategory.MASTER, 0.75F, 1F);
             AlganeUtils.incrementHeat(gun, AlganeUtils.computeHeat(BASE_HEAT, mods));
