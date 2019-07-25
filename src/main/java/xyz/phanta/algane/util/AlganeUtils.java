@@ -1,6 +1,9 @@
 package xyz.phanta.algane.util;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.EnumHandSide;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
 import xyz.phanta.algane.init.AlganeCaps;
@@ -90,6 +93,12 @@ public class AlganeUtils {
 
     public static LaserGunModifier getItemLaserMod(ItemStack stack) {
         return Objects.requireNonNull(stack.getCapability(AlganeCaps.LASER_GUN_MOD, null));
+    }
+
+    public static EnumHandSide getHandSide(EnumHand hand) {
+        return hand == EnumHand.OFF_HAND
+                ? Minecraft.getMinecraft().player.getPrimaryHand().opposite()
+                : Minecraft.getMinecraft().player.getPrimaryHand();
     }
 
 }

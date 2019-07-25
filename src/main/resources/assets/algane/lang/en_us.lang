@@ -7,10 +7,9 @@ item.algane:laser_gun3.name=Ultimate Laser Rifle Casing
 
 item.algane:laser_core0.name=Simple Laser Rifle Core
 item.algane:laser_core1.name=Repeating Laser Rifle Core
-item.algane:laser_core2.name=Beam Projector Core
-item.algane:laser_core3.name=Shock Rifle Core
-item.algane:laser_core4.name=Shock Orb Cannon Core
-item.algane:laser_core5.name=Gauss Rifle Core
+item.algane:laser_core2.name=Shock Rifle Core
+item.algane:laser_core3.name=Shock Orb Projector Core
+item.algane:laser_core4.name=Tau Cannon Core
 
 item.algane:laser_mod0.name=Laser Modifier
 item.algane:laser_mod1.name=Rare Laser Modifier
@@ -53,7 +52,6 @@ algane.misc.laser_tier.ultimate=Ultimate %s
 
 algane.misc.laser_core.simple=Laser Rifle
 algane.misc.laser_core.repeater=Laser Repeater
-algane.misc.laser_core.beam=Beam Projector
 algane.misc.laser_core.shock=Shock Rifle
-algane.misc.laser_core.orb=Shock Orb Cannon
-algane.misc.laser_core.gauss=Gauss Rifle
+algane.misc.laser_core.orb=Shock Orb Projector
+algane.misc.laser_core.gauss=Tau Cannon Rifle

@@ -6,6 +6,7 @@ import io.github.phantamanta44.libnine.item.L9ItemSubs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
@@ -41,10 +42,11 @@ public class ItemLaserCore extends L9ItemSubs implements ParameterizedItemModel.
 
         SIMPLE(new LaserGunCoreSimple()),
         REPEATER(new LaserGunCoreRepeater()),
-        BEAM(new LaserGunCoreNoop()), // TODO finish
         SHOCK(new LaserGunCoreNoop()), // TODO finish
         ORB(new LaserGunCoreNoop()), // TODO finish
         GAUSS(new LaserGunCoreNoop()); // TODO finish
+        // TODO maybe some kind of "dispersion" shotgun
+        // TODO maybe some kind of heat gun
 
         private static class LaserGunCoreNoop implements LaserGunCore {
 
@@ -54,7 +56,8 @@ public class ItemLaserCore extends L9ItemSubs implements ParameterizedItemModel.
             }
 
             @Override
-            public int fire(ItemStack stack, LaserGun gun, World world, Vec3d pos, Vec3d dir, int ticks, @Nullable EntityLivingBase owner) {
+            public int fire(ItemStack stack, LaserGun gun, World world, Vec3d pos, Vec3d dir, int ticks,
+                            @Nullable EntityLivingBase owner, @Nullable EnumHand hand) {
                 return 8;
             }
 

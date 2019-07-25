@@ -4,7 +4,6 @@ import io.github.phantamanta44.libnine.capability.provider.CapabilityBroker;
 import io.github.phantamanta44.libnine.client.model.ParameterizedItemModel;
 import io.github.phantamanta44.libnine.item.L9ItemSubs;
 import io.github.phantamanta44.libnine.util.format.FormatUtils;
-import io.github.phantamanta44.libnine.util.math.MathUtils;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityLivingBase;
@@ -97,10 +96,12 @@ public class ItemLaserGun extends L9ItemSubs implements TickingItem, Parameteriz
                             LaserGunCore core = coreOpt.get();
                             int cooldown;
                             if (core.getFiringParadigm().requiresTick) {
-                                cooldown = core.startFiring(stack, gun, world, getFiringPos(player), player.getLookVec(), player);
+                                cooldown = core.startFiring(
+                                        stack, gun, world, getFiringPos(player), player.getLookVec(), player, hand);
                                 player.setActiveHand(hand);
                             } else {
-                                cooldown = core.fire(stack, gun, world, getFiringPos(player), player.getLookVec(), 0, player);
+                                cooldown = core.fire(
+                                        stack, gun, world, getFiringPos(player), player.getLookVec(), 0, player, hand);
                             }
                             if (cooldown > 0) {
                                 cooldowns.setCooldown(this, cooldown);
@@ -131,7 +132,7 @@ public class ItemLaserGun extends L9ItemSubs implements TickingItem, Parameteriz
                 if (!cooldowns.hasCooldown(this)) {
                     AlganeUtils.getLaserCore(gun).filter(c -> c.getFiringParadigm().requiresTick).ifPresent(core -> {
                         int cooldown = core.fire(stack, gun, player.world, getFiringPos(player), player.getLookVec(),
-                                MAX_USE_TICKS - count, player);
+                                MAX_USE_TICKS - count, player, player.getActiveHand());
                         if (cooldown > 0) {
                             cooldowns.setCooldown(this, cooldown);
                         }
@@ -148,7 +149,7 @@ public class ItemLaserGun extends L9ItemSubs implements TickingItem, Parameteriz
             LaserGun gun = AlganeUtils.getItemLaserGun(stack);
             AlganeUtils.getLaserCore(gun).filter(c -> c.getFiringParadigm().requiresFinish).ifPresent(core -> {
                 int cooldown = core.finishFiring(stack, gun, world, getFiringPos(player), player.getLookVec(),
-                        MAX_USE_TICKS - timeLeft, player, !cooldowns.hasCooldown(this));
+                        MAX_USE_TICKS - timeLeft, player, player.getActiveHand(), !cooldowns.hasCooldown(this));
                 if (cooldown > 0) {
                     cooldowns.setCooldown(this, cooldown);
                 }

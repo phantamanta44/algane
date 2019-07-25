@@ -58,4 +58,12 @@ processResources {
     from(sourceSets.main.resources.srcDirs) {
         exclude 'mcmod.info'
     }
+
+    rename 'algane_at.cfg', 'META-INF/algane_at.cfg'
+}
+
+jar {
+    manifest {
+        attributes 'FMLAT': 'algane_at.cfg'
+    }
 }

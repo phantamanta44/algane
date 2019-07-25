@@ -1,19 +1,55 @@
 package xyz.phanta.algane.util;
 
 import io.github.phantamanta44.libnine.util.math.LinAlUtils;
+import io.github.phantamanta44.libnine.util.tuple.IPair;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.*;
 import net.minecraft.world.World;
+import xyz.phanta.algane.lasergun.damage.DamageHitscan;
 
 import javax.annotation.Nullable;
+import java.util.Comparator;
+import java.util.Optional;
+import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 // Some code adapted from Project Crossbow, under MIT
 // https://github.com/phantamanta44/ProjectCrossbow/blob/1.12.2/src/main/java/io/github/phantamanta44/pcrossbow/util/PhysicsUtils.java
 public class LasingUtils {
 
+    public static Vec3d laseEntity(World world, Vec3d origin, Vec3d dir, float range,
+                                   @Nullable EntityLivingBase owner, Consumer<EntityLivingBase> hitCallback) {
+        Vec3d endPos = origin.add(dir.scale(range));
+        RayTraceResult trace = traceLaser(world, origin, endPos);
+        if (trace != null) {
+            endPos = trace.hitVec;
+        }
+        Optional<EntityLivingBase> hitOpt = getFirstEntityOnLine(owner, world, origin, endPos);
+        if (hitOpt.isPresent()) {
+            EntityLivingBase hit = hitOpt.get();
+            hitCallback.accept(hit);
+            Vec3d hitPos = hit.getPositionVector();
+            Vec3d toEntity = LinAlUtils.castOntoPlane(origin, dir, hitPos, dir);
+            if (toEntity != null) {
+                endPos = toEntity;
+            } else {
+                endPos = hitPos;
+            }
+        }
+        return endPos;
+    }
+    
+    public static Optional<EntityLivingBase> getFirstEntityOnLine(@Nullable Entity exclude, World world, Vec3d from, Vec3d to) {
+        return getEntitiesOnLine(world, from, to)
+                .filter(e -> e != exclude)
+                .map(e -> IPair.of(e, e.getDistanceSq(from.x, from.y, from.z)))
+                .min(Comparator.comparing(IPair::getB))
+                .map(IPair::getA);
+    }
+    
     public static Stream<EntityLivingBase> getEntitiesOnLine(World world, Vec3d from, Vec3d to) {
         return world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(from, to)).stream()
                 .filter(e -> intersectsLine(e.getEntityBoundingBox(), from, to));

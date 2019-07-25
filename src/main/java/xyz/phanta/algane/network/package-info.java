@@ -1,4 +1,4 @@
 @NothingIsNullByDefault
-package xyz.phanta.algane.entity;
+package xyz.phanta.algane.network;
 
 import io.github.phantamanta44.libnine.util.nullity.NothingIsNullByDefault;

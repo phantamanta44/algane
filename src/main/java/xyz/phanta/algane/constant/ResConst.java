@@ -23,7 +23,7 @@ public class ResConst {
         return Algane.INSTANCE.newTextureResource("textures/gui/component/" + key + ".png", width, height);
     }
 
-    public static final TextureResource PARTICLE_BOLT = getParticleResource("bolt", 32, 32);
+    public static final TextureResource PARTICLE_RING = getParticleResource("ring", 32, 32);
 
     private static TextureResource getParticleResource(String key, int width, int height) {
         return Algane.INSTANCE.newTextureResource("textures/particle/" + key + ".png", width, height);
