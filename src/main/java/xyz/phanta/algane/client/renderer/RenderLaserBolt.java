@@ -28,9 +28,7 @@ public class RenderLaserBolt extends Render<EntityLaserBolt> {
                 GlStateManager.disableTexture2D();
                 GlStateManager.disableLighting();
                 int colour = entity.getColour();
-                GlStateManager.color(TextFormatUtils.getComponent(colour, 2),
-                        TextFormatUtils.getComponent(colour, 1),
-                        TextFormatUtils.getComponent(colour, 0), 1F);
+                TextFormatUtils.setGlColour(colour, 1F);
                 GlStateManager.pushMatrix();
                 GlStateManager.translate(x, y, z);
                 GlStateManager.rotate(entity.rotationYaw, 0F, 1F, 0F);
