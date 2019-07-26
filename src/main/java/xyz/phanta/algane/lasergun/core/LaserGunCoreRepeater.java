@@ -24,7 +24,7 @@ public class LaserGunCoreRepeater implements LaserGunCore {
     private static final int BASE_ENERGY = 300;
     private static final float BASE_DAMAGE = 1.5F;
     private static final float BASE_HEAT = 6F;
-    private static final float BASE_RANGE = 48F;
+    private static final float BASE_RANGE = 32F;
     private static final int BASE_COLOUR = 0xEF5350;
 
     @Override

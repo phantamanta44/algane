@@ -18,13 +18,13 @@ import xyz.phanta.algane.util.LasingUtils;
 
 import javax.annotation.Nullable;
 
-public class LaserGunCoreSimple implements LaserGunCore {
+public class LaserGunCoreAsmd implements LaserGunCore {
 
-    private static final int BASE_ENERGY = 800;
-    private static final float BASE_DAMAGE = 4F;
-    private static final float BASE_HEAT = 32F;
-    private static final float BASE_RANGE = 48F;
-    private static final int BASE_COLOUR = 0x2196F3;
+    private static final int BASE_ENERGY = 1400;
+    private static final float BASE_DAMAGE = 5.5F;
+    private static final float BASE_KNOCKBACK = 1.5F;
+    private static final float BASE_RANGE = 64F;
+    private static final float BASE_HEAT = 50F;
 
     @Override
     public FiringParadigm getFiringParadigm() {
@@ -34,22 +34,27 @@ public class LaserGunCoreSimple implements LaserGunCore {
     @Override
     public int fire(ItemStack stack, LaserGun gun, World world, Vec3d pos, Vec3d dir, int ticks,
                     @Nullable EntityLivingBase owner, @Nullable EnumHand hand) {
+        // TODO shock combo
         LaserGunModifier mods = AlganeUtils.computeTotalMods(gun);
         float energyUse = AlganeUtils.consumeEnergy(gun, BASE_ENERGY, mods);
         if (energyUse > 0) {
-            Vec3d endPos = LasingUtils.laseEntity(world, pos, dir, BASE_RANGE, owner, hit -> hit.attackEntityFrom(
-                    DamageHitscan.laser(owner), AlganeUtils.computeDamage(BASE_DAMAGE * energyUse, mods)));
-            world.playSound(null, pos.x, pos.y, pos.z, AlganeSounds.GUN_SIMPLE_FIRE, SoundCategory.MASTER, 1F, 1F);
-            Algane.PROXY.spawnParticleLaserBeam(world, pos, endPos, BASE_COLOUR, 8, hand);
+            Vec3d endPos = LasingUtils.laseEntity(world, pos, dir, BASE_RANGE, owner, hit -> {
+                hit.attackEntityFrom(DamageHitscan.asmd(owner), AlganeUtils.computeDamage(BASE_DAMAGE * energyUse, mods));
+                // should probably be fine?
+                //noinspection ConstantConditions
+                hit.knockBack(owner, BASE_KNOCKBACK * energyUse, -dir.x, -dir.z);
+            });
+            world.playSound(null, pos.x, pos.y, pos.z, AlganeSounds.GUN_SHOCK_FIRE, SoundCategory.MASTER, 1F, 1F);
+            Algane.PROXY.spawnParticleAsmd(world, pos, endPos, hand);
             AlganeUtils.incrementHeat(gun, AlganeUtils.computeHeat(BASE_HEAT, mods));
-            return 12;
+            return 18;
         }
         return 0;
     }
 
     @Override
     public String getTranslationKey() {
-        return LangConst.getLaserCoreName(ItemLaserCore.Type.SIMPLE);
+        return LangConst.getLaserCoreName(ItemLaserCore.Type.SHOCK);
     }
 
 }

@@ -8,5 +8,10 @@
     "sounds": [
       "algane:weapon/repeater/fire"
     ]
+  },
+  "algane.weapon.shock.fire": {
+    "sounds": [
+      "algane:weapon/shock/fire"
+    ]
   }
 }

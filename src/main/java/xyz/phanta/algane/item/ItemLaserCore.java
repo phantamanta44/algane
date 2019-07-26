@@ -15,6 +15,7 @@ import xyz.phanta.algane.init.AlganeCaps;
 import xyz.phanta.algane.init.AlganeItems;
 import xyz.phanta.algane.lasergun.LaserGun;
 import xyz.phanta.algane.lasergun.core.LaserGunCore;
+import xyz.phanta.algane.lasergun.core.LaserGunCoreAsmd;
 import xyz.phanta.algane.lasergun.core.LaserGunCoreRepeater;
 import xyz.phanta.algane.lasergun.core.LaserGunCoreSimple;
 
@@ -42,7 +43,7 @@ public class ItemLaserCore extends L9ItemSubs implements ParameterizedItemModel.
 
         SIMPLE(new LaserGunCoreSimple()),
         REPEATER(new LaserGunCoreRepeater()),
-        SHOCK(new LaserGunCoreNoop()), // TODO finish
+        SHOCK(new LaserGunCoreAsmd()), // TODO finish
         ORB(new LaserGunCoreNoop()), // TODO finish
         GAUSS(new LaserGunCoreNoop()); // TODO finish
         // TODO maybe some kind of "dispersion" shotgun
