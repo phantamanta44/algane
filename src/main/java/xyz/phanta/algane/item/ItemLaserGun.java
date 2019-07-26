@@ -163,7 +163,12 @@ public class ItemLaserGun extends L9ItemSubs implements TickingItem, Parameteriz
 
     @Override
     public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
-        return oldStack.getItem() != this || oldStack.getMetadata() != newStack.getMetadata();
+        if (oldStack.getItem() != this || oldStack.getMetadata() != newStack.getMetadata()) {
+            return true;
+        }
+        Optional<LaserGunCore> coreOptA = AlganeUtils.getLaserCore(AlganeUtils.getItemLaserGun(oldStack));
+        Optional<LaserGunCore> coreOptB = AlganeUtils.getLaserCore(AlganeUtils.getItemLaserGun(newStack));
+        return !coreOptA.isPresent() || !coreOptB.isPresent() || coreOptA.get().getClass() != coreOptB.get().getClass();
     }
 
     @Override
