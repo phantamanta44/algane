@@ -36,11 +36,11 @@ public class ParticleAsmdTracer extends ParticleBeam {
         if (side == null || mc.gameSettings.thirdPersonView != 0) {
             setUpRender();
             transformWorld(x, y, z);
-            renderBeam(frac);
+            renderBeam(frac, partialTicks);
         } else {
             setUpRender();
             transformHand(mc.player, x, y, z, partialTicks);
-            renderBeam(frac);
+            renderBeam(frac, partialTicks);
         }
     }
 
@@ -52,16 +52,16 @@ public class ParticleAsmdTracer extends ParticleBeam {
         RenderUtils.enableFullBrightness();
     }
 
-    private void renderBeam(float frac) {
+    private void renderBeam(float frac, float partialTicks) {
         Tessellator tess = Tessellator.getInstance();
         BufferBuilder buf = tess.getBuffer();
 
         alpha(1F - frac);
-        drawRing(tess, buf, frac * 3F, length - 0.025F);
+        drawRing(tess, buf, frac * 3.5F, length - 0.025F);
 
         int currentAuxCount = Math.min(particleAge, auxCount);
         for (int i = 0; i < currentAuxCount; i += 2) {
-            float auxFrac = (particleAge - i) / (float)(particleMaxAge - i);
+            float auxFrac = Math.min((particleAge + partialTicks - i) / (float)(particleMaxAge - i), 1F);
             alpha(1F - auxFrac);
             drawRing(tess, buf, auxFrac * 0.5F, i * auxDist);
         }
