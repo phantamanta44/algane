@@ -24,6 +24,8 @@ public class ResConst {
     }
 
     public static final TextureResource PARTICLE_RING = getParticleResource("ring", 32, 32);
+    public static final TextureResource PARTICLE_ORB = getParticleResource("orb", 128, 128);
+    public static final TextureResource PARTICLE_BLAST_RING = getParticleResource("blast_ring", 128, 128);
 
     private static TextureResource getParticleResource(String key, int width, int height) {
         return Algane.INSTANCE.newTextureResource("textures/particle/" + key + ".png", width, height);
@@ -34,6 +36,7 @@ public class ResConst {
     public static final TextureRegion OVERLAY_WEAPON_ENERGY = OVERLAY_WEAPON.getRegion(0, 32, 244, 20);
     public static final TextureRegion OVERLAY_WEAPON_HEAT = OVERLAY_WEAPON.getRegion(0, 52, 121, 3);
     public static final TextureRegion OVERLAY_WEAPON_HEAT_LOCK = OVERLAY_WEAPON.getRegion(121, 52, 121, 3);
+    public static final TextureRegion OVERLAY_CHARGE = getOverlayResource("charge_reticle", 32, 32).getRegion(0, 0, 32, 32);
 
     private static TextureResource getOverlayResource(String key, int width, int height) {
         return Algane.INSTANCE.newTextureResource("textures/overlay/" + key + ".png", width, height);

@@ -37,6 +37,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.UUID;
 
 public class ItemLaserGun extends L9ItemSubs implements TickingItem, ParameterizedItemModel.IParamaterized {
 
@@ -63,8 +64,10 @@ public class ItemLaserGun extends L9ItemSubs implements TickingItem, Parameteriz
 
     @Override
     public boolean canContinueUsing(ItemStack oldStack, ItemStack newStack) {
-        return AlganeUtils.getLaserCore(AlganeUtils.getItemLaserGun(newStack))
-                .map(c -> c.getFiringParadigm().requiresTick).orElse(false);
+        return OptUtils.getCapOpt(newStack, AlganeCaps.LASER_GUN)
+                .flatMap(gun -> OptUtils.getCapOpt(oldStack, AlganeCaps.LASER_GUN)
+                        .map(laserGun -> laserGun.areBuildsEqual(gun)))
+                .orElse(false);
     }
 
     @Override
@@ -96,9 +99,9 @@ public class ItemLaserGun extends L9ItemSubs implements TickingItem, Parameteriz
                             LaserGunCore core = coreOpt.get();
                             int cooldown;
                             if (core.getFiringParadigm().requiresTick) {
+                                player.setActiveHand(hand);
                                 cooldown = core.startFiring(
                                         stack, gun, world, getFiringPos(player), player.getLookVec(), player, hand);
-                                player.setActiveHand(hand);
                             } else {
                                 cooldown = core.fire(
                                         stack, gun, world, getFiringPos(player), player.getLookVec(), 0, player, hand);
@@ -163,12 +166,7 @@ public class ItemLaserGun extends L9ItemSubs implements TickingItem, Parameteriz
 
     @Override
     public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
-        if (oldStack.getItem() != this || oldStack.getMetadata() != newStack.getMetadata()) {
-            return true;
-        }
-        Optional<LaserGunCore> coreOptA = AlganeUtils.getLaserCore(AlganeUtils.getItemLaserGun(oldStack));
-        Optional<LaserGunCore> coreOptB = AlganeUtils.getLaserCore(AlganeUtils.getItemLaserGun(newStack));
-        return !coreOptA.isPresent() || !coreOptB.isPresent() || coreOptA.get().getClass() != coreOptB.get().getClass();
+        return !canContinueUsing(oldStack, newStack);
     }
 
     @Override
@@ -228,9 +226,11 @@ public class ItemLaserGun extends L9ItemSubs implements TickingItem, Parameteriz
 
         @Override
         public ItemStack getCore() {
-            return OptUtils.getTagOpt(stack)
-                    .map(tag -> new ItemStack(tag.getCompoundTag("Core")))
-                    .orElse(ItemStack.EMPTY);
+            return getCoreTag().map(ItemStack::new).orElse(ItemStack.EMPTY);
+        }
+
+        private Optional<NBTTagCompound> getCoreTag() {
+            return OptUtils.getTagOpt(stack).map(tag -> tag.getCompoundTag("Core"));
         }
 
         @Override
@@ -252,10 +252,11 @@ public class ItemLaserGun extends L9ItemSubs implements TickingItem, Parameteriz
 
         @Override
         public ItemStack getModifier(int slot) {
-            return OptUtils.getTagOpt(stack)
-                    .map(tag -> tag.getTagList("Modifiers", Constants.NBT.TAG_COMPOUND))
-                    .map(tag -> new ItemStack(tag.getCompoundTagAt(slot)))
-                    .orElse(ItemStack.EMPTY);
+            return getModifiersTag().map(tag -> new ItemStack(tag.getCompoundTagAt(slot))).orElse(ItemStack.EMPTY);
+        }
+
+        private Optional<NBTTagList> getModifiersTag() {
+            return OptUtils.getTagOpt(stack).map(tag -> tag.getTagList("Modifiers", Constants.NBT.TAG_COMPOUND));
         }
 
         @Override
@@ -304,9 +305,19 @@ public class ItemLaserGun extends L9ItemSubs implements TickingItem, Parameteriz
             getOrCreateTag().setBoolean("HeatLock", heatLocked);
         }
 
+        @Override
+        public boolean areBuildsEqual(LaserGun other) {
+            if (!(other instanceof LaserGunDelegator)) {
+                return false;
+            }
+            LaserGunDelegator otherGun = (LaserGunDelegator)other;
+            return getCoreTag().equals(otherGun.getCoreTag()) && getModifiersTag().equals(otherGun.getModifiersTag());
+        }
+
         private NBTTagCompound getOrCreateTag() {
             if (!stack.hasTagCompound()) {
                 NBTTagCompound tag = new NBTTagCompound();
+                tag.setString("GunId", UUID.randomUUID().toString());
                 stack.setTagCompound(tag);
                 return tag;
             }

@@ -161,7 +161,7 @@ public class LasingUtils {
                     collision = currentState.collisionRayTrace(world, blockPos, pos, end);
                     //noinspection ConstantConditions
                     if (collision != null
-                            && (currentState.getCollisionBoundingBox(world, blockPos) != null || isObstructed(currentState))) {
+                            && (currentState.getCollisionBoundingBox(world, blockPos) != null && isObstructed(currentState))) {
                         return collision;
                     }
                 }
@@ -175,7 +175,7 @@ public class LasingUtils {
     }
 
     private static boolean isObstructed(IBlockState state) {
-        return state.isOpaqueCube() && state.getBlock().canCollideCheck(state, false);
+        return state.isOpaqueCube() && state.isFullCube() && state.getBlock().canCollideCheck(state, false);
     }
 
     public static Vec3d findOrthogonal(Vec3d vec) {

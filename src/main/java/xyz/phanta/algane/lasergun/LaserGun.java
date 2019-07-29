@@ -27,6 +27,8 @@ public interface LaserGun {
 
     void setHeatLocked(boolean heatLocked);
 
+    boolean areBuildsEqual(LaserGun other);
+
     default boolean canAttachPart(LaserGunPart part) {
         switch (part) {
             case CORE:
@@ -120,6 +122,11 @@ public interface LaserGun {
         @Override
         public void setHeatLocked(boolean heatLocked) {
             // NO-OP
+        }
+
+        @Override
+        public boolean areBuildsEqual(LaserGun other) {
+            return false;
         }
 
     }

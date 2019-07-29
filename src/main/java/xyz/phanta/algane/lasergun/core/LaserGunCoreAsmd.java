@@ -38,6 +38,7 @@ public class LaserGunCoreAsmd implements LaserGunCore {
         LaserGunModifier mods = AlganeUtils.computeTotalMods(gun);
         float energyUse = AlganeUtils.consumeEnergy(gun, BASE_ENERGY, mods);
         if (energyUse > 0) {
+            // TODO don't lase through transparent blocks
             Vec3d endPos = LasingUtils.laseEntity(world, pos, dir, BASE_RANGE, owner, hit -> {
                 hit.attackEntityFrom(DamageHitscan.asmd(owner), AlganeUtils.computeDamage(BASE_DAMAGE * energyUse, mods));
                 // should probably be fine?

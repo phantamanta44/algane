@@ -23,7 +23,7 @@ public class LangConst {
     public static final String GUI_LASER_GUN_TABLE = GUI_KEY + "laser_workbench";
     public static final String GUI_MODIFIER_TABLE = GUI_KEY + "mod_workbench";
 
-    public static final ResourceLocation ENTITY_LASER_BOLT = Algane.INSTANCE.newResourceLocation("laser_bolt");
+    public static final ResourceLocation ENTITY_SHOCK_ORB = Algane.INSTANCE.newResourceLocation("shock_orb");
 
     private static final String TT_KEY = Algane.MOD_ID + ".tooltip.";
     public static final String TT_ENERGY = TT_KEY + "energy";

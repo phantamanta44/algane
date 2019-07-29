@@ -13,5 +13,35 @@
     "sounds": [
       "algane:weapon/shock/fire"
     ]
+  },
+  "algane.weapon.orb.fire": {
+    "sounds": [
+      "algane:weapon/orb/fire"
+    ]
+  },
+  "algane.weapon.orb.detonate": {
+    "sounds": [
+      "algane:weapon/orb/detonate"
+    ]
+  },
+  "algane.weapon.orb.charge": {
+    "sounds": [
+      "algane:weapon/orb/charge"
+    ]
+  },
+  "algane.weapon.orb.combo": {
+    "sounds": [
+      "algane:weapon/orb/combo"
+    ]
+  },
+  "algane.weapon.gauss.fire": {
+    "sounds": [
+      "algane:weapon/gauss/fire"
+    ]
+  },
+  "algane.weapon.gauss.charge": {
+    "sounds": [
+      "algane:weapon/gauss/charge"
+    ]
   }
 }
