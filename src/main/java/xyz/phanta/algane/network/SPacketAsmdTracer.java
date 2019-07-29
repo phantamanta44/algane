@@ -10,17 +10,21 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import xyz.phanta.algane.Algane;
 
 import javax.annotation.Nullable;
+import java.util.UUID;
 
 @SuppressWarnings("NullableProblems")
 public class SPacketAsmdTracer implements IMessage {
 
     Vec3d from, to;
     @Nullable
+    UUID ownerId;
+    @Nullable
     EnumHand hand;
 
-    public SPacketAsmdTracer(Vec3d from, Vec3d to, @Nullable EnumHand hand) {
+    public SPacketAsmdTracer(Vec3d from, Vec3d to, @Nullable UUID ownerId, @Nullable EnumHand hand) {
         this.from = from;
         this.to = to;
+        this.ownerId = ownerId;
         this.hand = hand;
     }
 
@@ -36,12 +40,15 @@ public class SPacketAsmdTracer implements IMessage {
         switch (buf.readByte()) {
             case 1:
                 hand = EnumHand.MAIN_HAND;
+                ownerId = new UUID(buf.readLong(), buf.readLong());
                 break;
             case 2:
                 hand = EnumHand.OFF_HAND;
+                ownerId = new UUID(buf.readLong(), buf.readLong());
                 break;
             default:
                 hand = null;
+                ownerId = null;
                 break;
         }
     }
@@ -56,6 +63,10 @@ public class SPacketAsmdTracer implements IMessage {
         buf.writeFloat((float)to.y);
         buf.writeFloat((float)to.z);
         buf.writeByte(hand == null ? 0 : (hand == EnumHand.MAIN_HAND ? 1 : 2));
+        if (ownerId != null) {
+            buf.writeLong(ownerId.getMostSignificantBits());
+            buf.writeLong(ownerId.getLeastSignificantBits());
+        }
     }
 
     public static class Handler implements IMessageHandler<SPacketAsmdTracer, IMessage> {
@@ -64,7 +75,8 @@ public class SPacketAsmdTracer implements IMessage {
         @Override
         public IMessage onMessage(SPacketAsmdTracer message, MessageContext ctx) {
             Minecraft mc = Minecraft.getMinecraft();
-            mc.addScheduledTask(() -> Algane.PROXY.spawnParticleAsmd(mc.world, message.from, message.to, message.hand));
+            mc.addScheduledTask(() -> Algane.PROXY.spawnParticleAsmd(
+                    mc.world, message.from, message.to, message.ownerId, message.hand));
             return null;
         }
 

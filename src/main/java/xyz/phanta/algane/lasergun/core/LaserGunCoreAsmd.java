@@ -46,7 +46,7 @@ public class LaserGunCoreAsmd implements LaserGunCore {
                 hit.knockBack(owner, BASE_KNOCKBACK * energyUse, -dir.x, -dir.z);
             });
             world.playSound(null, pos.x, pos.y, pos.z, AlganeSounds.GUN_SHOCK_FIRE, SoundCategory.MASTER, 1F, 1F);
-            Algane.PROXY.spawnParticleAsmd(world, pos, endPos, hand);
+            Algane.PROXY.spawnParticleAsmd(world, pos, endPos, owner != null ? owner.getUniqueID() : null, hand);
             AlganeUtils.incrementHeat(gun, AlganeUtils.computeHeat(BASE_HEAT, mods));
             return 18;
         }

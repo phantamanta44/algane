@@ -20,6 +20,7 @@ import xyz.phanta.algane.network.SPacketLaserBeam;
 import xyz.phanta.algane.network.SPacketShockBlast;
 
 import javax.annotation.Nullable;
+import java.util.UUID;
 
 public class CommonProxy {
 
@@ -41,15 +42,14 @@ public class CommonProxy {
         // NO-OP
     }
 
-    public void spawnParticleLaserBeam(World world, Vec3d from, Vec3d to, int colour, int radius, @Nullable EnumHand hand) {
-        // TODO only send packet with nonnull hand to laser owner
-        Algane.INSTANCE.getNetworkHandler().sendToAllAround(new SPacketLaserBeam(from, to, colour, radius, hand),
+    public void spawnParticleLaserBeam(World world, Vec3d from, Vec3d to, int colour, int radius,
+                                       @Nullable UUID ownerId, @Nullable EnumHand hand) {
+        Algane.INSTANCE.getNetworkHandler().sendToAllAround(new SPacketLaserBeam(from, to, colour, radius, ownerId, hand),
                 new NetworkRegistry.TargetPoint(world.provider.getDimension(), from.x, from.y, from.z, 64D));
     }
 
-    public void spawnParticleAsmd(World world, Vec3d from, Vec3d to, @Nullable EnumHand hand) {
-        // TODO only send packet with nonnull hand to asmd owner
-        Algane.INSTANCE.getNetworkHandler().sendToAllAround(new SPacketAsmdTracer(from, to, hand),
+    public void spawnParticleAsmd(World world, Vec3d from, Vec3d to, @Nullable UUID ownerId, @Nullable EnumHand hand) {
+        Algane.INSTANCE.getNetworkHandler().sendToAllAround(new SPacketAsmdTracer(from, to, ownerId, hand),
                 new NetworkRegistry.TargetPoint(world.provider.getDimension(), from.x, from.y, from.z, 64D));
     }
 

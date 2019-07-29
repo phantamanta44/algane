@@ -3,6 +3,7 @@ package xyz.phanta.algane.client;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.EnumHandSide;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
@@ -19,6 +20,7 @@ import xyz.phanta.algane.init.AlganeSounds;
 import xyz.phanta.algane.util.AlganeUtils;
 
 import javax.annotation.Nullable;
+import java.util.UUID;
 
 public class ClientProxy extends CommonProxy {
 
@@ -36,22 +38,23 @@ public class ClientProxy extends CommonProxy {
     }
 
     @Override
-    public void spawnParticleLaserBeam(World world, Vec3d from, Vec3d to, int colour, int radius, @Nullable EnumHand hand) {
+    public void spawnParticleLaserBeam(World world, Vec3d from, Vec3d to, int colour, int radius,
+                                       @Nullable UUID ownerId, @Nullable EnumHand hand) {
         if (world.isRemote) {
-            Minecraft.getMinecraft().effectRenderer.addEffect(
-                    new ParticleLaserBeam(world, from, to, colour, radius, hand == null ? null : AlganeUtils.getHandSide(hand)));
+            Minecraft mc = Minecraft.getMinecraft();
+            mc.effectRenderer.addEffect(new ParticleLaserBeam(world, from, to, colour, radius, checkOwnership(mc, ownerId, hand)));
         } else {
-            super.spawnParticleLaserBeam(world, from, to, colour, radius, hand);
+            super.spawnParticleLaserBeam(world, from, to, colour, radius, ownerId, hand);
         }
     }
 
     @Override
-    public void spawnParticleAsmd(World world, Vec3d from, Vec3d to, @Nullable EnumHand hand) {
+    public void spawnParticleAsmd(World world, Vec3d from, Vec3d to, @Nullable UUID ownerId, @Nullable EnumHand hand) {
         if (world.isRemote) {
-            Minecraft.getMinecraft().effectRenderer.addEffect(
-                    new ParticleAsmdTracer(world, from, to, hand == null ? null : AlganeUtils.getHandSide(hand)));
+            Minecraft mc = Minecraft.getMinecraft();
+            mc.effectRenderer.addEffect(new ParticleAsmdTracer(world, from, to, checkOwnership(mc, ownerId, hand)));
         } else {
-            super.spawnParticleAsmd(world, from, to, hand);
+            super.spawnParticleAsmd(world, from, to, ownerId, hand);
         }
     }
 
@@ -62,6 +65,12 @@ public class ClientProxy extends CommonProxy {
         } else {
             super.spawnParticleShockBlast(world, pos, radius, intensity, colour);
         }
+    }
+
+    @Nullable
+    private static EnumHandSide checkOwnership(Minecraft mc, @Nullable UUID ownerId, @Nullable EnumHand hand) {
+        return ownerId != null && hand != null && mc.player.getUniqueID().equals(ownerId)
+                ? AlganeUtils.getHandSide(hand) : null;
     }
 
     @Override

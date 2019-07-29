@@ -10,6 +10,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import xyz.phanta.algane.Algane;
 
 import javax.annotation.Nullable;
+import java.util.UUID;
 
 @SuppressWarnings("NullableProblems")
 public class SPacketLaserBeam implements IMessage {
@@ -17,13 +18,16 @@ public class SPacketLaserBeam implements IMessage {
     Vec3d from, to;
     int colour, radius;
     @Nullable
+    UUID ownerId;
+    @Nullable
     EnumHand hand;
 
-    public SPacketLaserBeam(Vec3d from, Vec3d to, int colour, int radius, @Nullable EnumHand hand) {
+    public SPacketLaserBeam(Vec3d from, Vec3d to, int colour, int radius, @Nullable UUID ownerId, @Nullable EnumHand hand) {
         this.from = from;
         this.to = to;
         this.colour = colour;
         this.radius = radius;
+        this.ownerId = ownerId;
         this.hand = hand;
     }
 
@@ -41,12 +45,15 @@ public class SPacketLaserBeam implements IMessage {
         switch (buf.readByte()) {
             case 1:
                 hand = EnumHand.MAIN_HAND;
+                ownerId = new UUID(buf.readLong(), buf.readLong());
                 break;
             case 2:
                 hand = EnumHand.OFF_HAND;
+                ownerId = new UUID(buf.readLong(), buf.readLong());
                 break;
             default:
                 hand = null;
+                ownerId = null;
                 break;
         }
     }
@@ -63,6 +70,10 @@ public class SPacketLaserBeam implements IMessage {
         buf.writeInt(colour);
         buf.writeInt(radius);
         buf.writeByte(hand == null ? 0 : (hand == EnumHand.MAIN_HAND ? 1 : 2));
+        if (ownerId != null) {
+            buf.writeLong(ownerId.getMostSignificantBits());
+            buf.writeLong(ownerId.getLeastSignificantBits());
+        }
     }
 
     public static class Handler implements IMessageHandler<SPacketLaserBeam, IMessage> {
@@ -72,7 +83,7 @@ public class SPacketLaserBeam implements IMessage {
         public IMessage onMessage(SPacketLaserBeam message, MessageContext ctx) {
             Minecraft mc = Minecraft.getMinecraft();
             mc.addScheduledTask(() -> Algane.PROXY.spawnParticleLaserBeam(
-                    mc.world, message.from, message.to, message.colour, message.radius, message.hand));
+                    mc.world, message.from, message.to, message.colour, message.radius, message.ownerId, message.hand));
             return null;
         }
 

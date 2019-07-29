@@ -40,7 +40,8 @@ public class LaserGunCoreSimple implements LaserGunCore {
             Vec3d endPos = LasingUtils.laseEntity(world, pos, dir, BASE_RANGE, owner, hit -> hit.attackEntityFrom(
                     DamageHitscan.laser(owner), AlganeUtils.computeDamage(BASE_DAMAGE * energyUse, mods)));
             world.playSound(null, pos.x, pos.y, pos.z, AlganeSounds.GUN_SIMPLE_FIRE, SoundCategory.MASTER, 1F, 1F);
-            Algane.PROXY.spawnParticleLaserBeam(world, pos, endPos, BASE_COLOUR, 8, hand);
+            Algane.PROXY.spawnParticleLaserBeam(
+                    world, pos, endPos, BASE_COLOUR, 8, owner != null ? owner.getUniqueID() : null, hand);
             AlganeUtils.incrementHeat(gun, AlganeUtils.computeHeat(BASE_HEAT, mods));
             return 12;
         }
