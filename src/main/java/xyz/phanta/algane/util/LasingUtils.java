@@ -8,12 +8,12 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.*;
 import net.minecraft.world.World;
-import xyz.phanta.algane.lasergun.damage.DamageHitscan;
 
 import javax.annotation.Nullable;
 import java.util.Comparator;
 import java.util.Optional;
 import java.util.function.Consumer;
+import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 // Some code adapted from Project Crossbow, under MIT
@@ -21,13 +21,13 @@ import java.util.stream.Stream;
 public class LasingUtils {
 
     public static Vec3d laseEntity(World world, Vec3d origin, Vec3d dir, float range,
-                                   @Nullable EntityLivingBase owner, Consumer<EntityLivingBase> hitCallback) {
+                                   @Nullable EntityLivingBase exclude, Consumer<EntityLivingBase> hitCallback) {
         Vec3d endPos = origin.add(dir.scale(range));
-        RayTraceResult trace = traceLaser(world, origin, endPos);
+        RayTraceResult trace = traceLaser(world, origin, endPos, LasingUtils::isOpaque);
         if (trace != null) {
             endPos = trace.hitVec;
         }
-        Optional<EntityLivingBase> hitOpt = getFirstEntityOnLine(owner, world, origin, endPos);
+        Optional<EntityLivingBase> hitOpt = getFirstEntityOnLine(EntityLivingBase.class, exclude, world, origin, endPos);
         if (hitOpt.isPresent()) {
             EntityLivingBase hit = hitOpt.get();
             hitCallback.accept(hit);
@@ -41,17 +41,18 @@ public class LasingUtils {
         }
         return endPos;
     }
-    
-    public static Optional<EntityLivingBase> getFirstEntityOnLine(@Nullable Entity exclude, World world, Vec3d from, Vec3d to) {
-        return getEntitiesOnLine(world, from, to)
+
+    public static <E extends Entity> Optional<E> getFirstEntityOnLine(Class<E> entityType, @Nullable Entity exclude,
+                                                                      World world, Vec3d from, Vec3d to) {
+        return getEntitiesOnLine(entityType, world, from, to)
                 .filter(e -> e != exclude)
                 .map(e -> IPair.of(e, e.getDistanceSq(from.x, from.y, from.z)))
                 .min(Comparator.comparing(IPair::getB))
                 .map(IPair::getA);
     }
-    
-    public static Stream<EntityLivingBase> getEntitiesOnLine(World world, Vec3d from, Vec3d to) {
-        return world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(from, to)).stream()
+
+    public static <E extends Entity> Stream<E> getEntitiesOnLine(Class<E> entityType, World world, Vec3d from, Vec3d to) {
+        return world.getEntitiesWithinAABB(entityType, new AxisAlignedBB(from, to)).stream()
                 .filter(e -> intersectsLine(e.getEntityBoundingBox(), from, to));
     }
 
@@ -76,7 +77,7 @@ public class LasingUtils {
     }
 
     @Nullable
-    public static RayTraceResult traceLaser(World world, Vec3d initialPos, Vec3d end) {
+    public static RayTraceResult traceLaser(World world, Vec3d initialPos, Vec3d end, Predicate<IBlockState> hitTest) {
         if (!Double.isNaN(initialPos.x) && !Double.isNaN(initialPos.y) && !Double.isNaN(initialPos.z)) {
             if (!Double.isNaN(end.x) && !Double.isNaN(end.y) && !Double.isNaN(end.z)) {
                 int xf = MathHelper.floor(end.x);
@@ -89,7 +90,7 @@ public class LasingUtils {
                 RayTraceResult collision;
                 IBlockState si = world.getBlockState(blockPos);
                 collision = si.collisionRayTrace(world, blockPos, initialPos, end);
-                if (si.getCollisionBoundingBox(world, blockPos) != null && isObstructed(si)) {
+                if (si.getCollisionBoundingBox(world, blockPos) != null && hitTest.test(si)) {
                     //noinspection ConstantConditions
                     if (collision != null) {
                         collision.hitVec = collision.hitVec.subtract(end.subtract(initialPos).normalize());
@@ -161,7 +162,7 @@ public class LasingUtils {
                     collision = currentState.collisionRayTrace(world, blockPos, pos, end);
                     //noinspection ConstantConditions
                     if (collision != null
-                            && (currentState.getCollisionBoundingBox(world, blockPos) != null && isObstructed(currentState))) {
+                            && (currentState.getCollisionBoundingBox(world, blockPos) != null && hitTest.test(currentState))) {
                         return collision;
                     }
                 }
@@ -174,8 +175,12 @@ public class LasingUtils {
         }
     }
 
-    private static boolean isObstructed(IBlockState state) {
-        return state.isOpaqueCube() && state.isFullCube() && state.getBlock().canCollideCheck(state, false);
+    public static boolean isOpaque(IBlockState state) {
+        return state.isOpaqueCube() && state.isFullCube() && isImpassible(state);
+    }
+
+    public static boolean isImpassible(IBlockState state) {
+        return state.getBlock().canCollideCheck(state, false);
     }
 
     public static Vec3d findOrthogonal(Vec3d vec) {

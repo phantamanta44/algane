@@ -5,6 +5,7 @@ import net.minecraft.entity.projectile.EntityFireball;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.RayTraceResult;
@@ -19,8 +20,7 @@ import javax.annotation.Nullable;
 public class EntityShockOrb extends EntityFireball {
 
     private static final float EXPLODE_RADIUS = 3F;
-    private static final float EXPLODE_RADIUS_SQ = EXPLODE_RADIUS * EXPLODE_RADIUS;
-    private static final float MAX_KNOCKBACK = 4F;
+    private static final float MAX_KNOCKBACK = 3F;
 
     private static final DataParameter<Float> DAMAGE = EntityDataManager.createKey(EntityShockOrb.class, DataSerializers.FLOAT);
 
@@ -57,21 +57,25 @@ public class EntityShockOrb extends EntityFireball {
     protected void onImpact(RayTraceResult result) {
         if (!world.isRemote) {
             float damage = getDamage();
-            for (EntityLivingBase hit : world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(
-                    posX - EXPLODE_RADIUS, posY - EXPLODE_RADIUS, posZ - EXPLODE_RADIUS,
-                    posX + EXPLODE_RADIUS, posY + EXPLODE_RADIUS, posZ + EXPLODE_RADIUS))) {
-                float dx = (float)(hit.posX - posX), dz = (float)(hit.posZ - posZ);
-                float distSq = dx * dx + dz * dz;
-                if (distSq <= EXPLODE_RADIUS_SQ) {
-                    float capped = Math.max(distSq, 0.5F);
-                    hit.knockBack(hit, MAX_KNOCKBACK / capped, -dx, -dz);
-                    hit.attackEntityFrom(DamageBlast.shockOrb(this, shootingEntity), damage / capped);
-                }
-            }
+            detonate(EXPLODE_RADIUS, damage, DamageBlast.shockOrb(this, shootingEntity));
             world.playSound(null, posX, posY, posZ, AlganeSounds.GUN_ORB_DETONATE, SoundCategory.MASTER, 1F, 1F);
             Algane.PROXY.spawnParticleShockBlast(world, getPositionVector(), EXPLODE_RADIUS, Math.min(damage, 50F), 0xD400E7);
-            setDead();
         }
+    }
+
+    public void detonate(float radius, float damage, DamageSource damageSrc) {
+        float radiusSq = radius * radius;
+        for (EntityLivingBase hit : world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(
+                posX - radius, posY - radius, posZ - radius, posX + radius, posY + radius, posZ + radius))) {
+            float dx = (float)(hit.posX - posX), dz = (float)(hit.posZ - posZ);
+            float distSq = dx * dx + dz * dz;
+            if (distSq <= radiusSq) {
+                float capped = Math.max(distSq, 0.5F);
+                hit.knockBack(hit, MAX_KNOCKBACK / capped, -dx, -dz);
+                hit.attackEntityFrom(damageSrc, damage / capped);
+            }
+        }
+        setDead();
     }
 
     @Override

@@ -13,6 +13,10 @@ public class DamageBlast extends DamageHitscan {
         return new DamageBlast(LangConst.DMG_SRC_ORB, orb.getPositionVector(), owner);
     }
 
+    public static DamageBlast shockCombo(EntityShockOrb orb, @Nullable EntityLivingBase owner) {
+        return new DamageBlast(LangConst.DMG_SRC_COMBO, orb.getPositionVector(), owner);
+    }
+
     private final Vec3d origin;
 
     private DamageBlast(String name, Vec3d origin, @Nullable EntityLivingBase owner) {
