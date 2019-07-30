@@ -58,6 +58,8 @@ public interface LaserGunCore {
         AUTO(true, false),
         CHARGE(true, true);
 
+        public static final FiringParadigm[] VALUES = values();
+
         public final boolean requiresTick, requiresFinish;
 
         FiringParadigm(boolean requiresTick, boolean requiresFinish) {

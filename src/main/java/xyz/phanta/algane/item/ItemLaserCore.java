@@ -48,6 +48,7 @@ public class ItemLaserCore extends L9ItemSubs implements ParameterizedItemModel.
     @Override
     public void addInformation(ItemStack stack, @Nullable World world, List<String> tooltip, ITooltipFlag flag) {
         Type type = Type.getForStack(stack);
+        tooltip.add(TextFormatting.AQUA + I18n.format(LangConst.getTooltipFireMode(type.core.getFiringParadigm())));
         tooltip.add(formatRating(LangConst.TT_RATE_DAMAGE, type.ratingDamage));
         tooltip.add(formatRating(LangConst.TT_RATE_FIRERATE, type.ratingFirerate));
         tooltip.add(formatRating(LangConst.TT_RATE_RANGE, type.ratingRange));

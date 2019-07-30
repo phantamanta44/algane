@@ -4,6 +4,7 @@ import net.minecraft.util.ResourceLocation;
 import xyz.phanta.algane.Algane;
 import xyz.phanta.algane.item.ItemLaserCore;
 import xyz.phanta.algane.item.ItemLaserGun;
+import xyz.phanta.algane.lasergun.core.base.LaserGunCore;
 
 import java.util.Arrays;
 
@@ -35,11 +36,17 @@ public class LangConst {
     public static final String TT_STAT_ENERGY = TT_KEY + "stat_energy";
     public static final String TT_STAT_HEAT = TT_KEY + "stat_overheat";
     public static final String TT_FRACTION = TT_KEY + "fraction";
+    public static final String[] TT_MODES = Arrays.stream(LaserGunCore.FiringParadigm.VALUES)
+            .map(m -> TT_KEY + "mode_" + m.name().toLowerCase()).toArray(String[]::new);
     public static final String TT_RATE_DAMAGE = TT_KEY + "rate_damage";
     public static final String TT_RATE_FIRERATE = TT_KEY + "rate_firerate";
     public static final String TT_RATE_RANGE = TT_KEY + "rate_range";
     public static final String TT_KNOCKBACK = TT_KEY + "knockback";
     public static final String TT_SPLASH = TT_KEY + "splash";
+
+    public static String getTooltipFireMode(LaserGunCore.FiringParadigm mode) {
+        return TT_MODES[mode.ordinal()];
+    }
 
     private static final String TT_BTN_KEY = TT_KEY + "button.";
     public static final String TT_BTN_INSTALL = TT_BTN_KEY + "install";
