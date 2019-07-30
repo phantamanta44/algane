@@ -35,7 +35,7 @@ public class LaserGunCoreGauss extends LaserGunCoreCharge {
 
     @Override
     protected int getEnergyCost(int ticks) {
-        return (int)Math.ceil(BASE_ENERGY * COST_FACTOR * (ticks + 1));
+        return BASE_ENERGY + (int)Math.ceil(BASE_ENERGY * COST_FACTOR * ticks);
     }
 
     @Override
