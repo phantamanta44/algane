@@ -77,7 +77,7 @@ public class BlockLaserGunTable extends L9BlockStated {
             return name().toLowerCase();
         }
 
-        public L9TileEntity createTileEntity() {
+        L9TileEntity createTileEntity() {
             return tileFactory.get();
         }
 

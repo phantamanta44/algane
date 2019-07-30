@@ -1,7 +1,6 @@
 package xyz.phanta.algane.client.renderer;
 
 import io.github.phantamanta44.libnine.util.render.RenderUtils;
-import mekanism.common.PacketHandler;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;

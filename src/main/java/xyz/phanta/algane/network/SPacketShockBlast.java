@@ -53,9 +53,8 @@ public class SPacketShockBlast implements IMessage {
         @Override
         public IMessage onMessage(SPacketShockBlast message, MessageContext ctx) {
             Minecraft mc = Minecraft.getMinecraft();
-            mc.addScheduledTask(() -> {
-                Algane.PROXY.spawnParticleShockBlast(mc.world, message.pos, message.radius, message.intensity, message.colour);
-            });
+            mc.addScheduledTask(() -> Algane.PROXY.spawnParticleShockBlast(
+                    mc.world, message.pos, message.radius, message.intensity, message.colour));
             return null;
         }
 

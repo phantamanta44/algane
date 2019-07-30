@@ -36,7 +36,7 @@ public class LangConst {
     public static final String TT_STAT_ENERGY = TT_KEY + "stat_energy";
     public static final String TT_STAT_HEAT = TT_KEY + "stat_overheat";
     public static final String TT_FRACTION = TT_KEY + "fraction";
-    public static final String[] TT_MODES = Arrays.stream(LaserGunCore.FiringParadigm.VALUES)
+    private static final String[] TT_MODES = Arrays.stream(LaserGunCore.FiringParadigm.VALUES)
             .map(m -> TT_KEY + "mode_" + m.name().toLowerCase()).toArray(String[]::new);
     public static final String TT_RATE_DAMAGE = TT_KEY + "rate_damage";
     public static final String TT_RATE_FIRERATE = TT_KEY + "rate_firerate";

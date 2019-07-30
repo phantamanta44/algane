@@ -1,15 +1,8 @@
 package xyz.phanta.algane.init;
 
 import io.github.phantamanta44.libnine.InitMe;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import xyz.phanta.algane.Algane;
-
-import java.util.Collection;
-import java.util.LinkedList;
 
 public class AlganeSounds {
 

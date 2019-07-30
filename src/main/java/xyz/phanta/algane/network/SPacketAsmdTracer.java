@@ -15,11 +15,11 @@ import java.util.UUID;
 @SuppressWarnings("NullableProblems")
 public class SPacketAsmdTracer implements IMessage {
 
-    Vec3d from, to;
+    private Vec3d from, to;
     @Nullable
-    UUID ownerId;
+    private UUID ownerId;
     @Nullable
-    EnumHand hand;
+    private EnumHand hand;
 
     public SPacketAsmdTracer(Vec3d from, Vec3d to, @Nullable UUID ownerId, @Nullable EnumHand hand) {
         this.from = from;

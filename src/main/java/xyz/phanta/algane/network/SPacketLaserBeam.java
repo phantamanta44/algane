@@ -15,12 +15,12 @@ import java.util.UUID;
 @SuppressWarnings("NullableProblems")
 public class SPacketLaserBeam implements IMessage {
 
-    Vec3d from, to;
-    int colour, radius;
+    private Vec3d from, to;
+    private int colour, radius;
     @Nullable
-    UUID ownerId;
+    private UUID ownerId;
     @Nullable
-    EnumHand hand;
+    private EnumHand hand;
 
     public SPacketLaserBeam(Vec3d from, Vec3d to, int colour, int radius, @Nullable UUID ownerId, @Nullable EnumHand hand) {
         this.from = from;
