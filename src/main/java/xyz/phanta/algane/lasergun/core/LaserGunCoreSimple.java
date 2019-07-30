@@ -24,7 +24,7 @@ public class LaserGunCoreSimple implements LaserGunCore {
     private static final float BASE_DAMAGE = 4F;
     private static final float BASE_HEAT = 32F;
     private static final float BASE_RANGE = 48F;
-    private static final int BASE_COLOUR = 0x2196F3;
+    private static final int BASE_COLOUR = 0x4CAF50;
 
     @Override
     public FiringParadigm getFiringParadigm() {
