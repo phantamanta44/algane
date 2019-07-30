@@ -54,4 +54,9 @@ public class LaserGunCoreSimple implements LaserGunCore {
         return LangConst.getLaserCoreName(ItemLaserCore.Type.SIMPLE);
     }
 
+    @Override
+    public int getDisplayColour() {
+        return BASE_COLOUR;
+    }
+
 }

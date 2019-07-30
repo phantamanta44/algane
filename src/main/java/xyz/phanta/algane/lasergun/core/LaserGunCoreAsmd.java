@@ -89,4 +89,9 @@ public class LaserGunCoreAsmd implements LaserGunCore {
         return LangConst.getLaserCoreName(ItemLaserCore.Type.SHOCK);
     }
 
+    @Override
+    public int getDisplayColour() {
+        return 0x2196F3;
+    }
+
 }

@@ -61,4 +61,9 @@ public class LaserGunCoreRepeater implements LaserGunCore {
         return LangConst.getLaserCoreName(ItemLaserCore.Type.REPEATER);
     }
 
+    @Override
+    public int getDisplayColour() {
+        return BASE_COLOUR;
+    }
+
 }

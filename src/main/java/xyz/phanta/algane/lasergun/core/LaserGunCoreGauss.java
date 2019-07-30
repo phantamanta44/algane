@@ -65,4 +65,9 @@ public class LaserGunCoreGauss extends LaserGunCoreCharge {
         return LangConst.getLaserCoreName(ItemLaserCore.Type.GAUSS);
     }
 
+    @Override
+    public int getDisplayColour() {
+        return BASE_COLOUR;
+    }
+
 }

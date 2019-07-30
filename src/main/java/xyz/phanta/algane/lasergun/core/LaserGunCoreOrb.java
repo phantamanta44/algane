@@ -55,4 +55,9 @@ public class LaserGunCoreOrb extends LaserGunCoreCharge {
         return LangConst.getLaserCoreName(ItemLaserCore.Type.ORB);
     }
 
+    @Override
+    public int getDisplayColour() {
+        return 0xC300D8;
+    }
+
 }

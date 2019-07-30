@@ -32,6 +32,8 @@ public interface LaserGunCore {
 
     String getTranslationKey();
 
+    int getDisplayColour();
+
     class Impl implements LaserGunCore {
 
         @Override
@@ -48,6 +50,11 @@ public interface LaserGunCore {
         @Override
         public String getTranslationKey() {
             return "<default impl>";
+        }
+
+        @Override
+        public int getDisplayColour() {
+            return 0;
         }
 
     }
