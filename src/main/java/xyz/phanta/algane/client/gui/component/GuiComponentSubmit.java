@@ -2,8 +2,11 @@ package xyz.phanta.algane.client.gui.component;
 
 import io.github.phantamanta44.libnine.client.gui.component.GuiComponent;
 import io.github.phantamanta44.libnine.util.render.TextureRegion;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.resources.I18n;
 import xyz.phanta.algane.constant.ResConst;
+import xyz.phanta.algane.init.AlganeSounds;
 
 public class GuiComponentSubmit extends GuiComponent {
 
@@ -37,6 +40,8 @@ public class GuiComponentSubmit extends GuiComponent {
         if (mouseOver && !disabled && button == 0) {
             callback.run();
             playClickSound();
+            Minecraft.getMinecraft().getSoundHandler()
+                    .playSound(PositionedSoundRecord.getMasterRecord(AlganeSounds.MACHINE_INSTALL, 1.0F));
             return true;
         } else {
             return false;

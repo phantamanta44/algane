@@ -1,23 +1,56 @@
 package xyz.phanta.algane.init;
 
+import io.github.phantamanta44.libnine.InitMe;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import xyz.phanta.algane.Algane;
+
+import java.util.Collection;
+import java.util.LinkedList;
 
 public class AlganeSounds {
 
-    public static final SoundEvent GUN_SIMPLE_FIRE = new SoundEvent(getSndWeapon("simple.fire"));
-    public static final SoundEvent GUN_REPEATER_FIRE = new SoundEvent(getSndWeapon("repeater.fire"));
-    public static final SoundEvent GUN_SHOCK_FIRE = new SoundEvent(getSndWeapon("shock.fire"));
-    public static final SoundEvent GUN_ORB_FIRE = new SoundEvent(getSndWeapon("orb.fire"));
-    public static final SoundEvent GUN_ORB_DETONATE = new SoundEvent(getSndWeapon("orb.detonate"));
-    public static final SoundEvent GUN_ORB_CHARGE = new SoundEvent(getSndWeapon("orb.charge"));
-    public static final SoundEvent GUN_ORB_COMBO = new SoundEvent(getSndWeapon("orb.combo"));
-    public static final SoundEvent GUN_GAUSS_FIRE = new SoundEvent(getSndWeapon("gauss.fire"));
-    public static final SoundEvent GUN_GAUSS_CHARGE = new SoundEvent(getSndWeapon("gauss.charge"));
+    private static final Collection<SoundEvent> regQueue = new LinkedList<>();
 
-    private static ResourceLocation getSndWeapon(String key) {
-        return Algane.INSTANCE.newResourceLocation(Algane.MOD_ID + ".weapon." + key);
+    public static final SoundEvent MACHINE_INSTALL = getSndMachine("install");
+
+    private static SoundEvent getSndMachine(String key) {
+        return createSound("machine." + key);
+    }
+
+    public static final SoundEvent GUN_SIMPLE_FIRE = getSndWeapon("simple.fire");
+    public static final SoundEvent GUN_REPEATER_FIRE = getSndWeapon("repeater.fire");
+    public static final SoundEvent GUN_SHOCK_FIRE = getSndWeapon("shock.fire");
+    public static final SoundEvent GUN_ORB_FIRE = getSndWeapon("orb.fire");
+    public static final SoundEvent GUN_ORB_DETONATE = getSndWeapon("orb.detonate");
+    public static final SoundEvent GUN_ORB_CHARGE = getSndWeapon("orb.charge");
+    public static final SoundEvent GUN_ORB_COMBO = getSndWeapon("orb.combo");
+    public static final SoundEvent GUN_GAUSS_FIRE = getSndWeapon("gauss.fire");
+    public static final SoundEvent GUN_GAUSS_CHARGE = getSndWeapon("gauss.charge");
+
+    private static SoundEvent getSndWeapon(String key) {
+        return createSound("weapon." + key);
+    }
+
+    private static SoundEvent createSound(String key) {
+        ResourceLocation id = Algane.INSTANCE.newResourceLocation(Algane.MOD_ID + "." + key);
+        SoundEvent sound = new SoundEvent(id);
+        sound.setRegistryName(id);
+        regQueue.add(sound);
+        return sound;
+    }
+
+    @InitMe
+    public static void init() {
+        MinecraftForge.EVENT_BUS.register(new AlganeSounds());
+    }
+
+    @SubscribeEvent
+    public void onSoundRegistration(RegistryEvent.Register<SoundEvent> event) {
+        regQueue.forEach(event.getRegistry()::register);
     }
 
 }
