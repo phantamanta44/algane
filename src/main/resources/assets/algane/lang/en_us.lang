@@ -33,6 +33,11 @@ algane.tooltip.stat_energy=Energy Usage: %s
 algane.tooltip.stat_overheat=Overheat Rate: %s
 algane.tooltip.mod_weight=Magnitude: %s
 algane.tooltip.fraction=%s / %s
+algane.tooltip.rate_damage=Damage
+algane.tooltip.rate_firerate=Fire Rate
+algane.tooltip.rate_range=Range
+algane.tooltip.knockback=High Knockback
+algane.tooltip.splash=Splash Damage
 
 algane.tooltip.button.install=Install!
 algane.tooltip.button.augment=Augment!

@@ -35,6 +35,11 @@ public class LangConst {
     public static final String TT_STAT_ENERGY = TT_KEY + "stat_energy";
     public static final String TT_STAT_HEAT = TT_KEY + "stat_overheat";
     public static final String TT_FRACTION = TT_KEY + "fraction";
+    public static final String TT_RATE_DAMAGE = TT_KEY + "rate_damage";
+    public static final String TT_RATE_FIRERATE = TT_KEY + "rate_firerate";
+    public static final String TT_RATE_RANGE = TT_KEY + "rate_range";
+    public static final String TT_KNOCKBACK = TT_KEY + "knockback";
+    public static final String TT_SPLASH = TT_KEY + "splash";
 
     private static final String TT_BTN_KEY = TT_KEY + "button.";
     public static final String TT_BTN_INSTALL = TT_BTN_KEY + "install";
@@ -54,8 +59,7 @@ public class LangConst {
 
     private static final String LASER_TIER_KEY = MISC_KEY + "laser_tier.";
     private static final String[] LASER_TIER_NAMES = Arrays.stream(ItemLaserGun.Tier.VALUES)
-            .map(t -> LASER_TIER_KEY + t.name().toLowerCase())
-            .toArray(String[]::new);
+            .map(t -> LASER_TIER_KEY + t.name().toLowerCase()).toArray(String[]::new);
 
     public static String getLaserTierName(ItemLaserGun.Tier tier) {
         return LASER_TIER_NAMES[tier.ordinal()];
@@ -63,8 +67,7 @@ public class LangConst {
 
     private static final String LASER_CORE_KEY = MISC_KEY + "laser_core.";
     private static final String[] LASER_CORE_NAMES = Arrays.stream(ItemLaserCore.Type.VALUES)
-            .map(t -> LASER_CORE_KEY + t.name().toLowerCase())
-            .toArray(String[]::new);
+            .map(t -> LASER_CORE_KEY + t.name().toLowerCase()).toArray(String[]::new);
 
     public static String getLaserCoreName(ItemLaserCore.Type type) {
         return LASER_CORE_NAMES[type.ordinal()];
