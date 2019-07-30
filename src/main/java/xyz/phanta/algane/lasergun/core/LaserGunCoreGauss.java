@@ -49,7 +49,7 @@ public class LaserGunCoreGauss extends LaserGunCoreCharge {
                             @Nullable EntityLivingBase owner, @Nullable EnumHand hand, boolean offCooldown) {
         LaserGunModifier mods = AlganeUtils.computeTotalMods(gun);
         Vec3d endPos = LasingUtils.laseEntity(world, pos, dir, BASE_RANGE, owner, hit ->
-                hit.attackEntityFrom(DamageHitscan.gauss(owner),
+                hit.attackEntityFrom(DamageHitscan.gauss(owner, stack),
                         AlganeUtils.computeDamage(BASE_DAMAGE * ticks * ticks * ticks * DAMAGE_FACTOR, mods)));
         world.playSound(null, pos.x, pos.y, pos.z, AlganeSounds.GUN_GAUSS_FIRE, SoundCategory.MASTER, 1F, 1F);
         Algane.PROXY.spawnParticleLaserBeam(

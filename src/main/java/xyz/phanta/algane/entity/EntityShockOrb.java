@@ -2,6 +2,7 @@ package xyz.phanta.algane.entity;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.projectile.EntityFireball;
+import net.minecraft.item.ItemStack;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
@@ -24,15 +25,19 @@ public class EntityShockOrb extends EntityFireball {
 
     private static final DataParameter<Float> DAMAGE = EntityDataManager.createKey(EntityShockOrb.class, DataSerializers.FLOAT);
 
-    public EntityShockOrb(World world, Vec3d pos, Vec3d accel, @Nullable EntityLivingBase owner) {
+    private final ItemStack srcWeapon;
+
+    public EntityShockOrb(World world, Vec3d pos, Vec3d accel, @Nullable EntityLivingBase owner, ItemStack srcWeapon) {
         super(world, pos.x, pos.y - 0.5D, pos.z, accel.x, accel.y, accel.z);
         if (owner != null) {
             this.shootingEntity = owner;
         }
+        this.srcWeapon = srcWeapon;
     }
 
     public EntityShockOrb(World world) {
         super(world);
+        this.srcWeapon = ItemStack.EMPTY;
     }
 
     @Override
@@ -57,7 +62,7 @@ public class EntityShockOrb extends EntityFireball {
     protected void onImpact(RayTraceResult result) {
         if (!world.isRemote) {
             float damage = getDamage();
-            detonate(EXPLODE_RADIUS, damage, DamageBlast.shockOrb(this, shootingEntity));
+            detonate(EXPLODE_RADIUS, damage, DamageBlast.shockOrb(this, shootingEntity, srcWeapon));
             world.playSound(null, posX, posY, posZ, AlganeSounds.GUN_ORB_DETONATE, SoundCategory.MASTER, 1F, 1F);
             Algane.PROXY.spawnParticleShockBlast(world, getPositionVector(), EXPLODE_RADIUS, Math.min(damage, 50F), 0xD400E7);
         }

@@ -46,7 +46,7 @@ public class LaserGunCoreRepeater implements LaserGunCore {
                     dir.add(inaccU.scale(Math.cos(inaccTheta)).add(inaccV.scale(Math.sin(inaccTheta)))
                             .scale(world.rand.nextFloat() * Math.min(ticks / 120F, 0.15F))),
                     BASE_RANGE, owner, hit -> hit.attackEntityFrom(
-                            DamageHitscan.laser(owner), AlganeUtils.computeDamage(BASE_DAMAGE * energyUse, mods)));
+                            DamageHitscan.laser(owner, stack), AlganeUtils.computeDamage(BASE_DAMAGE * energyUse, mods)));
             world.playSound(null, pos.x, pos.y, pos.z, AlganeSounds.GUN_REPEATER_FIRE, SoundCategory.MASTER, 0.75F, 1F);
             Algane.PROXY.spawnParticleLaserBeam(
                     world, pos, endPos, BASE_COLOUR, 4, owner != null ? owner.getUniqueID() : null, hand);

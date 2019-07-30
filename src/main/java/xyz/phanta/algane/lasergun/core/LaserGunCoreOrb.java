@@ -41,7 +41,8 @@ public class LaserGunCoreOrb extends LaserGunCoreCharge {
     public int finishFiring(ItemStack stack, LaserGun gun, World world, Vec3d pos, Vec3d dir, int ticks,
                             @Nullable EntityLivingBase owner, @Nullable EnumHand hand, boolean offCooldown) {
         LaserGunModifier mods = AlganeUtils.computeTotalMods(gun);
-        world.spawnEntity(new EntityShockOrb(world, pos, dir, owner).init(AlganeUtils.computeDamage(BASE_DAMAGE * ticks, mods)));
+        world.spawnEntity(new EntityShockOrb(world, pos, dir, owner, stack)
+                .init(AlganeUtils.computeDamage(BASE_DAMAGE * ticks, mods)));
         world.playSound(null, pos.x, pos.y, pos.z, AlganeSounds.GUN_ORB_FIRE, SoundCategory.MASTER, 1F, 1F);
         AlganeUtils.incrementHeat(gun, AlganeUtils.computeHeat(BASE_HEAT, mods));
         Algane.PROXY.stopChargeFx(world, Objects.requireNonNull(owner));

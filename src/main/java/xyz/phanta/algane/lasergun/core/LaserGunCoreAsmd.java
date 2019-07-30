@@ -62,7 +62,7 @@ public class LaserGunCoreAsmd implements LaserGunCore {
                             EntityShockOrb hitOrb = (EntityShockOrb)hit;
                             float damage = SHOCK_COMBO_MULTIPLIER
                                     * (hitOrb.getDamage() + AlganeUtils.computeDamage(BASE_DAMAGE * energyUse, mods));
-                            hitOrb.detonate(SHOCK_COMBO_RADIUS, damage, DamageBlast.shockCombo(hitOrb, owner));
+                            hitOrb.detonate(SHOCK_COMBO_RADIUS, damage, DamageBlast.shockCombo(hitOrb, owner, stack));
                             world.playSound(null, hitOrb.posX, hitOrb.posY, hitOrb.posZ,
                                     AlganeSounds.GUN_ORB_COMBO, SoundCategory.MASTER, 1F, 1F);
                             Algane.PROXY.spawnParticleShockBlast(
@@ -70,7 +70,7 @@ public class LaserGunCoreAsmd implements LaserGunCore {
                         } else {
                             EntityLivingBase hitLiving = (EntityLivingBase)hit;
                             hitLiving.attackEntityFrom(
-                                    DamageHitscan.asmd(owner), AlganeUtils.computeDamage(BASE_DAMAGE * energyUse, mods));
+                                    DamageHitscan.asmd(owner, stack), AlganeUtils.computeDamage(BASE_DAMAGE * energyUse, mods));
                             // should probably be fine?
                             //noinspection ConstantConditions
                             hitLiving.knockBack(owner, BASE_KNOCKBACK * energyUse, -dir.x, -dir.z);
