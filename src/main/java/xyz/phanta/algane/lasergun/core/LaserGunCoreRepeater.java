@@ -1,5 +1,6 @@
 package xyz.phanta.algane.lasergun.core;
 
+import io.github.phantamanta44.libnine.util.math.LinAlUtils;
 import io.github.phantamanta44.libnine.util.math.MathUtils;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
@@ -39,7 +40,7 @@ public class LaserGunCoreRepeater implements LaserGunCore {
         LaserGunModifier mods = AlganeUtils.computeTotalMods(gun);
         float energyUse = AlganeUtils.consumeEnergy(gun, BASE_ENERGY, mods);
         if (energyUse > 0) {
-            Vec3d inaccU = LasingUtils.findOrthogonal(dir).normalize();
+            Vec3d inaccU = LinAlUtils.findOrthogonal(dir).normalize();
             Vec3d inaccV = inaccU.crossProduct(dir).normalize();
             float inaccTheta = world.rand.nextFloat() * MathUtils.PI_F * 2F;
             Vec3d endPos = LasingUtils.laseEntity(world, pos,

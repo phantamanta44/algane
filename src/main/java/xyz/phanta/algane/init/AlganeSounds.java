@@ -13,8 +13,6 @@ import java.util.LinkedList;
 
 public class AlganeSounds {
 
-    private static final Collection<SoundEvent> regQueue = new LinkedList<>();
-
     public static final SoundEvent MACHINE_INSTALL = getSndMachine("install");
 
     private static SoundEvent getSndMachine(String key) {
@@ -36,21 +34,12 @@ public class AlganeSounds {
     }
 
     private static SoundEvent createSound(String key) {
-        ResourceLocation id = Algane.INSTANCE.newResourceLocation(Algane.MOD_ID + "." + key);
-        SoundEvent sound = new SoundEvent(id);
-        sound.setRegistryName(id);
-        regQueue.add(sound);
-        return sound;
+        return Algane.INSTANCE.newSoundEvent(Algane.MOD_ID + "." + key);
     }
 
     @InitMe
     public static void init() {
-        MinecraftForge.EVENT_BUS.register(new AlganeSounds());
-    }
-
-    @SubscribeEvent
-    public void onSoundRegistration(RegistryEvent.Register<SoundEvent> event) {
-        regQueue.forEach(event.getRegistry()::register);
+        // NO-OP
     }
 
 }

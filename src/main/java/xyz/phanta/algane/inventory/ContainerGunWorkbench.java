@@ -2,6 +2,7 @@ package xyz.phanta.algane.inventory;
 
 import io.github.phantamanta44.libnine.capability.impl.L9AspectInventory;
 import io.github.phantamanta44.libnine.gui.L9Container;
+import io.github.phantamanta44.libnine.gui.slot.UnmodifiableSlot;
 import io.github.phantamanta44.libnine.util.LazyConstant;
 import io.github.phantamanta44.libnine.util.data.ByteUtils;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -14,7 +15,6 @@ import xyz.phanta.algane.lasergun.LaserGunPart;
 import xyz.phanta.algane.tile.TileGunWorkbench;
 import xyz.phanta.algane.util.AlganeUtils;
 import xyz.phanta.algane.util.DummyItemHandler;
-import xyz.phanta.algane.util.UnmodifiableSlot;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

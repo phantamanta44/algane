@@ -1,5 +1,6 @@
 package xyz.phanta.algane.util;
 
+import io.github.phantamanta44.libnine.util.helper.OptUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
@@ -24,11 +25,11 @@ public class AlganeUtils {
     }
 
     public static Optional<LaserGunCore> getLaserCore(LaserGun gun) {
-        return OptUtils.getCapOpt(gun.getCore(), AlganeCaps.LASER_GUN_CORE);
+        return OptUtils.capability(gun.getCore(), AlganeCaps.LASER_GUN_CORE);
     }
 
     public static Optional<IEnergyStorage> getLaserEnergy(LaserGun gun) {
-        return OptUtils.getCapOpt(gun.getEnergyCell(), CapabilityEnergy.ENERGY);
+        return OptUtils.capability(gun.getEnergyCell(), CapabilityEnergy.ENERGY);
     }
 
     public static LaserGunModifier computeTotalMods(LaserGun gun) {

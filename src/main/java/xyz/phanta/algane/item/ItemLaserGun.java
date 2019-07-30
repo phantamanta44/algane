@@ -4,6 +4,7 @@ import io.github.phantamanta44.libnine.capability.provider.CapabilityBroker;
 import io.github.phantamanta44.libnine.client.model.ParameterizedItemModel;
 import io.github.phantamanta44.libnine.item.L9ItemSubs;
 import io.github.phantamanta44.libnine.util.format.FormatUtils;
+import io.github.phantamanta44.libnine.util.helper.OptUtils;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityLivingBase;
@@ -30,7 +31,6 @@ import xyz.phanta.algane.lasergun.LaserGun;
 import xyz.phanta.algane.lasergun.LaserGunModifier;
 import xyz.phanta.algane.lasergun.core.base.LaserGunCore;
 import xyz.phanta.algane.util.AlganeUtils;
-import xyz.phanta.algane.util.OptUtils;
 import xyz.phanta.algane.util.TooltipUtils;
 
 import javax.annotation.Nullable;
@@ -64,8 +64,8 @@ public class ItemLaserGun extends L9ItemSubs implements TickingItem, Parameteriz
 
     @Override
     public boolean canContinueUsing(ItemStack oldStack, ItemStack newStack) {
-        return OptUtils.getCapOpt(newStack, AlganeCaps.LASER_GUN)
-                .flatMap(gun -> OptUtils.getCapOpt(oldStack, AlganeCaps.LASER_GUN)
+        return OptUtils.capability(newStack, AlganeCaps.LASER_GUN)
+                .flatMap(gun -> OptUtils.capability(oldStack, AlganeCaps.LASER_GUN)
                         .map(laserGun -> laserGun.areBuildsEqual(gun)))
                 .orElse(false);
     }
@@ -230,7 +230,7 @@ public class ItemLaserGun extends L9ItemSubs implements TickingItem, Parameteriz
         }
 
         private Optional<NBTTagCompound> getCoreTag() {
-            return OptUtils.getTagOpt(stack).map(tag -> tag.getCompoundTag("Core"));
+            return OptUtils.stackTag(stack).map(tag -> tag.getCompoundTag("Core"));
         }
 
         @Override
@@ -240,7 +240,7 @@ public class ItemLaserGun extends L9ItemSubs implements TickingItem, Parameteriz
 
         @Override
         public ItemStack getEnergyCell() {
-            return OptUtils.getTagOpt(stack)
+            return OptUtils.stackTag(stack)
                     .map(tag -> new ItemStack(tag.getCompoundTag("EnergyCell")))
                     .orElse(ItemStack.EMPTY);
         }
@@ -256,7 +256,7 @@ public class ItemLaserGun extends L9ItemSubs implements TickingItem, Parameteriz
         }
 
         private Optional<NBTTagList> getModifiersTag() {
-            return OptUtils.getTagOpt(stack).map(tag -> tag.getTagList("Modifiers", Constants.NBT.TAG_COMPOUND));
+            return OptUtils.stackTag(stack).map(tag -> tag.getTagList("Modifiers", Constants.NBT.TAG_COMPOUND));
         }
 
         @Override
@@ -283,7 +283,7 @@ public class ItemLaserGun extends L9ItemSubs implements TickingItem, Parameteriz
 
         @Override
         public float getOverheat() {
-            return OptUtils.getTagOpt(stack)
+            return OptUtils.stackTag(stack)
                     .map(tag -> tag.getFloat("Heat"))
                     .orElse(0F);
         }
@@ -295,7 +295,7 @@ public class ItemLaserGun extends L9ItemSubs implements TickingItem, Parameteriz
 
         @Override
         public boolean isHeatLocked() {
-            return OptUtils.getTagOpt(stack)
+            return OptUtils.stackTag(stack)
                     .map(tag -> tag.getBoolean("HeatLock"))
                     .orElse(false);
         }
