@@ -24,6 +24,7 @@ public class LaserGunCoreOrb extends LaserGunCoreCharge {
     private static final int BASE_ENERGY = 100;
     private static final float BASE_DAMAGE = 0.25F;
     private static final float BASE_HEAT = 64F;
+    private static final float BASE_RECOIL = 0.25F;
 
     @Override
     protected int getEnergyCost(int ticks) {
@@ -44,6 +45,7 @@ public class LaserGunCoreOrb extends LaserGunCoreCharge {
         world.playSound(null, pos.x, pos.y, pos.z, AlganeSounds.GUN_ORB_FIRE, SoundCategory.MASTER, 1F, 1F);
         AlganeUtils.incrementHeat(gun, AlganeUtils.computeHeat(BASE_HEAT, mods));
         Algane.PROXY.stopChargeFx(world, Objects.requireNonNull(owner));
+        AlganeUtils.applyRecoilKnockback(owner, BASE_RECOIL, dir);
         return 8;
     }
 

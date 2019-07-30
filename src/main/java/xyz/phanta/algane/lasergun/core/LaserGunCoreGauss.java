@@ -27,6 +27,7 @@ public class LaserGunCoreGauss extends LaserGunCoreCharge {
     private static final float BASE_RANGE = 64F;
     private static final float BASE_HEAT = 75F;
     private static final int BASE_COLOUR = 0xE1C117;
+    private static final float BASE_RECOIL = 0.32F;
 
     private static final float COST_FACTOR = 0.08F;
     private static final float EQ_TIME = 40F;
@@ -55,6 +56,7 @@ public class LaserGunCoreGauss extends LaserGunCoreCharge {
                 world, pos, endPos, BASE_COLOUR, 16, owner != null ? owner.getUniqueID() : null, hand);
         AlganeUtils.incrementHeat(gun, AlganeUtils.computeHeat(BASE_HEAT, mods));
         Algane.PROXY.stopChargeFx(world, Objects.requireNonNull(owner));
+        AlganeUtils.applyRecoilKnockback(owner, BASE_RECOIL, dir);
         return 20;
     }
 

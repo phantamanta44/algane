@@ -1,9 +1,11 @@
 package xyz.phanta.algane.util;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumHandSide;
+import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
 import xyz.phanta.algane.init.AlganeCaps;
@@ -11,6 +13,7 @@ import xyz.phanta.algane.lasergun.LaserGun;
 import xyz.phanta.algane.lasergun.LaserGunModifier;
 import xyz.phanta.algane.lasergun.core.base.LaserGunCore;
 
+import javax.annotation.Nullable;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -99,6 +102,15 @@ public class AlganeUtils {
         return hand == EnumHand.OFF_HAND
                 ? Minecraft.getMinecraft().player.getPrimaryHand().opposite()
                 : Minecraft.getMinecraft().player.getPrimaryHand();
+    }
+    
+    public static void applyRecoilKnockback(@Nullable EntityLivingBase entity, float magnitude, Vec3d dir) {
+        if (entity != null) {
+            entity.motionX += -magnitude * dir.x;
+            entity.motionY += -magnitude * dir.y;
+            entity.motionZ += -magnitude * dir.z;
+            entity.isAirBorne = entity.velocityChanged = true;
+        }
     }
 
 }
