@@ -16,6 +16,10 @@ public class DamageHitscan extends EntityDamageSource {
         return new DamageHitscan(LangConst.DMG_SRC_ASMD, owner);
     }
 
+    public static DamageHitscan gauss(@Nullable EntityLivingBase owner) {
+        return new DamageHitscan(LangConst.DMG_SRC_GAUSS, owner);
+    }
+
     protected DamageHitscan(String name, @Nullable EntityLivingBase owner) {
         super(name, owner);
         setProjectile();

@@ -3,17 +3,12 @@ package xyz.phanta.algane.item;
 import io.github.phantamanta44.libnine.capability.provider.CapabilityBroker;
 import io.github.phantamanta44.libnine.client.model.ParameterizedItemModel;
 import io.github.phantamanta44.libnine.item.L9ItemSubs;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import xyz.phanta.algane.constant.LangConst;
 import xyz.phanta.algane.init.AlganeCaps;
 import xyz.phanta.algane.init.AlganeItems;
-import xyz.phanta.algane.lasergun.LaserGun;
 import xyz.phanta.algane.lasergun.core.*;
 
 import javax.annotation.Nullable;
@@ -42,29 +37,9 @@ public class ItemLaserCore extends L9ItemSubs implements ParameterizedItemModel.
         REPEATER(new LaserGunCoreRepeater()),
         SHOCK(new LaserGunCoreAsmd()),
         ORB(new LaserGunCoreOrb()),
-        GAUSS(new LaserGunCoreNoop()); // TODO finish
+        GAUSS(new LaserGunCoreGauss());
         // TODO maybe some kind of "dispersion" shotgun
         // TODO maybe some kind of heat gun
-
-        private static class LaserGunCoreNoop implements LaserGunCore {
-
-            @Override
-            public FiringParadigm getFiringParadigm() {
-                return FiringParadigm.SEMI_AUTO;
-            }
-
-            @Override
-            public int fire(ItemStack stack, LaserGun gun, World world, Vec3d pos, Vec3d dir, int ticks,
-                            @Nullable EntityLivingBase owner, @Nullable EnumHand hand) {
-                return 8;
-            }
-
-            @Override
-            public String getTranslationKey() {
-                return "NOOP";
-            }
-
-        }
 
         public static final Type[] VALUES = values();
 

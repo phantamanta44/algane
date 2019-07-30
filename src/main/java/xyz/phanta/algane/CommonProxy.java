@@ -64,6 +64,12 @@ public class CommonProxy {
         }
     }
 
+    public void playGaussChargeFx(World world, EntityLivingBase player) {
+        if (player instanceof EntityPlayerMP) {
+            Algane.INSTANCE.getNetworkHandler().sendTo(new SPacketChargeSound((byte)2), (EntityPlayerMP)player);
+        }
+    }
+
     public void stopChargeFx(World world, EntityLivingBase player) {
         if (player instanceof EntityPlayerMP) {
             Algane.INSTANCE.getNetworkHandler().sendTo(new SPacketChargeSound((byte)0), (EntityPlayerMP)player);

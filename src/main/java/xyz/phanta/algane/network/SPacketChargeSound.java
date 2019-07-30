@@ -44,6 +44,9 @@ public class SPacketChargeSound implements IMessage {
                 case 1:
                     mc.addScheduledTask(() -> Algane.PROXY.playOrbChargeFx(mc.world, mc.player));
                     break;
+                case 2:
+                    mc.addScheduledTask(() -> Algane.PROXY.playGaussChargeFx(mc.world, mc.player));
+                    break;
             }
             return null;
         }

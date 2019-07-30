@@ -70,6 +70,7 @@ public class LangConst {
         return LASER_CORE_NAMES[type.ordinal()];
     }
 
+    // TODO localize
     public static final String DMG_SRC_LASER = "alganeLaser";
     public static final String DMG_SRC_ASMD = "alganeAsmd";
     public static final String DMG_SRC_ORB = "alganeOrb";

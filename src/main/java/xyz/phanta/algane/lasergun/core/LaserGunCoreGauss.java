@@ -8,48 +8,59 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import xyz.phanta.algane.Algane;
 import xyz.phanta.algane.constant.LangConst;
-import xyz.phanta.algane.entity.EntityShockOrb;
 import xyz.phanta.algane.init.AlganeSounds;
 import xyz.phanta.algane.item.ItemLaserCore;
 import xyz.phanta.algane.lasergun.LaserGun;
 import xyz.phanta.algane.lasergun.LaserGunModifier;
 import xyz.phanta.algane.lasergun.core.base.LaserGunCoreCharge;
+import xyz.phanta.algane.lasergun.damage.DamageHitscan;
 import xyz.phanta.algane.util.AlganeUtils;
+import xyz.phanta.algane.util.LasingUtils;
 
 import javax.annotation.Nullable;
 import java.util.Objects;
 
-public class LaserGunCoreOrb extends LaserGunCoreCharge {
+public class LaserGunCoreGauss extends LaserGunCoreCharge {
 
     private static final int BASE_ENERGY = 100;
-    private static final float BASE_DAMAGE = 0.25F;
-    private static final float BASE_HEAT = 64F;
+    private static final float BASE_DAMAGE = 0.1F;
+    private static final float BASE_RANGE = 64F;
+    private static final float BASE_HEAT = 75F;
+    private static final int BASE_COLOUR = 0xE1C117;
+
+    private static final float COST_FACTOR = 0.08F;
+    private static final float EQ_TIME = 40F;
+    private static final float DAMAGE_FACTOR = (EQ_TIME + 1F) * COST_FACTOR / (2 * EQ_TIME * EQ_TIME);
 
     @Override
     protected int getEnergyCost(int ticks) {
-        return BASE_ENERGY;
+        return (int)Math.ceil(BASE_ENERGY * COST_FACTOR * (ticks + 1));
     }
 
     @Override
     protected void onStartCharge(ItemStack stack, LaserGun gun, World world, Vec3d pos, Vec3d dir,
                                  EntityLivingBase owner, EnumHand hand) {
-        Algane.PROXY.playOrbChargeFx(world, owner);
+        Algane.PROXY.playGaussChargeFx(world, owner);
     }
 
     @Override
     public int finishFiring(ItemStack stack, LaserGun gun, World world, Vec3d pos, Vec3d dir, int ticks,
                             @Nullable EntityLivingBase owner, @Nullable EnumHand hand, boolean offCooldown) {
         LaserGunModifier mods = AlganeUtils.computeTotalMods(gun);
-        world.spawnEntity(new EntityShockOrb(world, pos, dir, owner).init(AlganeUtils.computeDamage(BASE_DAMAGE * ticks, mods)));
-        world.playSound(null, pos.x, pos.y, pos.z, AlganeSounds.GUN_ORB_FIRE, SoundCategory.MASTER, 1F, 1F);
+        Vec3d endPos = LasingUtils.laseEntity(world, pos, dir, BASE_RANGE, owner, hit ->
+                hit.attackEntityFrom(DamageHitscan.laser(owner),
+                        AlganeUtils.computeDamage(BASE_DAMAGE * ticks * ticks * ticks * DAMAGE_FACTOR, mods)));
+        world.playSound(null, pos.x, pos.y, pos.z, AlganeSounds.GUN_GAUSS_FIRE, SoundCategory.MASTER, 1F, 1F);
+        Algane.PROXY.spawnParticleLaserBeam(
+                world, pos, endPos, BASE_COLOUR, 16, owner != null ? owner.getUniqueID() : null, hand);
         AlganeUtils.incrementHeat(gun, AlganeUtils.computeHeat(BASE_HEAT, mods));
         Algane.PROXY.stopChargeFx(world, Objects.requireNonNull(owner));
-        return 8;
+        return 20;
     }
 
     @Override
     public String getTranslationKey() {
-        return LangConst.getLaserCoreName(ItemLaserCore.Type.ORB);
+        return LangConst.getLaserCoreName(ItemLaserCore.Type.GAUSS);
     }
 
 }

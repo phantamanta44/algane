@@ -83,6 +83,15 @@ public class ClientProxy extends CommonProxy {
     }
 
     @Override
+    public void playGaussChargeFx(World world, EntityLivingBase player) {
+        if (world.isRemote) {
+            chargeHandler.playChargeSound(AlganeSounds.GUN_GAUSS_CHARGE);
+        } else {
+            super.playGaussChargeFx(world, player);
+        }
+    }
+
+    @Override
     public void stopChargeFx(World world, EntityLivingBase player) {
         if (world.isRemote) {
             chargeHandler.stopChargeSound();
