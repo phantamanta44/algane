@@ -24,11 +24,11 @@ public class RenderShockOrb extends Render<EntityShockOrb> {
         ResConst.PARTICLE_ORB.bind();
         if (entity.getDamage() > 20F) {
             GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE);
-            RenderUtils.renderWorldOrtho(x, y, z, 1F, 1F, (entity.ticksExisted + partialTicks) * 20F);
+            RenderUtils.renderWorldOrtho(x, y + 0.5D, z, 1F, 1F, (entity.ticksExisted + partialTicks) * 20F);
             GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
         } else {
             GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
-            RenderUtils.renderWorldOrtho(x, y, z, 1F, 1F, (entity.ticksExisted + partialTicks) * 10F);
+            RenderUtils.renderWorldOrtho(x, y + 0.5D, z, 1F, 1F, (entity.ticksExisted + partialTicks) * 10F);
         }
         GlStateManager.disableBlend();
         GlStateManager.enableLighting();

@@ -25,7 +25,7 @@ public class EntityShockOrb extends EntityFireball {
     private static final DataParameter<Float> DAMAGE = EntityDataManager.createKey(EntityShockOrb.class, DataSerializers.FLOAT);
 
     public EntityShockOrb(World world, Vec3d pos, Vec3d accel, @Nullable EntityLivingBase owner) {
-        super(world, pos.x, pos.y, pos.z, accel.x, accel.y, accel.z);
+        super(world, pos.x, pos.y - 0.5D, pos.z, accel.x, accel.y, accel.z);
         if (owner != null) {
             this.shootingEntity = owner;
         }
