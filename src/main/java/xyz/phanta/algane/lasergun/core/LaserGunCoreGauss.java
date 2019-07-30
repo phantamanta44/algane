@@ -7,6 +7,7 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import xyz.phanta.algane.Algane;
+import xyz.phanta.algane.AlganeConfig;
 import xyz.phanta.algane.constant.LangConst;
 import xyz.phanta.algane.init.AlganeSounds;
 import xyz.phanta.algane.item.ItemLaserCore;
@@ -22,20 +23,12 @@ import java.util.Objects;
 
 public class LaserGunCoreGauss extends LaserGunCoreCharge {
 
-    private static final int BASE_ENERGY = 100;
-    private static final float BASE_DAMAGE = 0.1F;
-    private static final float BASE_RANGE = 64F;
-    private static final float BASE_HEAT = 75F;
     private static final int BASE_COLOUR = 0xE1C117;
-    private static final float BASE_RECOIL = 0.32F;
-
-    private static final float COST_FACTOR = 0.08F;
-    private static final float EQ_TIME = 40F;
-    private static final float DAMAGE_FACTOR = (EQ_TIME + 1F) * COST_FACTOR / (2 * EQ_TIME * EQ_TIME);
 
     @Override
     protected int getEnergyCost(int ticks) {
-        return BASE_ENERGY + (int)Math.ceil(BASE_ENERGY * COST_FACTOR * ticks);
+        return AlganeConfig.coreGauss.baseEnergyUse
+                + (int)Math.ceil(AlganeConfig.coreGauss.baseEnergyUse * AlganeConfig.coreGauss.costFactor * ticks);
     }
 
     @Override
@@ -48,16 +41,16 @@ public class LaserGunCoreGauss extends LaserGunCoreCharge {
     public int finishFiring(ItemStack stack, LaserGun gun, World world, Vec3d pos, Vec3d dir, int ticks,
                             @Nullable EntityLivingBase owner, @Nullable EnumHand hand, boolean offCooldown) {
         LaserGunModifier mods = AlganeUtils.computeTotalMods(gun);
-        Vec3d endPos = LasingUtils.laseEntity(world, pos, dir, BASE_RANGE, owner, hit ->
-                hit.attackEntityFrom(DamageHitscan.gauss(owner, stack),
-                        AlganeUtils.computeDamage(BASE_DAMAGE * ticks * ticks * ticks * DAMAGE_FACTOR, mods)));
+        Vec3d endPos = LasingUtils.laseEntity(world, pos, dir, (float)AlganeConfig.coreGauss.maxRange, owner,
+                hit -> hit.attackEntityFrom(DamageHitscan.gauss(owner, stack),
+                        AlganeUtils.computeDamage((float)AlganeConfig.coreGauss.baseDamage * ticks * ticks * ticks, mods)));
         world.playSound(null, pos.x, pos.y, pos.z, AlganeSounds.GUN_GAUSS_FIRE, SoundCategory.MASTER, 1F, 1F);
         Algane.PROXY.spawnParticleLaserBeam(
                 world, pos, endPos, BASE_COLOUR, 16, owner != null ? owner.getUniqueID() : null, hand);
-        AlganeUtils.incrementHeat(gun, AlganeUtils.computeHeat(BASE_HEAT, mods));
+        AlganeUtils.incrementHeat(gun, AlganeUtils.computeHeat((float)AlganeConfig.coreGauss.baseHeat, mods));
         Algane.PROXY.stopChargeFx(world, Objects.requireNonNull(owner));
-        AlganeUtils.applyRecoilKnockback(owner, BASE_RECOIL, dir);
-        return 20;
+        AlganeUtils.applyRecoilKnockback(owner, (float)AlganeConfig.coreGauss.recoilFactor, dir);
+        return AlganeConfig.coreGauss.shotDelay;
     }
 
     @Override

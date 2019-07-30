@@ -13,6 +13,7 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import xyz.phanta.algane.Algane;
+import xyz.phanta.algane.AlganeConfig;
 import xyz.phanta.algane.init.AlganeSounds;
 import xyz.phanta.algane.lasergun.damage.DamageBlast;
 
@@ -21,7 +22,6 @@ import javax.annotation.Nullable;
 public class EntityShockOrb extends EntityFireball {
 
     private static final float EXPLODE_RADIUS = 3F;
-    private static final float MAX_KNOCKBACK = 3F;
 
     private static final DataParameter<Float> DAMAGE = EntityDataManager.createKey(EntityShockOrb.class, DataSerializers.FLOAT);
 
@@ -76,7 +76,7 @@ public class EntityShockOrb extends EntityFireball {
             float distSq = dx * dx + dz * dz;
             if (distSq <= radiusSq) {
                 float capped = Math.max(distSq, 0.5F);
-                hit.knockBack(hit, MAX_KNOCKBACK / capped, -dx, -dz);
+                hit.knockBack(hit, (float)AlganeConfig.coreOrb.knockbackFactor / capped, -dx, -dz);
                 hit.attackEntityFrom(damageSrc, damage / capped);
             }
         }

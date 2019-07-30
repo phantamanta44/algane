@@ -11,6 +11,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import xyz.phanta.algane.client.AlganeClientConfig;
 import xyz.phanta.algane.constant.LangConst;
 import xyz.phanta.algane.init.AlganeCaps;
 import xyz.phanta.algane.init.AlganeItems;
@@ -49,9 +50,11 @@ public class ItemLaserCore extends L9ItemSubs implements ParameterizedItemModel.
     public void addInformation(ItemStack stack, @Nullable World world, List<String> tooltip, ITooltipFlag flag) {
         Type type = Type.getForStack(stack);
         tooltip.add(TextFormatting.AQUA + I18n.format(LangConst.getTooltipFireMode(type.core.getFiringParadigm())));
-        tooltip.add(formatRating(LangConst.TT_RATE_DAMAGE, type.ratingDamage));
-        tooltip.add(formatRating(LangConst.TT_RATE_FIRERATE, type.ratingFirerate));
-        tooltip.add(formatRating(LangConst.TT_RATE_RANGE, type.ratingRange));
+        if (AlganeClientConfig.showCoreRatings) {
+            tooltip.add(formatRating(LangConst.TT_RATE_DAMAGE, type.ratingDamage));
+            tooltip.add(formatRating(LangConst.TT_RATE_FIRERATE, type.ratingFirerate));
+            tooltip.add(formatRating(LangConst.TT_RATE_RANGE, type.ratingRange));
+        }
         switch (type) {
             case SHOCK:
                 tooltip.add(formatSpecial(LangConst.TT_KNOCKBACK));
