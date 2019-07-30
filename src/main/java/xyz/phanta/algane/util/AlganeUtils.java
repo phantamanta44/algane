@@ -9,7 +9,7 @@ import net.minecraftforge.energy.IEnergyStorage;
 import xyz.phanta.algane.init.AlganeCaps;
 import xyz.phanta.algane.lasergun.LaserGun;
 import xyz.phanta.algane.lasergun.LaserGunModifier;
-import xyz.phanta.algane.lasergun.core.LaserGunCore;
+import xyz.phanta.algane.lasergun.core.base.LaserGunCore;
 
 import java.util.Objects;
 import java.util.Optional;

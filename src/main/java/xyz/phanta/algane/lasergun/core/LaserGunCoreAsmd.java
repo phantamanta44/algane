@@ -16,6 +16,7 @@ import xyz.phanta.algane.init.AlganeSounds;
 import xyz.phanta.algane.item.ItemLaserCore;
 import xyz.phanta.algane.lasergun.LaserGun;
 import xyz.phanta.algane.lasergun.LaserGunModifier;
+import xyz.phanta.algane.lasergun.core.base.LaserGunCore;
 import xyz.phanta.algane.lasergun.damage.DamageBlast;
 import xyz.phanta.algane.lasergun.damage.DamageHitscan;
 import xyz.phanta.algane.util.AlganeUtils;

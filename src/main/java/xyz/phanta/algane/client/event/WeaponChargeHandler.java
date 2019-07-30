@@ -13,7 +13,7 @@ import xyz.phanta.algane.client.sound.ChargingSound;
 import xyz.phanta.algane.constant.ResConst;
 import xyz.phanta.algane.init.AlganeCaps;
 import xyz.phanta.algane.lasergun.LaserGun;
-import xyz.phanta.algane.lasergun.core.LaserGunCore;
+import xyz.phanta.algane.lasergun.core.base.LaserGunCore;
 import xyz.phanta.algane.util.AlganeUtils;
 
 import javax.annotation.Nullable;

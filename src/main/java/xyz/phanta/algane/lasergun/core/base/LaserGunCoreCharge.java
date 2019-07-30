@@ -7,7 +7,6 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import xyz.phanta.algane.lasergun.LaserGun;
 import xyz.phanta.algane.lasergun.LaserGunModifier;
-import xyz.phanta.algane.lasergun.core.LaserGunCore;
 import xyz.phanta.algane.util.AlganeUtils;
 
 import javax.annotation.Nullable;

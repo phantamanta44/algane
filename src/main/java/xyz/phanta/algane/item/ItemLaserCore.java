@@ -15,6 +15,7 @@ import xyz.phanta.algane.constant.LangConst;
 import xyz.phanta.algane.init.AlganeCaps;
 import xyz.phanta.algane.init.AlganeItems;
 import xyz.phanta.algane.lasergun.core.*;
+import xyz.phanta.algane.lasergun.core.base.LaserGunCore;
 
 import javax.annotation.Nullable;
 import java.util.List;

@@ -1,4 +1,4 @@
-package xyz.phanta.algane.lasergun.core;
+package xyz.phanta.algane.lasergun.core.base;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;

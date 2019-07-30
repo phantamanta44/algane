@@ -28,7 +28,7 @@ import xyz.phanta.algane.init.AlganeItems;
 import xyz.phanta.algane.item.base.TickingItem;
 import xyz.phanta.algane.lasergun.LaserGun;
 import xyz.phanta.algane.lasergun.LaserGunModifier;
-import xyz.phanta.algane.lasergun.core.LaserGunCore;
+import xyz.phanta.algane.lasergun.core.base.LaserGunCore;
 import xyz.phanta.algane.util.AlganeUtils;
 import xyz.phanta.algane.util.OptUtils;
 import xyz.phanta.algane.util.TooltipUtils;

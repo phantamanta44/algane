@@ -7,7 +7,7 @@ import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import xyz.phanta.algane.lasergun.LaserGun;
 import xyz.phanta.algane.lasergun.LaserGunModifier;
-import xyz.phanta.algane.lasergun.core.LaserGunCore;
+import xyz.phanta.algane.lasergun.core.base.LaserGunCore;
 
 @SuppressWarnings("NullableProblems")
 public class AlganeCaps {
