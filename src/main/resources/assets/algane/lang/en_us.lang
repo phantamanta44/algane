@@ -20,11 +20,17 @@ item.algane:misc2.name=Rare Modifier Kit
 
 tile.algane:laser_workbench0.name=Photonic Armament Assembler
 tile.algane:laser_workbench1.name=Modifier Manipulator
+tile.algane:laser_turret0.name=Basic Laser Turret Casing
+tile.algane:laser_turret1.name=Advanced Laser Turret Casing
+tile.algane:laser_turret2.name=Elite Laser Turret Casing
+tile.algane:laser_turret3.name=Ultimate Laser Turret Casing
 
 algane.gui.laser_workbench=Photonic Armament Assembler
 algane.gui.mod_workbench=Modifier Manipulator
+algane.gui.laser_turret=Laser Turret Casing
 
 algane.tooltip.energy=Energy: %s
+algane.tooltip.heat=Heat: %s
 algane.tooltip.mod_power=Power Modifier: %s
 algane.tooltip.mod_efficiency=Efficiency Modifier: %s
 algane.tooltip.mod_overheat=Overheat Modifier: %s
@@ -63,6 +69,8 @@ algane.misc.laser_core.repeater=Laser Repeater
 algane.misc.laser_core.shock=Shock Rifle
 algane.misc.laser_core.orb=Shock Orb Projector
 algane.misc.laser_core.gauss=Tau Cannon
+
+algane.misc.laser_postfix.turret=%s Turret
 
 death.attack.alganeLaser=%1$s absorbed too many photons
 death.attack.alganeLaser.player=%1$s was lased by %2$s

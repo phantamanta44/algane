@@ -33,6 +33,8 @@ public class BlockLaserGunTable extends L9BlockStated {
 
     public BlockLaserGunTable() {
         super(LangConst.BLOCK_LASER_GUN_TABLE, Material.IRON);
+        setHardness(4F);
+        setResistance(5F);
         setTileFactory((w, m) -> Type.getForMeta(m).createTileEntity());
     }
 
@@ -49,7 +51,9 @@ public class BlockLaserGunTable extends L9BlockStated {
     @Override
     public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player,
                                     EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-        Algane.INSTANCE.getGuiHandler().openGui(player, state.getValue(TYPE).guiType, new WorldBlockPos(world, pos));
+        if (!world.isRemote) {
+            Algane.INSTANCE.getGuiHandler().openGui(player, state.getValue(TYPE).guiType, new WorldBlockPos(world, pos));
+        }
         return true;
     }
 

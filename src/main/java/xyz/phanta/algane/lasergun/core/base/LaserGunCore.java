@@ -26,10 +26,6 @@ public interface LaserGunCore {
         return 0;
     }
 
-    default boolean isMachineOperable() {
-        return !getFiringParadigm().requiresFinish;
-    }
-
     String getTranslationKey();
 
     int getDisplayColour();

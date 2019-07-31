@@ -88,6 +88,19 @@ public class AlganeUtils {
         }
     }
 
+    public static void coolDown(LaserGun gun) {
+        float heat = gun.getOverheat();
+        if (heat > 0F) {
+            heat -= 1F;
+            if (heat <= 0F) {
+                gun.setOverheat(0F);
+                gun.setHeatLocked(false);
+            } else {
+                gun.setOverheat(heat);
+            }
+        }
+    }
+
     public static float consumeEnergy(LaserGun gun, int baseEnergy, LaserGunModifier totalMods) {
         int energyCost = AlganeUtils.computeEnergy(baseEnergy, totalMods);
         //noinspection OptionalGetWithoutIsPresent

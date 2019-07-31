@@ -10,9 +10,11 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.phanta.algane.Algane;
 import xyz.phanta.algane.client.gui.GuiGunWorkbench;
+import xyz.phanta.algane.client.gui.GuiLaserTurret;
 import xyz.phanta.algane.client.gui.GuiModWorkbench;
 import xyz.phanta.algane.constant.LangConst;
 import xyz.phanta.algane.inventory.ContainerGunWorkbench;
+import xyz.phanta.algane.inventory.ContainerLaserTurret;
 import xyz.phanta.algane.inventory.ContainerModWorkbench;
 
 import java.util.Objects;
@@ -23,6 +25,8 @@ public class AlganeGuis {
             = new GuiIdentity<>(LangConst.INV_LASER_GUN_TABLE, ContainerGunWorkbench.class);
     public static final GuiIdentity<ContainerModWorkbench, GuiModWorkbench> MODIFIER_TABLE
             = new GuiIdentity<>(LangConst.INV_MODIFIER_TABLE, ContainerModWorkbench.class);
+    public static final GuiIdentity<ContainerLaserTurret, GuiLaserTurret> LASER_TURRET
+            = new GuiIdentity<>(LangConst.INV_LASER_TURRET, ContainerLaserTurret.class);
 
     @InitMe(Algane.MOD_ID)
     public static void init() {
@@ -30,6 +34,8 @@ public class AlganeGuis {
                 (p, w, x, y, z) -> new ContainerGunWorkbench(p.inventory, getTile(w, x, y, z)));
         LibNine.PROXY.getRegistrar().queueGuiServerReg(MODIFIER_TABLE,
                 (p, w, x, y, z) -> new ContainerModWorkbench(p.inventory, getTile(w, x, y, z)));
+        LibNine.PROXY.getRegistrar().queueGuiServerReg(LASER_TURRET,
+                (p, w, x, y, z) -> new ContainerLaserTurret(p.inventory, getTile(w, x, y, z)));
     }
 
     @InitMe(value = Algane.MOD_ID, sides = { Side.CLIENT })
@@ -37,6 +43,7 @@ public class AlganeGuis {
     public static void clientInit() {
         LibNine.PROXY.getRegistrar().queueGuiClientReg(LASER_GUN_TABLE, (c, p, w, x, y, z) -> new GuiGunWorkbench(c));
         LibNine.PROXY.getRegistrar().queueGuiClientReg(MODIFIER_TABLE, (c, p, w, x, y, z) -> new GuiModWorkbench(c));
+        LibNine.PROXY.getRegistrar().queueGuiClientReg(LASER_TURRET, (c, p, w, x, y, z) -> new GuiLaserTurret(c));
     }
 
     @SuppressWarnings("unchecked")

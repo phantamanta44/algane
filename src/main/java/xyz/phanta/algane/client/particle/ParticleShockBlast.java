@@ -62,6 +62,7 @@ public class ParticleShockBlast extends Particle {
         }
 
         GlStateManager.disableLighting();
+        RenderUtils.enableFullBrightness();
         GlStateManager.enableBlend();
         GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE);
         ResConst.PARTICLE_BLAST_RING.bind();
@@ -87,6 +88,7 @@ public class ParticleShockBlast extends Particle {
 
         GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
         GlStateManager.disableBlend();
+        RenderUtils.restoreLightmap();
         GlStateManager.enableLighting();
     }
 

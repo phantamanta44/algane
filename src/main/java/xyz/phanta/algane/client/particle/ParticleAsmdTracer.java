@@ -49,6 +49,7 @@ public class ParticleAsmdTracer extends ParticleBeam {
         GlStateManager.enableBlend();
         GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
         GlStateManager.pushMatrix();
+        GlStateManager.disableLighting();
         RenderUtils.enableFullBrightness();
     }
 
@@ -67,6 +68,7 @@ public class ParticleAsmdTracer extends ParticleBeam {
         }
 
         RenderUtils.restoreLightmap();
+        GlStateManager.enableLighting();
         GlStateManager.popMatrix();
         GlStateManager.color(1F, 1F, 1F, 1F);
         GlStateManager.disableBlend();

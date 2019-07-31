@@ -9,6 +9,10 @@ public class ResConst {
 
     public static final ResourceLocation GUI_LASER_GUN_TABLE = getGuiResource("laser_workbench");
     public static final ResourceLocation GUI_MODIFIER_TABLE = getGuiResource("mod_workbench");
+    public static final TextureResource GUI_LASER_TURRET = new TextureResource(getGuiResource("laser_turret"), 256, 256);
+    public static final TextureRegion GUI_LASER_TURRET_ENERGY = GUI_LASER_TURRET.getRegion(0, 166, 118, 16);
+    public static final TextureRegion GUI_LASER_TURRET_HEAT = GUI_LASER_TURRET.getRegion(0, 182, 118, 3);
+    public static final TextureRegion GUI_LASER_TURRET_HEAT_LOCK = GUI_LASER_TURRET.getRegion(0, 185, 118, 3);
 
     private static ResourceLocation getGuiResource(String key) {
         return Algane.INSTANCE.newResourceLocation("textures/gui/" + key + ".png");
@@ -42,7 +46,7 @@ public class ResConst {
         return Algane.INSTANCE.newTextureResource("textures/overlay/" + key + ".png", width, height);
     }
 
-    public static final ResourceLocation SHADER_GENERIC_VERT  = getShaderResource("generic.vert");
+    public static final ResourceLocation SHADER_GENERIC_VERT = getShaderResource("generic.vert");
     public static final ResourceLocation SHADER_WHITE_FRAG = getShaderResource("white.frag");
     public static final ResourceLocation SHADER_BLOOM_VERT = getShaderResource("bloom.vert");
     public static final ResourceLocation SHADER_BLOOM_FRAG = getShaderResource("bloom.frag");

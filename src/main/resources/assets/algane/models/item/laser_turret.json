@@ -1,0 +1,30 @@
+{
+  "9s": "pi",
+  "archetype": {
+    "parent": "algane:block/laser_turret"
+  },
+  "mutations": {
+    "tier": {
+      "BASIC": {
+        "textures": {
+          "side": "algane:blocks/turret/side_basic"
+        }
+      },
+      "ADVANCED": {
+        "textures": {
+          "side": "algane:blocks/turret/side_advanced"
+        }
+      },
+      "ELITE": {
+        "textures": {
+          "side": "algane:blocks/turret/side_elite"
+        }
+      },
+      "ULTIMATE": {
+        "textures": {
+          "side": "algane:blocks/turret/side_ultimate"
+        }
+      }
+    }
+  }
+}

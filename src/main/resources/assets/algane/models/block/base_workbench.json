@@ -5,7 +5,7 @@
     "south": "#side",
     "east": "#side",
     "west": "#side",
-    "down": "algane:blocks/workbench/bottom",
-    "particle": "algane:blocks/workbench/bottom"
+    "down": "algane:blocks/machine_face",
+    "particle": "algane:blocks/machine_face"
   }
 }

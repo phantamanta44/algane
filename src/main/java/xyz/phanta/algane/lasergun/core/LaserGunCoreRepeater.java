@@ -55,7 +55,7 @@ public class LaserGunCoreRepeater implements LaserGunCore {
             AlganeUtils.incrementHeat(gun, AlganeUtils.computeHeat((float)AlganeConfig.coreRepeater.baseHeat, mods));
             return AlganeConfig.coreRepeater.shotDelay;
         }
-        return 0;
+        return -1;
     }
 
     @Override

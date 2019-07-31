@@ -19,7 +19,6 @@ import xyz.phanta.algane.util.AlganeUtils;
 import xyz.phanta.algane.util.LasingUtils;
 
 import javax.annotation.Nullable;
-import java.util.Objects;
 
 public class LaserGunCoreGauss extends LaserGunCoreCharge {
 
@@ -33,13 +32,15 @@ public class LaserGunCoreGauss extends LaserGunCoreCharge {
 
     @Override
     protected void onStartCharge(ItemStack stack, LaserGun gun, World world, Vec3d pos, Vec3d dir,
-                                 EntityLivingBase owner, EnumHand hand) {
-        Algane.PROXY.playGaussChargeFx(world, owner);
+                                 @Nullable EntityLivingBase owner, @Nullable EnumHand hand) {
+        if (owner != null) {
+            Algane.PROXY.playGaussChargeFx(world, owner);
+        }
     }
 
     @Override
-    public int finishFiring(ItemStack stack, LaserGun gun, World world, Vec3d pos, Vec3d dir, int ticks,
-                            @Nullable EntityLivingBase owner, @Nullable EnumHand hand, boolean offCooldown) {
+    protected int discharge(ItemStack stack, LaserGun gun, World world, Vec3d pos, Vec3d dir, int ticks,
+                            @Nullable EntityLivingBase owner, @Nullable EnumHand hand) {
         LaserGunModifier mods = AlganeUtils.computeTotalMods(gun);
         Vec3d endPos = LasingUtils.laseEntity(world, pos, dir, (float)AlganeConfig.coreGauss.maxRange, owner,
                 hit -> hit.attackEntityFrom(DamageHitscan.gauss(owner, stack),
@@ -48,8 +49,10 @@ public class LaserGunCoreGauss extends LaserGunCoreCharge {
         Algane.PROXY.spawnParticleLaserBeam(
                 world, pos, endPos, BASE_COLOUR, 16, owner != null ? owner.getUniqueID() : null, hand);
         AlganeUtils.incrementHeat(gun, AlganeUtils.computeHeat((float)AlganeConfig.coreGauss.baseHeat, mods));
-        Algane.PROXY.stopChargeFx(world, Objects.requireNonNull(owner));
-        AlganeUtils.applyRecoilKnockback(owner, (float)AlganeConfig.coreGauss.recoilFactor, dir);
+        if (owner != null) {
+            Algane.PROXY.stopChargeFx(world, owner);
+            AlganeUtils.applyRecoilKnockback(owner, (float)AlganeConfig.coreGauss.recoilFactor, dir);
+        }
         return AlganeConfig.coreGauss.shotDelay;
     }
 

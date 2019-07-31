@@ -1,6 +1,7 @@
 package xyz.phanta.algane.client.particle;
 
 import io.github.phantamanta44.libnine.util.format.TextFormatUtils;
+import io.github.phantamanta44.libnine.util.render.RenderUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
@@ -45,6 +46,7 @@ public class ParticleLaserBeam extends ParticleBeam {
         GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE);
         GlStateManager.color(particleRed, particleGreen, particleBlue, frac);
         GlStateManager.disableLighting();
+        RenderUtils.enableFullBrightness();
         GlStateManager.pushMatrix();
     }
 
@@ -72,6 +74,7 @@ public class ParticleLaserBeam extends ParticleBeam {
         tess.draw();
 
         GlStateManager.popMatrix();
+        RenderUtils.restoreLightmap();
         GlStateManager.enableLighting();
         GlStateManager.color(1F, 1F, 1F, 1F);
         GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);

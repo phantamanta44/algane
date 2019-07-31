@@ -1,0 +1,38 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "algane:laser_turret"
+  },
+  "variants": {
+    "tier": {
+      "basic": {
+        "textures": {
+          "side": "algane:blocks/turret/side_basic"
+        }
+      },
+      "advanced": {
+        "textures": {
+          "side": "algane:blocks/turret/side_advanced"
+        }
+      },
+      "elite": {
+        "textures": {
+          "side": "algane:blocks/turret/side_elite"
+        }
+      },
+      "ultimate": {
+        "textures": {
+          "side": "algane:blocks/turret/side_ultimate"
+        }
+      }
+    },
+    "rotation": {
+      "down": { "x": 90 },
+      "up": { "x": 270 },
+      "north": {},
+      "east": { "y": 90 },
+      "south": { "y": 180 },
+      "west": { "y": 270 }
+    }
+  }
+}
