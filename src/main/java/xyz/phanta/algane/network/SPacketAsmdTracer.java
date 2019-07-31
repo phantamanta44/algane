@@ -75,8 +75,13 @@ public class SPacketAsmdTracer implements IMessage {
         @Override
         public IMessage onMessage(SPacketAsmdTracer message, MessageContext ctx) {
             Minecraft mc = Minecraft.getMinecraft();
-            mc.addScheduledTask(() -> Algane.PROXY.spawnParticleAsmd(
-                    mc.world, message.from, message.to, message.ownerId, message.hand));
+            //noinspection Convert2Lambda
+            mc.addScheduledTask(new Runnable() {
+                @Override
+                public void run() {
+                    Algane.PROXY.spawnParticleAsmd(mc.world, message.from, message.to, message.ownerId, message.hand);
+                }
+            });
             return null;
         }
 

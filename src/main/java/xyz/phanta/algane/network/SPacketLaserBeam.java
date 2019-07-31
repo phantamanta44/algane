@@ -82,8 +82,14 @@ public class SPacketLaserBeam implements IMessage {
         @Override
         public IMessage onMessage(SPacketLaserBeam message, MessageContext ctx) {
             Minecraft mc = Minecraft.getMinecraft();
-            mc.addScheduledTask(() -> Algane.PROXY.spawnParticleLaserBeam(
-                    mc.world, message.from, message.to, message.colour, message.radius, message.ownerId, message.hand));
+            //noinspection Convert2Lambda
+            mc.addScheduledTask(new Runnable() {
+                @Override
+                public void run() {
+                    Algane.PROXY.spawnParticleLaserBeam(
+                            mc.world, message.from, message.to, message.colour, message.radius, message.ownerId, message.hand);
+                }
+            });
             return null;
         }
 

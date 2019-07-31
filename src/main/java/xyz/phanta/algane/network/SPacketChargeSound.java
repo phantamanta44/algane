@@ -37,17 +37,23 @@ public class SPacketChargeSound implements IMessage {
         @Override
         public IMessage onMessage(SPacketChargeSound message, MessageContext ctx) {
             Minecraft mc = Minecraft.getMinecraft();
-            switch (message.type) {
-                case 0:
-                    mc.addScheduledTask(() -> Algane.PROXY.stopChargeFx(mc.world, mc.player));
-                    break;
-                case 1:
-                    mc.addScheduledTask(() -> Algane.PROXY.playOrbChargeFx(mc.world, mc.player));
-                    break;
-                case 2:
-                    mc.addScheduledTask(() -> Algane.PROXY.playGaussChargeFx(mc.world, mc.player));
-                    break;
-            }
+            //noinspection Convert2Lambda
+            mc.addScheduledTask(new Runnable() {
+                @Override
+                public void run() {
+                    switch (message.type) {
+                        case 0:
+                            Algane.PROXY.stopChargeFx(mc.world, mc.player);
+                            break;
+                        case 1:
+                            Algane.PROXY.playOrbChargeFx(mc.world, mc.player);
+                            break;
+                        case 2:
+                            Algane.PROXY.playGaussChargeFx(mc.world, mc.player);
+                            break;
+                    }
+                }
+            });
             return null;
         }
 

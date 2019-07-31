@@ -1,11 +1,8 @@
 package xyz.phanta.algane.client;
 
 import net.minecraftforge.common.config.Config;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.phanta.algane.Algane;
 
-@SideOnly(Side.CLIENT)
 @Config(modid = Algane.MOD_ID, name = Algane.MOD_ID + "_client")
 public class AlganeClientConfig {
 

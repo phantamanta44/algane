@@ -52,7 +52,7 @@ public class LasingUtils {
     }
 
     public static <E extends Entity> Stream<E> getEntitiesOnLine(Class<E> entityType, World world, Vec3d from, Vec3d to) {
-        return world.getEntitiesWithinAABB(entityType, new AxisAlignedBB(from, to)).stream()
+        return world.getEntitiesWithinAABB(entityType, new AxisAlignedBB(from.x, from.y, from.z, to.x, to.y, to.z)).stream()
                 .filter(e -> LinAlUtils.intersectsLine(e.getEntityBoundingBox(), from, to));
     }
 
