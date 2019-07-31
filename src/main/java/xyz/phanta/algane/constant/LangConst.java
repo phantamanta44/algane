@@ -48,6 +48,7 @@ public class LangConst {
     public static final String TT_RATE_RANGE = TT_KEY + "rate_range";
     public static final String TT_KNOCKBACK = TT_KEY + "knockback";
     public static final String TT_SPLASH = TT_KEY + "splash";
+    public static final String TT_MODKIT = TT_KEY + "modifier_kit";
 
     public static String getTooltipFireMode(LaserGunCore.FiringParadigm mode) {
         return TT_MODES[mode.ordinal()];
