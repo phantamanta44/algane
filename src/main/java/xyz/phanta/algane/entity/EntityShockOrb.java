@@ -16,6 +16,7 @@ import xyz.phanta.algane.Algane;
 import xyz.phanta.algane.AlganeConfig;
 import xyz.phanta.algane.init.AlganeSounds;
 import xyz.phanta.algane.lasergun.damage.DamageBlast;
+import xyz.phanta.algane.util.AlganeUtils;
 
 import javax.annotation.Nullable;
 
@@ -72,12 +73,14 @@ public class EntityShockOrb extends EntityFireball {
         float radiusSq = radius * radius;
         for (EntityLivingBase hit : world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(
                 posX - radius, posY - radius, posZ - radius, posX + radius, posY + radius, posZ + radius))) {
-            float dx = (float)(hit.posX - posX), dz = (float)(hit.posZ - posZ);
-            float distSq = dx * dx + dz * dz;
+            float dx = (float)(hit.posX - posX), dy = (float)(hit.posY - posY), dz = (float)(hit.posZ - posZ);
+            float distSq = dx * dx + dy * dy + dz * dz;
             if (distSq <= radiusSq) {
                 float capped = Math.max(distSq, 0.5F);
-                hit.knockBack(hit, (float)AlganeConfig.coreOrb.knockbackFactor / capped, -dx, -dz);
-                hit.attackEntityFrom(damageSrc, damage / capped);
+                if (hit.attackEntityFrom(damageSrc, damage / capped)) {
+                    AlganeUtils.applyImpulse(
+                            hit, (float)AlganeConfig.coreOrb.knockbackFactor / capped, new Vec3d(-dx, -dy, -dz));
+                }
             }
         }
         setDead();

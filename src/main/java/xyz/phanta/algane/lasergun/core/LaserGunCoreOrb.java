@@ -38,13 +38,13 @@ public class LaserGunCoreOrb extends LaserGunCoreCharge {
     protected int discharge(ItemStack stack, LaserGun gun, World world, Vec3d pos, Vec3d dir, int ticks,
                             @Nullable EntityLivingBase owner, @Nullable EnumHand hand) {
         LaserGunModifier mods = AlganeUtils.computeTotalMods(gun);
-        world.spawnEntity(new EntityShockOrb(world, pos, dir, owner, stack)
+        world.spawnEntity(new EntityShockOrb(world, pos.add(dir.scale(0.5D)), dir, owner, stack)
                 .init(AlganeUtils.computeDamage((float)AlganeConfig.coreOrb.baseDamage * ticks, mods)));
         world.playSound(null, pos.x, pos.y, pos.z, AlganeSounds.GUN_ORB_FIRE, SoundCategory.MASTER, 1F, 1F);
         AlganeUtils.incrementHeat(gun, AlganeUtils.computeHeat((float)AlganeConfig.coreOrb.baseHeat, mods));
         if (owner != null) {
             Algane.PROXY.stopChargeFx(world, owner);
-            AlganeUtils.applyRecoilKnockback(owner, (float)AlganeConfig.coreOrb.recoilFactor, dir);
+            AlganeUtils.applyImpulse(owner, (float)AlganeConfig.coreOrb.recoilFactor, dir);
         }
         return AlganeConfig.coreOrb.shotDelay;
     }

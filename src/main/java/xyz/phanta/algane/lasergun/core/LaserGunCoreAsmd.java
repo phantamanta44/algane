@@ -65,11 +65,11 @@ public class LaserGunCoreAsmd implements LaserGunCore {
                             Algane.PROXY.spawnParticleShockBlast(world, hitPos, SHOCK_COMBO_RADIUS, 100F, BASE_COLOUR);
                         } else {
                             EntityLivingBase hitLiving = (EntityLivingBase)hit;
-                            hitLiving.attackEntityFrom(DamageHitscan.asmd(owner, stack),
-                                    AlganeUtils.computeDamage((float)AlganeConfig.coreShock.baseDamage * energyUse, mods));
-                            // should probably be fine?
-                            //noinspection ConstantConditions
-                            hitLiving.knockBack(owner, (float)AlganeConfig.coreShock.knockbackFactor * energyUse, -dir.x, -dir.z);
+                            if (hitLiving.attackEntityFrom(DamageHitscan.asmd(owner, stack),
+                                    AlganeUtils.computeDamage((float)AlganeConfig.coreShock.baseDamage * energyUse, mods))) {
+                                AlganeUtils.applyImpulse(
+                                        hitLiving, (float)AlganeConfig.coreShock.knockbackFactor * energyUse, dir.scale(-1D));
+                            }
                         }
                         return LinAlUtils.castOntoPlane(pos, dir, hitPos, dir);
                     }).orElse(endPos);

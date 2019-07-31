@@ -51,7 +51,7 @@ public class LaserGunCoreGauss extends LaserGunCoreCharge {
         AlganeUtils.incrementHeat(gun, AlganeUtils.computeHeat((float)AlganeConfig.coreGauss.baseHeat, mods));
         if (owner != null) {
             Algane.PROXY.stopChargeFx(world, owner);
-            AlganeUtils.applyRecoilKnockback(owner, (float)AlganeConfig.coreGauss.recoilFactor, dir);
+            AlganeUtils.applyImpulse(owner, (float)AlganeConfig.coreGauss.recoilFactor, dir);
         }
         return AlganeConfig.coreGauss.shotDelay;
     }

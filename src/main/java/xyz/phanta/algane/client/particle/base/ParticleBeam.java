@@ -25,8 +25,12 @@ public abstract class ParticleBeam extends Particle {
         this.side = side;
         Vec3d diffPos = to.subtract(from);
         this.length = (float)diffPos.length();
-        this.theta = (float)Math.atan2(diffPos.z, diffPos.x) * MathUtils.R2D_F - 90F;
-        this.phi = (float)Math.asin(diffPos.y / length) * MathUtils.R2D_F;
+        this.phi = (float)Math.asin(MathUtils.clamp(diffPos.y, -length, length) / length) * MathUtils.R2D_F;
+        if (phi >= 89.98F || phi <= -89.98F) {
+            this.theta = side == null ? 0F : Minecraft.getMinecraft().player.rotationYaw;
+        } else {
+            this.theta = (float)Math.atan2(diffPos.z, diffPos.x) * MathUtils.R2D_F - 90F;
+        }
         this.dir = diffPos.scale(1F / length);
     }
 

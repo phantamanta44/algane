@@ -118,7 +118,7 @@ public class AlganeUtils {
                 : Minecraft.getMinecraft().player.getPrimaryHand();
     }
     
-    public static void applyRecoilKnockback(@Nullable EntityLivingBase entity, float magnitude, Vec3d dir) {
+    public static void applyImpulse(@Nullable EntityLivingBase entity, float magnitude, Vec3d dir) {
         if (entity != null) {
             entity.motionX += -magnitude * dir.x;
             entity.motionY += -magnitude * dir.y;
