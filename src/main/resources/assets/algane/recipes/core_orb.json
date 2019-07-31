@@ -1,0 +1,33 @@
+{
+  "type": "forge:ore_shaped",
+  "pattern": [
+    "ATA",
+    "KCK",
+    "ANA"
+  ],
+  "key": {
+    "A": {
+      "type": "forge:ore_dict",
+      "ore": "alloyUltimate"
+    },
+    "T": {
+      "item": "mekanism:teleportationcore"
+    },
+    "K": {
+      "type": "forge:ore_dict",
+      "ore": "circuitUltimate"
+    },
+    "C": {
+      "item": "algane:laser_core",
+      "data": 2
+    },
+    "N": {
+      "item": "mekanism:machineblock3",
+      "data": 1
+    }
+  },
+  "result": {
+    "item": "algane:laser_core",
+    "data": 3
+  }
+}

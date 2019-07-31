@@ -1,0 +1,30 @@
+{
+  "type": "forge:ore_shaped",
+  "pattern": [
+    "SLS",
+    "CMC",
+    "SLS"
+  ],
+  "key": {
+    "S": {
+      "type": "forge:ore_dict",
+      "ore": "ingotSteel"
+    },
+    "L": {
+      "type": "forge:ore_dict",
+      "ore": "dustLithium"
+    },
+    "C": {
+      "type": "forge:ore_dict",
+      "ore": "circuitUltimate"
+    },
+    "M": {
+      "item": "algane:misc",
+      "data": 4
+    }
+  },
+  "result": {
+    "item": "algane:laser_workbench",
+    "data": 1
+  }
+}

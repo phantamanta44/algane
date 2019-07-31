@@ -1,0 +1,34 @@
+{
+  "type": "algane:laser_upgrade",
+  "pattern": [
+    "ACA",
+    "RLR",
+    "AGA"
+  ],
+  "key": {
+    "A": {
+      "type": "forge:ore_dict",
+      "ore": "alloyAdvanced"
+    },
+    "C": {
+      "item": "mekanism:machineblock2",
+      "data": 14
+    },
+    "R": {
+      "item": "mekanismgenerators:reactorglass",
+      "data": 0
+    },
+    "L": {
+      "item": "algane:laser_gun",
+      "data": 0
+    },
+    "G": {
+      "type": "forge:ore_dict",
+      "ore": "blockRefinedGlowstone"
+    }
+  },
+  "result": {
+    "item": "algane:laser_gun",
+    "data": 1
+  }
+}

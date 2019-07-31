@@ -68,7 +68,11 @@ public class ItemMisc extends L9ItemSubs implements ParameterizedItemModel.IPara
 
         NO_MODIFIER(false),
         MODIFIER_KIT,
-        DUNGEON_MODIFIER_KIT;
+        DUNGEON_MODIFIER_KIT,
+        OPTICAL_COMPONENT_CORE,
+        MODIFIER_COMPONENT,
+        TAU_CONDENSER_EMPTY,
+        TAU_CONDENSER;
 
         private static final Type[] VALUES = values();
 

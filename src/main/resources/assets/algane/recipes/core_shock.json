@@ -1,0 +1,30 @@
+{
+  "type": "forge:ore_shaped",
+  "pattern": [
+    "AEA",
+    "KCK",
+    "AEA"
+  ],
+  "key": {
+    "A": {
+      "type": "forge:ore_dict",
+      "ore": "alloyElite"
+    },
+    "E": {
+      "item": "mekanismgenerators:generator",
+      "data": 9
+    },
+    "K": {
+      "type": "forge:ore_dict",
+      "ore": "circuitElite"
+    },
+    "C": {
+      "item": "algane:laser_core",
+      "data": 0
+    }
+  },
+  "result": {
+    "item": "algane:laser_core",
+    "data": 2
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "type": "forge:ore_shaped",
+  "pattern": [
+    "PMP",
+    "CMC",
+    "PMP"
+  ],
+  "key": {
+    "P": {
+      "item": "mekanism:polyethene",
+      "data": 2
+    },
+    "C": {
+      "type": "forge:ore_dict",
+      "ore": "ingotCopper"
+    },
+    "M": {
+      "item": "algane:misc",
+      "data": 4
+    }
+  },
+  "result": {
+    "item": "algane:misc",
+    "data": 1
+  }
+}

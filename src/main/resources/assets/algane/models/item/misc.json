@@ -19,6 +19,26 @@
         "textures": {
           "layer0": "algane:items/modifier_kit_rare"
         }
+      },
+      "OPTICAL_COMPONENT_CORE": {
+        "textures": {
+          "layer0": "algane:items/optical_component_core"
+        }
+      },
+      "MODIFIER_COMPONENT": {
+        "textures": {
+          "layer0": "algane:items/modifier_component"
+        }
+      },
+      "TAU_CONDENSER_EMPTY": {
+        "textures": {
+          "layer0": "algane:items/tau_condenser_empty"
+        }
+      },
+      "TAU_CONDENSER": {
+        "textures": {
+          "layer0": "algane:items/tau_condenser"
+        }
       }
     }
   }

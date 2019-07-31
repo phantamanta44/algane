@@ -1,0 +1,29 @@
+{
+  "type": "forge:ore_shaped",
+  "pattern": [
+    "ARA",
+    "KCK",
+    "ARA"
+  ],
+  "key": {
+    "A": {
+      "type": "forge:ore_dict",
+      "ore": "alloyAdvanced"
+    },
+    "K": {
+      "type": "forge:ore_dict",
+      "ore": "circuitAdvanced"
+    },
+    "C": {
+      "item": "algane:laser_core",
+      "data": 0
+    },
+    "R": {
+      "item": "minecraft:repeater"
+    }
+  },
+  "result": {
+    "item": "algane:laser_core",
+    "data": 1
+  }
+}

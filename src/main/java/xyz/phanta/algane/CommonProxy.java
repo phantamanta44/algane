@@ -1,5 +1,7 @@
 package xyz.phanta.algane;
 
+import mekanism.api.MekanismAPI;
+import mekanism.common.MekanismFluids;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.EnumHand;
@@ -14,6 +16,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.relauncher.Side;
 import xyz.phanta.algane.event.ItemTickHandler;
 import xyz.phanta.algane.event.LootTableHandler;
+import xyz.phanta.algane.item.ItemMisc;
 import xyz.phanta.algane.network.SPacketAsmdTracer;
 import xyz.phanta.algane.network.SPacketChargeSound;
 import xyz.phanta.algane.network.SPacketLaserBeam;
@@ -35,7 +38,10 @@ public class CommonProxy {
     }
 
     public void onInit(FMLInitializationEvent event) {
-        // NO-OP
+        MekanismAPI.recipeHelper().addChemicalInjectionChamberRecipe(
+                ItemMisc.Type.TAU_CONDENSER_EMPTY.createStack(1),
+                MekanismFluids.Tritium,
+                ItemMisc.Type.TAU_CONDENSER.createStack(1));
     }
 
     public void onPostInit(FMLPostInitializationEvent event) {

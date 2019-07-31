@@ -1,0 +1,5 @@
+{
+  "recipes": {
+    "laser_upgrade": "xyz.phanta.algane.recipe.LaserUpgradeRecipe$Factory"
+  }
+}

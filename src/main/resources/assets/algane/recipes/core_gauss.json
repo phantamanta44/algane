@@ -1,0 +1,34 @@
+{
+  "type": "forge:ore_shaped",
+  "pattern": [
+    "ATA",
+    "KCK",
+    "ARA"
+  ],
+  "key": {
+    "A": {
+      "type": "forge:ore_dict",
+      "ore": "alloyUltimate"
+    },
+    "T": {
+      "item": "algane:misc",
+      "data": 6
+    },
+    "K": {
+      "type": "forge:ore_dict",
+      "ore": "circuitUltimate"
+    },
+    "C": {
+      "item": "algane:laser_core",
+      "data": 2
+    },
+    "R": {
+      "item": "mekanismgenerators:generator",
+      "data": 8
+    }
+  },
+  "result": {
+    "item": "algane:laser_core",
+    "data": 4
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "type": "forge:ore_shaped",
+  "pattern": [
+    "IGI",
+    "GLG",
+    "IGI"
+  ],
+  "key": {
+    "I": {
+      "type": "forge:ore_dict",
+      "ore": "ingotRefinedObsidian"
+    },
+    "G": {
+      "item": "mekanismgenerators:reactorglass",
+      "data": 0
+    },
+    "L": {
+      "type": "forge:ore_dict",
+      "ore": "dustLithium"
+    }
+  },
+  "result": {
+    "item": "algane:misc",
+    "data": 5
+  }
+}

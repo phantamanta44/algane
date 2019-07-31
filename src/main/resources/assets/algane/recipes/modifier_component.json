@@ -1,0 +1,26 @@
+{
+  "type": "forge:ore_shaped",
+  "pattern": [
+    " G ",
+    "ACA",
+    " G "
+  ],
+  "key": {
+    "G": {
+      "type": "forge:ore_dict",
+      "ore": "blockGlass"
+    },
+    "A": {
+      "type": "forge:ore_dict",
+      "ore": "alloyAdvanced"
+    },
+    "C": {
+      "item": "algane:misc",
+      "data": 3
+    }
+  },
+  "result": {
+    "item": "algane:misc",
+    "data": 4
+  }
+}

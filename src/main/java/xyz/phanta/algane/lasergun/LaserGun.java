@@ -67,6 +67,15 @@ public interface LaserGun {
         }
     }
 
+    default void copyFrom(LaserGun other) {
+        setCore(other.getCore().copy());
+        setEnergyCell(other.getEnergyCell().copy());
+        int modCount = Math.min(getModifierCount(), other.getModifierCount());
+        for (int i = 0; i < modCount; i++) {
+            setModifier(i, other.getModifier(i).copy());
+        }
+    }
+
     class Impl implements LaserGun {
 
         @Override

@@ -17,6 +17,10 @@ item.algane:laser_mod1.name=Rare Laser Modifier
 item.algane:misc0.name=Modifier Slot Unavailable
 item.algane:misc1.name=Modifier Kit
 item.algane:misc2.name=Rare Modifier Kit
+item.algane:misc3.name=Optical Component Core
+item.algane:misc4.name=Modifier Component
+item.algane:misc5.name=Tau Condenser Casing
+item.algane:misc6.name=Tau Condenser
 
 tile.algane:laser_workbench0.name=Photonic Armament Assembler
 tile.algane:laser_workbench1.name=Modifier Manipulator

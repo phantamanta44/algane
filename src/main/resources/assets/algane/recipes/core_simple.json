@@ -1,0 +1,30 @@
+{
+  "type": "forge:ore_shaped",
+  "pattern": [
+    "AGA",
+    "RCR",
+    "AGA"
+  ],
+  "key": {
+    "A": {
+      "type": "forge:ore_dict",
+      "ore": "alloyAdvanced"
+    },
+    "G": {
+      "type": "forge:ore_dict",
+      "ore": "blockGlass"
+    },
+    "R": {
+      "type": "forge:ore_dict",
+      "ore": "ingotRefinedGlowstone"
+    },
+    "C": {
+      "item": "algane:misc",
+      "data": 3
+    }
+  },
+  "result": {
+    "item": "algane:laser_core",
+    "data": 0
+  }
+}

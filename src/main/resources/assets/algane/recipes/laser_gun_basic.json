@@ -1,0 +1,34 @@
+{
+  "type": "forge:ore_shaped",
+  "pattern": [
+    "SGS",
+    "LCR",
+    "SGS"
+  ],
+  "key": {
+    "S": {
+      "type": "forge:ore_dict",
+      "ore": "ingotSteel"
+    },
+    "G": {
+      "type": "forge:ore_dict",
+      "ore": "ingotRefinedGlowstone"
+    },
+    "L": {
+      "item": "mekanism:machineblock2",
+      "data": 13
+    },
+    "C": {
+      "item": "algane:misc",
+      "data": 3
+    },
+    "R": {
+      "item": "mekanismgenerators:reactorglass",
+      "data": 0
+    }
+  },
+  "result": {
+    "item": "algane:laser_gun",
+    "data": 0
+  }
+}

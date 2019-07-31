@@ -1,0 +1,29 @@
+{
+  "type": "forge:ore_shaped",
+  "pattern": [
+    "SPS",
+    "CFC",
+    "SPS"
+  ],
+  "key": {
+    "S": {
+      "type": "forge:ore_dict",
+      "ore": "ingotSteel"
+    },
+    "P": {
+      "item": "minecraft:piston"
+    },
+    "C": {
+      "type": "forge:ore_dict",
+      "ore": "circuitAdvanced"
+    },
+    "F": {
+      "item": "algane:misc",
+      "data": 3
+    }
+  },
+  "result": {
+    "item": "algane:laser_workbench",
+    "data": 0
+  }
+}
