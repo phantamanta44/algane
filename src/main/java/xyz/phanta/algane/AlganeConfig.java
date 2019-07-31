@@ -137,7 +137,7 @@ public class AlganeConfig {
                 "Note that the real knockback dealt is reduced by distance from the center of the explosion."
         })
         @Config.RangeInt(min = 0)
-        public double knockbackFactor = 3D;
+        public double knockbackFactor = 1.5D;
 
         @Config.Comment({
                 "Bonus damage multiplier applied for a shock combo.",
