@@ -3,17 +3,15 @@ package xyz.phanta.algane.client.particle.base;
 import io.github.phantamanta44.libnine.util.math.MathUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
-import net.minecraft.client.particle.Particle;
-import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.entity.Entity;
 import net.minecraft.util.EnumHandSide;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import xyz.phanta.algane.client.particle.DelayedParticleRenderer;
 
 import javax.annotation.Nullable;
 
-public abstract class ParticleBeam extends Particle {
+public abstract class ParticleBeam extends DelayedParticleRenderer.DelayedParticle {
 
     protected final float length, theta, phi;
     protected final Vec3d dir;
@@ -50,8 +48,7 @@ public abstract class ParticleBeam extends Particle {
     }
 
     @Override
-    public void renderParticle(BufferBuilder buffer, Entity entity, float partialTicks,
-                               float lookX, float lookXZ, float lookZ, float lookYZ, float lookXY) {
+    public void renderDelayed(float partialTicks) {
         doRender((float)(prevPosX + (posX - prevPosX) * partialTicks - interpPosX),
                 (float)(prevPosY + (posY - prevPosY) * partialTicks - interpPosY),
                 (float)(prevPosZ + (posZ - prevPosZ) * partialTicks - interpPosZ),

@@ -42,7 +42,6 @@ public class ParticleLaserBeam extends ParticleBeam {
 
     private void setUpRender(float frac) {
         GlStateManager.disableTexture2D();
-        GlStateManager.enableBlend();
         GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE);
         GlStateManager.color(particleRed, particleGreen, particleBlue, frac);
         GlStateManager.disableLighting();
@@ -78,7 +77,6 @@ public class ParticleLaserBeam extends ParticleBeam {
         GlStateManager.enableLighting();
         GlStateManager.color(1F, 1F, 1F, 1F);
         GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
-        GlStateManager.disableBlend();
         GlStateManager.enableTexture2D();
     }
 

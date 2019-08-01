@@ -3,18 +3,16 @@ package xyz.phanta.algane.client.particle;
 import io.github.phantamanta44.libnine.util.format.TextFormatUtils;
 import io.github.phantamanta44.libnine.util.render.RenderUtils;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.particle.Particle;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.entity.Entity;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.lwjgl.opengl.GL11;
 import xyz.phanta.algane.constant.ResConst;
 
-public class ParticleShockBlast extends Particle {
+public class ParticleShockBlast extends DelayedParticleRenderer.DelayedParticle {
 
     private final Vec3d pos;
     private final float radius;
@@ -47,8 +45,7 @@ public class ParticleShockBlast extends Particle {
     }
 
     @Override
-    public void renderParticle(BufferBuilder buffer, Entity entity, float partialTicks,
-                               float lookX, float lookXZ, float lookZ, float lookYZ, float lookXY) {
+    public void renderDelayed(float partialTicks) {
         Vec3d diffPos = pos.subtract(RenderUtils.getInterpPos(Minecraft.getMinecraft().player, partialTicks));
         float drawRadius = radius;
         float ticksAlive = particleAge + particleAge;
@@ -63,7 +60,6 @@ public class ParticleShockBlast extends Particle {
 
         GlStateManager.disableLighting();
         RenderUtils.enableFullBrightness();
-        GlStateManager.enableBlend();
         GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE);
         ResConst.PARTICLE_BLAST_RING.bind();
         Tessellator tess = Tessellator.getInstance();
@@ -86,8 +82,8 @@ public class ParticleShockBlast extends Particle {
         drawPlane(tess, buf, drawRadius, spin);
         GlStateManager.popMatrix();
 
+        GlStateManager.color(1F, 1F, 1F, 1F);
         GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
-        GlStateManager.disableBlend();
         RenderUtils.restoreLightmap();
         GlStateManager.enableLighting();
     }

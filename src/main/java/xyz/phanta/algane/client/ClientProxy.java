@@ -16,6 +16,7 @@ import xyz.phanta.algane.client.event.WeaponOverlayRenderer;
 import xyz.phanta.algane.client.fx.BloomHandler;
 import xyz.phanta.algane.client.particle.ParticleAsmdTracer;
 import xyz.phanta.algane.client.particle.ParticleLaserBeam;
+import xyz.phanta.algane.client.particle.DelayedParticleRenderer;
 import xyz.phanta.algane.client.particle.ParticleShockBlast;
 import xyz.phanta.algane.init.AlganeItems;
 import xyz.phanta.algane.init.AlganeSounds;
@@ -35,6 +36,7 @@ public class ClientProxy extends CommonProxy {
         super.onPreInit(event);
         BloomHandler.init();
         MinecraftForge.EVENT_BUS.register(BloomHandler.getInstance());
+        MinecraftForge.EVENT_BUS.register(DelayedParticleRenderer.getInstance());
         MinecraftForge.EVENT_BUS.register(new WeaponOverlayRenderer());
         MinecraftForge.EVENT_BUS.register(new ModelRegistrationHandler());
         MinecraftForge.EVENT_BUS.register(chargeHandler = new WeaponChargeHandler());

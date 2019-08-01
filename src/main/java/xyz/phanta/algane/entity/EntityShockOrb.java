@@ -91,4 +91,9 @@ public class EntityShockOrb extends EntityFireball {
         return false;
     }
 
+    @Override
+    public boolean shouldRenderInPass(int pass) {
+        return pass == 1;
+    }
+
 }
