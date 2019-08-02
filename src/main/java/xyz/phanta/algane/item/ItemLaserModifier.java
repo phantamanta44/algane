@@ -6,10 +6,12 @@ import io.github.phantamanta44.libnine.item.L9ItemSubs;
 import io.github.phantamanta44.libnine.util.nbt.ChainingTagCompound;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
+import net.minecraftforge.common.IRarity;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import xyz.phanta.algane.constant.LangConst;
 import xyz.phanta.algane.init.AlganeCaps;
@@ -42,6 +44,11 @@ public class ItemLaserModifier extends L9ItemSubs implements ParameterizedItemMo
     @Override
     public void getModelMutations(ItemStack stack, ParameterizedItemModel.Mutation m) {
         m.mutate("dungeon", Boolean.toString(isDungeonMod(stack)));
+    }
+
+    @Override
+    public IRarity getForgeRarity(ItemStack stack) {
+        return isDungeonMod(stack) ? EnumRarity.EPIC : EnumRarity.COMMON;
     }
 
     public static ItemStack createStack(int count, LaserGunModifier mod, boolean dungeon) {

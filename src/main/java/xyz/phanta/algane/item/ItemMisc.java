@@ -7,6 +7,7 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
@@ -90,8 +91,13 @@ public class ItemMisc extends L9ItemSubs implements ParameterizedItemModel.IPara
 
     @Override
     public IRarity getForgeRarity(ItemStack stack) {
-        if (Type.getForStack(stack) == Type.NO_MODIFIER) {
-            return RARITY_LOCKED;
+        switch (Type.getForStack(stack)) {
+            case NO_MODIFIER:
+                return RARITY_LOCKED;
+            case DUNGEON_MODIFIER_KIT:
+                return EnumRarity.EPIC;
+            case TAU_CONDENSER:
+                return EnumRarity.RARE;
         }
         return super.getForgeRarity(stack);
     }
