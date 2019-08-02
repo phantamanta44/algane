@@ -1,0 +1,39 @@
+{
+  "name": "Modifier Augmentation",
+  "category": "modifier",
+  "icon": "algane:laser_workbench:1",
+  "pages": [
+    {
+      "type": "text",
+      "text": "Through the $(2)Modifier Augmentation$() process, it is possible to increase the modification factors of a modifier. This is done by calibrating a modifier's tolerance circuits against a standard augmentation circuit. Unfortunately, this is a destructive process, and so the calibration circuit is lost. Any one modifier cannot be augmented beyond 100% in a given modification factor."
+    },
+    {
+      "type": "spotlight",
+      "item": "mekanism:speedupgrade",
+      "title": "Damage Augmentation",
+      "text": "By calibrating a modifier against a $(3)Speed Upgrade$(), it is possible to augment its effectiveness in increasing damage output. Unfortunately, this comes at a cost: energy cost is also increased as a result."
+    },
+    {
+      "type": "spotlight",
+      "item": "mekanism:energyupgrade",
+      "title": "Energy Augmentation",
+      "text": "By calibrating a modifier against an $(2)Energy Upgrade$(), it is possible to augment its effectiveness in decreasing energy consumption. This can also be used to counterbalance the increased energy consumption of damage modifiers."
+    },
+    {
+      "type": "spotlight",
+      "item": "mekanism:gasupgrade",
+      "title": "Heat Augmentation",
+      "text": "By calibrating a modifier against a $(6)Gas Upgrade$(), it is possible to augment its effectiveness in increasing heat dispersion. It may even be possible to negate overheating entirely with sufficient augmentation."
+    },
+    {
+      "type": "image",
+      "images": [
+        "algane:patchouli_diagrams/modifier_augmentation.png"
+      ],
+      "border": true,
+      "text": "Augmenting a modifier for damage."
+    }
+  ],
+  "read_by_default": true,
+  "sortnum": 3
+}

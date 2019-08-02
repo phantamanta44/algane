@@ -1,0 +1,33 @@
+{
+  "name": "Weapon Cores",
+  "category": "core",
+  "icon": "algane:misc:3",
+  "pages": [
+    {
+      "type": "text",
+      "text": "$(2)Photonic Weapon Cores$() are ultimately what make a photonic weapon tick. These are the devices that coerce electromagnetic energies into a controllable destructive force. As such, they determine the actuatorial method and base operational parameters for photonic weaponry.$(br2)Different weapon cores have different $(2)Firing Paradigms$(). These are the various"
+    },
+    {
+      "type": "text",
+      "text": "interfaces they provide to users for the control of their respective actuatorial methods. Each firing paradigm has its own unique control scheme, which are delineated in the following pages."
+    },
+    {
+      "type": "text",
+      "title": "Semi-Automatic",
+      "text": "$(3)Semi-automatic$() weapons will discharge a single shot with each pull of the trigger. As such, these weapons usually have a moderate fire rate and moderate damage output."
+    },
+    {
+      "type": "text",
+      "title": "Automatic",
+      "text": "$(c)Automatic$() weapons will continuously discharge while the trigger is held. As such, these weapons tend to have high fire rates balanced against comparatively low per-shot damage. Care must be taken to avoid overheating while operating such a weapon."
+    },
+    {
+      "type": "text",
+      "title": "Charge Shot",
+      "text": "$(6)Charge-based$() weapons will build a charge of energy while the trigger is held, which is then discharged upon the release of the trigger. As such, these weapons boast extraordinarily high damage output per shot due to the unbounded nature of charging."
+    }
+  ],
+  "priority": true,
+  "read_by_default": true,
+  "sortnum": 0
+}

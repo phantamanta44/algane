@@ -1,0 +1,94 @@
+{
+  "components": [
+    {
+      "type": "header",
+      "x": -1,
+      "y": -1,
+      "text": "#title"
+    },
+    {
+      "type": "separator",
+      "x": -1,
+      "y": -1
+    },
+    {
+      "type": "image",
+      "x": 31,
+      "y": 20,
+      "image": "algane:patchouli_diagrams/table.png",
+      "width": 57,
+      "height": 34,
+      "v": 45,
+      "texture_width": 128,
+      "texture_height": 128
+    },
+    {
+      "type": "image",
+      "x": 44,
+      "y": 24,
+      "image": "#damage",
+      "width": 40,
+      "height": 8,
+      "texture_width": 64,
+      "texture_height": 64
+    },
+    {
+      "type": "image",
+      "x": 44,
+      "y": 33,
+      "image": "#firerate",
+      "width": 40,
+      "height": 8,
+      "v": 8,
+      "texture_width": 64,
+      "texture_height": 64
+    },
+    {
+      "type": "image",
+      "x": 44,
+      "y": 42,
+      "image": "#range",
+      "width": 40,
+      "height": 8,
+      "v": 16,
+      "texture_width": 64,
+      "texture_height": 64
+    },
+    {
+      "type": "tooltip",
+      "x": 35,
+      "y": 24,
+      "tooltip": [
+        "&cDamage Output"
+      ],
+      "width": 49,
+      "height": 8
+    },
+    {
+      "type": "tooltip",
+      "x": 35,
+      "y": 33,
+      "tooltip": [
+        "&aFire Rate"
+      ],
+      "width": 49,
+      "height": 8
+    },
+    {
+      "type": "tooltip",
+      "x": 35,
+      "y": 42,
+      "tooltip": [
+        "&bRange"
+      ],
+      "width": 49,
+      "height": 8
+    },
+    {
+      "type": "text",
+      "x": 0,
+      "y": 56,
+      "text": "#text"
+    }
+  ]
+}

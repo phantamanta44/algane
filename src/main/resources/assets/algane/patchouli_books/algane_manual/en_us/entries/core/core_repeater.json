@@ -1,0 +1,22 @@
+{
+  "name": "Core: Repeater",
+  "category": "core",
+  "icon": "algane:laser_core:1",
+  "pages": [
+    {
+      "type": "core_stats",
+      "title": "Core: Repeater",
+      "damage": "algane:patchouli_diagrams/rating_1.png",
+      "firerate": "algane:patchouli_diagrams/rating_3.png",
+      "range": "algane:patchouli_diagrams/rating_1.png",
+      "text": "The $(2)Repeating Laser Rifle Core$() is an $(c)automatic$() core that performs much the same function as the $(l:core/core_simple)Simple Rifle Core$(), but is able to distribute the energy over a period of time using a rudimentary digital timing mechanism."
+    },
+    {
+      "type": "crafting",
+      "recipe": "algane:core_repeating",
+      "title": "Repeater Core"
+    }
+  ],
+  "read_by_default": true,
+  "sortnum": 2
+}

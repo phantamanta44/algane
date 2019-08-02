@@ -1,0 +1,18 @@
+{
+  "name": "Modifier Kits",
+  "category": "modifier",
+  "icon": "algane:misc:1",
+  "pages": [
+    {
+      "type": "text",
+      "text": "Modifiers are fairly difficult to fabricate. Much of a modifier's circuitry consists of highly-sensitive logic processors that continuously compute and maintain safe tolerances for operational parameters. In order to facilitate a consistent and reproducible fabrication process, it is recommended that a $(2)Modifier Assembly Kit$() be used."
+    },
+    {
+      "type": "crafting",
+      "recipe": "algane:modifier_kit",
+      "text": "Unfortunately, due to the sensitivity of the circuitry, a high degree of variance is exhibited in the resultant modifier's modification factors."
+    }
+  ],
+  "read_by_default": true,
+  "sortnum": 1
+}

@@ -1,0 +1,30 @@
+{
+  "name": "Photonic Weapons",
+  "category": "assembly",
+  "icon": "algane:misc:3",
+  "pages": [
+    {
+      "type": "text",
+      "text": "$(2)Photonic Weapons$() are the very cutting edge in weapons technology. Every day, our sun emits enough electromagnetic energy to destroy civilization as we know it, but much of this energy is dissipated as harmless heat and visible light. By taking this very same energy and focusing it on the singular task of destruction, a truly formidable weapon can be created."
+    },
+    {
+      "type": "text",
+      "text": "Such weapons require a source of power to produce the necessary destructive force. Because they may utilize differing methods of actuation, a common form of energy must be supplied which can efficiently be adapted to differing actuatorial energy forms. In general, $(3)Forge Energy$() is sufficiently versatile such that it can power most photonics-based weaponry.$(br2)Additionally, photonics-based weaponry may generate an"
+    },
+    {
+      "type": "text",
+      "text": "excess of $(c)Heat$() in their operation. Because the operational parameters of photonics components are extremely strict, care must be taken to allow this heat to dissipate. To this end, weapons may enter a disabled state should heat exceed a certain threshold to allow undisrupted dissipation. Note that dissipation efficiency is significantly reduced if the weapon is not in-hand."
+    },
+    {
+      "type": "image",
+      "images": [
+        "algane:patchouli_diagrams/ingame_hud.png"
+      ],
+      "border": true,
+      "text": "The $(3)Energy$() and $(c)Heat$() HUD as shown in-game."
+    }
+  ],
+  "priority": true,
+  "read_by_default": true,
+  "sortnum": 1
+}

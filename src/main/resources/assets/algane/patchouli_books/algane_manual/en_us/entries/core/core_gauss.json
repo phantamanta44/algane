@@ -1,0 +1,23 @@
+{
+  "name": "Core: Tau Cannon",
+  "category": "core",
+  "icon": "algane:laser_core:4",
+  "pages": [
+    {
+      "type": "core_stats",
+      "title": "Core: Tau Cannon",
+      "damage": "algane:patchouli_diagrams/rating_3.png",
+      "firerate": "algane:patchouli_diagrams/rating_0.png",
+      "range": "algane:patchouli_diagrams/rating_3.png",
+      "text": "The $(2)Tau Cannon Core$() is a $(6)charge-based$() core that projects a beam of tau particles. This sort of probabilistic manipulation requires an enormous amount of energy, and as such, low-charge bursts will tend to be fairly harmless."
+    },
+    {
+      "type": "crafting",
+      "recipe": "algane:core_gauss",
+      "title": "Tau Cannon Core",
+      "text": "The tau state condensation process becomes much more efficient as charge time increases, granting this core a much higher damage-to-energy ratio than more conventional weapons."
+    }
+  ],
+  "read_by_default": true,
+  "sortnum": 5
+}

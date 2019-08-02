@@ -1,0 +1,11 @@
+{
+  "name": "algane.manual.book_name",
+  "landing_text": "algane.manual.landing_text",
+  "book_texture": "patchouli:textures/gui/book_gray.png",
+  "model": "algane:algane_manual",
+  "nameplate_color": "2196F3",
+  "show_progress": false,
+  "version": 1,
+  "creative_tab": "algane",
+  "show_toasts": false
+}

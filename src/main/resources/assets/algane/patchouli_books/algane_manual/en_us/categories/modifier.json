@@ -1,0 +1,6 @@
+{
+  "name": "Weapon Modification",
+  "description": "Fabricating and installing photonic weapon modifiers.",
+  "icon": "algane:laser_mod:0",
+  "sortnum": 2
+}

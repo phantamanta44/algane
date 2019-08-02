@@ -1,0 +1,41 @@
+{
+  "name": "Weapon Modifiers",
+  "category": "modifier",
+  "icon": "algane:laser_mod:0",
+  "pages": [
+    {
+      "type": "text",
+      "text": "Photonic weapon systems, while offering a great deal more versatility than conventional weapons, lack the thaumatological properties which render most conventional weapons susceptible to enchantment. Fortunately, the modular nature of photonic weapons allows for the manipulation of operational parameters within a certain tolerance."
+    },
+    {
+      "type": "text",
+      "text": "This is accomplished through the use of $(2)Laser Modifiers$(), which can be installed on a photonic weapon casing using the standard $(l:asesmbly/setup#assembler)Armament Assembler$().$(br2)There are three primary operational parameters that modifiers affect:$(li)Damage Output$(li)Energy Usage$(li)Overheat Rate$(br)Each parameter has an associated $(3)Modification Factor$() that defines the extent to which it is affected."
+    },
+    {
+      "type": "text",
+      "title": "Modifier Magnitude",
+      "text": "In addition to modification factors, each modifier has a $(c)Magnitude$(), which approximates its total effectiveness. More specifically, a modifier's magnitude is defined as the length of the vector whose components are its individual modification factors. This means a modifier's magnitude is largely reflective of its highest-strength modification factor."
+    },
+    {
+      "type": "image",
+      "images": [
+        "algane:patchouli_diagrams/modifier_tooltip.png"
+      ],
+      "border": "true",
+      "text": "A modifier displaying its informational tooltip."
+    },
+    {
+      "type": "crafting",
+      "recipe": "algane:modifier_component",
+      "text": "Modifiers, being separate from the other mechanisms in a photonic weapon, require a chassis with additional shielding to protect their sensitive components from the high-radiation environment of the casing."
+    },
+    {
+      "type": "crafting",
+      "recipe": "algane:mod_workbench",
+      "text": "In addition to modifier creation, it is possible to mutate the parameters of existing modifiers using a $(2)Modifier Manipulator$() -- the analogue to the anvil."
+    }
+  ],
+  "priority": true,
+  "read_by_default": true,
+  "sortnum": 0
+}

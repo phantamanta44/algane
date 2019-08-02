@@ -1,0 +1,22 @@
+{
+  "name": "Core: Simple",
+  "category": "core",
+  "icon": "algane:laser_core:0",
+  "pages": [
+    {
+      "type": "core_stats",
+      "title": "Core: Simple",
+      "damage": "algane:patchouli_diagrams/rating_2.png",
+      "firerate": "algane:patchouli_diagrams/rating_2.png",
+      "range": "algane:patchouli_diagrams/rating_2.png",
+      "text": "The $(2)Simple Laser Rifle Core$() is a $(3)semi-automatic$() core that simply focuses energy into a linear beam, which is then directed towards the target. It doesn't really do much else of interest."
+    },
+    {
+      "type": "crafting",
+      "recipe": "algane:core_simple",
+      "title": "Simple Core"
+    }
+  ],
+  "read_by_default": true,
+  "sortnum": 1
+}

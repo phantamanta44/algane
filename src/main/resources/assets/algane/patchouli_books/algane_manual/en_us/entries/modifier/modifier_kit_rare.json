@@ -1,0 +1,19 @@
+{
+  "name": "Rare Modifiers",
+  "category": "modifier",
+  "icon": "algane:misc:2",
+  "pages": [
+    {
+      "type": "text",
+      "text": "It has come to our attention that certain third-party modifier assembly kits have appeared on the market. We strongly recommend that these $(2)Rare Modifier Kits$() be discarded immediately should one come into the possession of a photonic weapons system user. We can make no guarantees about the safety of users that use these modifier kits."
+    },
+    {
+      "type": "spotlight",
+      "item": "algane:misc:2",
+      "link_recipe": true,
+      "text": "These illicit modifier kits may sometimes appear in storage units left in abandoned mining facilities or similar. Photonic weapons system users are urged to report these occurrences to the proper authorities such that safe disposal can be arranged."
+    }
+  ],
+  "read_by_default": true,
+  "sortnum": 2
+}

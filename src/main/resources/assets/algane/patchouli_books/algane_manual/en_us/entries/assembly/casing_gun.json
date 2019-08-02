@@ -1,0 +1,37 @@
+{
+  "name": "Laser Rifles",
+  "category": "assembly",
+  "icon": "algane:laser_gun:3",
+  "pages": [
+    {
+      "type": "text",
+      "text": "The $(2)Laser Rifle$() is the standard photonic weapon casing. Designed for maximum mobility, photonic weapons built using this casing can be operated on-the-fly by the experienced marksman.$(br2)Upgrading the casing increases the modifier slot count while retaining any previously-installed components."
+    },
+    {
+      "type": "crafting",
+      "recipe": "algane:laser_gun_basic",
+      "title": "Basic Laser Rifle",
+      "text": "The most basic model. Features one modifier slot."
+    },
+    {
+      "type": "crafting",
+      "recipe": "algane:laser_gun_advanced",
+      "title": "Advanced Laser Rifle",
+      "text": "A slightly more advanced model. Features two modifier slots."
+    },
+    {
+      "type": "crafting",
+      "recipe": "algane:laser_gun_elite",
+      "title": "Elite Laser Rifle",
+      "text": "A model designed for the elite marksman. Features three modifier slots."
+    },
+    {
+      "type": "crafting",
+      "recipe": "algane:laser_gun_ultimate",
+      "title": "Ultimate Laser Rifle",
+      "text": "The ultimate advancement in photonic weapons technology. Features four modifier slots."
+    }
+  ],
+  "read_by_default": true,
+  "sortnum": 3
+}

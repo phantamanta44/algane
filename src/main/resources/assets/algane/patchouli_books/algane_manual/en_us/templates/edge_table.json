@@ -1,0 +1,50 @@
+{
+  "components": [
+    {
+      "type": "header",
+      "x": -1,
+      "y": -6,
+      "text": "#title"
+    },
+    {
+      "type": "image",
+      "x": 9,
+      "y": 2,
+      "image": "algane:patchouli_diagrams/table.png",
+      "width": 102,
+      "height": 45,
+      "texture_width": 128,
+      "texture_height": 128
+    },
+    {
+      "type": "item",
+      "x": 14,
+      "y": 7,
+      "item": "minecraft:redstone{display:{Name:'\u00a7rRising Edge'}}"
+    },
+    {
+      "type": "text",
+      "x": 37,
+      "y": 11,
+      "text": "#rising"
+    },
+    {
+      "type": "item",
+      "x": 14,
+      "y": 26,
+      "item": "minecraft:gunpowder{display:{Name:'\u00a7rFalling Edge'}}"
+    },
+    {
+      "type": "text",
+      "x": 37,
+      "y": 30,
+      "text": "#falling"
+    },
+    {
+      "type": "text",
+      "x": 0,
+      "y": 49,
+      "text": "#text"
+    }
+  ]
+}

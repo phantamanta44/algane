@@ -1,0 +1,18 @@
+{
+  "name": "A Foreword",
+  "category": "assembly",
+  "icon": "minecraft:arrow",
+  "pages": [
+    {
+      "type": "text",
+      "text": "The modern tactician harbors a great respect for the tools of their craft. With what legion would Achilles have descended upon Hector's bulwark if not for those fields of glinting steel? With what mighty power would Aeneas have felled Turnus if not for the blade of Vulcan's divine spear?$(br2)However, the modern tactician also knows that only with futility will battle be done"
+    },
+    {
+      "type": "text",
+      "text": "bearing the primitive bow-and-arrow. As the blade of the sword dulled in the face of wind-borne demise, the ashen bolt shatters in the radiance of an undying light. The modern tactician finds themselves standing agape at the spectacle of a new dynasty to come.$(br2)$(o)Photonics are the future."
+    }
+  ],
+  "priority": true,
+  "read_by_default": true,
+  "sortnum": 0
+}

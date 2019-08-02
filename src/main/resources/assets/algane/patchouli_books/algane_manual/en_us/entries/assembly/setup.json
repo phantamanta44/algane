@@ -1,0 +1,42 @@
+{
+  "name": "Weapon Assembly",
+  "category": "assembly",
+  "icon": "algane:laser_workbench:0",
+  "pages": [
+    {
+      "type": "text",
+      "text": "In general, photonics-based weaponry is composed of four major components:$(li)Casing$(li)Weapon Core$(li)Energy Cell$(li)Modifiers$(br)These components act in concert to produce and focus electromagnetic energy that can then be directed towards a target."
+    },
+    {
+      "type": "crafting",
+      "recipe": "algane:optical_component_core",
+      "title": "Optical Core",
+      "text": "Most photonics components must be mounted on a chassis designed to reduce optical energy loss. Such a chassis consists of a radiation-shielded lens suspended in a highly-reflective tin frame."
+    },
+    {
+      "type": "crafting",
+      "recipe": "algane:laser_workbench",
+      "title": "Armament Assembler",
+      "text": "Photonics-based weaponry can be assembled automatically using a CNC-derived system. The system is built on an optical chassis, which prevents energy leakage during the fabrication process."
+    },
+    {
+      "type": "text",
+      "anchor": "assembler",
+      "text": "The $(2)Armament Assembler$() allows for the installation of photonic components into a weapon casing. This is accomplished by placing a weapon casing into the left slot and the desired component in the right. If the installation is permissible, the $(o)Install$() button can then be pressed to complete the process. Note that this is non-reversible: installed components cannot be removed from a casing."
+    },
+    {
+      "type": "text",
+      "text": "The top row of slots will display the installed components for the casing, if present. These slots cannot be interacted with and are merely for informational purpose."
+    },
+    {
+      "type": "image",
+      "images": [
+        "algane:patchouli_diagrams/laser_workbench_gui.png"
+      ],
+      "border": "true",
+      "text": "The $(2)Armament Assembler$() GUI."
+    }
+  ],
+  "read_by_default": true,
+  "sortnum": 2
+}

@@ -1,0 +1,34 @@
+{
+  "name": "Tau Particles",
+  "category": "assembly",
+  "icon": "algane:misc:6",
+  "pages": [
+    {
+      "type": "text",
+      "text": "Certain photonic components may necessitate interaction with individual tau leptons -- much too small a scale for any conventional equipment to operate on. To this end, the $(2)Tau Condenser$() is capable of creating a high-density environment in which a probabilistic distribution is formed favouring the desired tau states."
+    },
+    {
+      "type": "crafting",
+      "recipe": "algane:tau_condenser_casing",
+      "title": "Condenser Casing",
+      "text": "The condenser apparatus itself is fairly simple; a frame of reinforced glass provides the means to create an environment isolated from external interference in which the controlled probability field can form."
+    },
+    {
+      "type": "spotlight",
+      "item": "algane:misc:6",
+      "title": "Tau Condenser",
+      "link_recipe": true,
+      "text": "Finally, the condenser requires an internal reservoir of gaseous tritium, whose low mass-to-neutron ratio allows for the maintenance of a stable probabilistic population inversion."
+    },
+    {
+      "type": "image",
+      "images": [
+        "algane:patchouli_diagrams/crafting_tau_condenser.png"
+      ],
+      "border": true,
+      "text": "Crafting the condenser."
+    }
+  ],
+  "read_by_default": true,
+  "sortnum": 5
+}

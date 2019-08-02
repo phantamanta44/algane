@@ -92,3 +92,6 @@ death.attack.alganeShockCombo.item=%1$s was annihilated by %2$s using %3$s
 death.attack.alganeGauss=%1$s absorbed too many tau particles
 death.attack.alganeGauss.player=%1$s was blasted with tau particles by %2$s
 death.attack.alganeGauss.item=%1$s was blasted with tau particles by %2$s using %3$s
+
+algane.manual.book_name=Algane Manual
+algane.manual.landing_text=This manual will provide instructions and support for the use of your recently-purchased Algane(TM) Photonic Weapons System(R).

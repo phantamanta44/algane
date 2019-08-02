@@ -1,0 +1,34 @@
+{
+  "name": "Modifier Composition",
+  "category": "modifier",
+  "icon": "algane:laser_workbench:1",
+  "pages": [
+    {
+      "type": "text",
+      "text": "At times, the situation may arise where two modifiers both have desirable traits, but only one slot is available. Through the process of $(2)Modifier Composition$(), these modifiers may be joined into a single modifier that takes on traits from both components. Note that this is not a constructive process: the resultant modifier will have a magnitude equal to the average of the two components' magnitudes."
+    },
+    {
+      "type": "image",
+      "images": [
+        "algane:patchouli_diagrams/modifier_combination.png"
+      ],
+      "border": true,
+      "text": "Composing two modifiers."
+    },
+    {
+      "type": "text",
+      "title": "Composition Specifics",
+      "text": "More specifically, composing two modifiers produces a result modifier for the vector sum of the two component modifiers, but with the length of the average component magnitude. Thus, composing near-orthogonal modifiers will incur a significant loss."
+    },
+    {
+      "type": "image",
+      "images": [
+        "algane:patchouli_diagrams/modifier_combination_loss.png"
+      ],
+      "border": true,
+      "text": "$(c)A$() composed with $(9)B$() yields $(2)C$()."
+    }
+  ],
+  "read_by_default": true,
+  "sortnum": 4
+}

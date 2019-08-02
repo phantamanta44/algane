@@ -1,0 +1,67 @@
+{
+  "name": "Laser Turrets",
+  "category": "assembly",
+  "icon": "algane:laser_turret:3",
+  "pages": [
+    {
+      "type": "text",
+      "text": "The $(2)Laser Turret$() is a statically-mounted variant of the photonic weapon casing. While completely immobile, it can be used as an autonomous defense system for the engineering-inclined tactician.$(br2)The laser turret will require an external source of power to maintain its internal energy cell at operable levels. To this end, $(3)Forge Energy$() can be injected into the casing from"
+    },
+    {
+      "type": "text",
+      "text": "any face via the appropriate cables.$(br2)Upgrading the casing increases the modifier slot count while retaining any previously-installed components."
+    },
+    {
+      "type": "crafting",
+      "recipe": "algane:laser_turret_basic",
+      "title": "Basic Laser Turret",
+      "text": "The most basic model. Features one modifier slot."
+    },
+    {
+      "type": "crafting",
+      "recipe": "algane:laser_turret_advanced",
+      "title": "Advanced Laser Turret",
+      "text": "A slightly more advanced model. Features two modifier slots."
+    },
+    {
+      "type": "crafting",
+      "recipe": "algane:laser_turret_elite",
+      "title": "Elite Laser Turret",
+      "text": "A model designed for the elite tactician. Features three modifier slots."
+    },
+    {
+      "type": "crafting",
+      "recipe": "algane:laser_turret_ultimate",
+      "title": "Ultimate Laser Turret",
+      "text": "The ultimate advancement in photonic defense systems. Features four modifier slots."
+    },
+    {
+      "type": "text",
+      "title": "Control Schemes",
+      "text": "The laser turret responds to control signals in the form of digital redstone pulses. Each $(l:core/intro)Firing Paradigm$() uses a different control scheme; these will be delineated on the following pages."
+    },
+    {
+      "type": "edge_table",
+      "title": "Semi-Automatic",
+      "rising": "Fires once.",
+      "falling": "-",
+      "text": "Semi-automatic weapon cores expose the most simple control interface. The turret will fire once on the rising edge of each pulse."
+    },
+    {
+      "type": "edge_table",
+      "title": "Automatic",
+      "rising": "Starts firing.",
+      "falling": "Stops firing.",
+      "text": "Automatic weapon cores will continuously fire while the input is high. Be wary of overheating."
+    },
+    {
+      "type": "edge_table",
+      "title": "Charge Shot",
+      "rising": "Begins charging.",
+      "falling": "Discharges.",
+      "text": "Charge-based weapon cores will charge while the input is high, then release all the stored energy on the falling edge."
+    }
+  ],
+  "read_by_default": true,
+  "sortnum": 4
+}

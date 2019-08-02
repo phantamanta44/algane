@@ -1,0 +1,23 @@
+{
+  "name": "Core: Shock Orb",
+  "category": "core",
+  "icon": "algane:laser_core:3",
+  "pages": [
+    {
+      "type": "core_stats",
+      "title": "Core: Shock Orb",
+      "damage": "algane:patchouli_diagrams/rating_2.png",
+      "firerate": "algane:patchouli_diagrams/rating_0.png",
+      "range": "algane:patchouli_diagrams/rating_3.png",
+      "text": "The $(2)Shock Orb Projector Core$() is a $(6)charge-based$() core that generates and launches highly-destructive projectiles. The spheres of plasma produced by this core are saturated with anti-photons which immediately annihilate upon release. Any disturbance to the plasma field will trigger a detonation."
+    },
+    {
+      "type": "crafting",
+      "recipe": "algane:core_orb",
+      "title": "Shock Orb Core",
+      "text": "Unfortunately, the weapon's full potential is somewhat hindered; when the plasma sphere collides with solid matter, a significant portion of its energy is attenuated by anti-photon absorption."
+    }
+  ],
+  "read_by_default": true,
+  "sortnum": 4
+}

@@ -11,7 +11,7 @@
   "logoFile": "",
   "screenshots": [],
   "useDependencyInformation": true,
-  "dependencies": ["libnine", "mekanism", "mekanismgenerators"],
+  "dependencies": ["libnine", "mekanism", "mekanismgenerators", "patchouli"],
   "requiredMods": ["libnine@[1.1.1,)", "mekanism", "mekanismgenerators"]
 }
 ]
