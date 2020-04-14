@@ -2,8 +2,10 @@ package xyz.phanta.algane.util;
 
 import io.github.phantamanta44.libnine.util.helper.OptUtils;
 import net.minecraft.client.Minecraft;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumHandSide;
 import net.minecraft.util.math.Vec3d;
@@ -17,6 +19,7 @@ import xyz.phanta.algane.lasergun.core.base.LaserGunCore;
 import javax.annotation.Nullable;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Predicate;
 
 public class AlganeUtils {
 
@@ -117,14 +120,22 @@ public class AlganeUtils {
                 ? Minecraft.getMinecraft().player.getPrimaryHand().opposite()
                 : Minecraft.getMinecraft().player.getPrimaryHand();
     }
-    
-    public static void applyImpulse(@Nullable EntityLivingBase entity, float magnitude, Vec3d dir) {
+
+    public static void applyImpulse(@Nullable Entity entity, float magnitude, Vec3d dir) {
         if (entity != null) {
             entity.motionX += -magnitude * dir.x;
             entity.motionY += -magnitude * dir.y;
             entity.motionZ += -magnitude * dir.z;
             entity.isAirBorne = entity.velocityChanged = true;
         }
+    }
+
+    public static boolean canLaseEntity(Entity entity) {
+        return entity.canBeCollidedWith() && entity.canBeAttackedWithItem();
+    }
+
+    public static Predicate<Entity> getLasingFilter(@Nullable Entity shooter) {
+        return shooter == null ? AlganeUtils::canLaseEntity : e -> e != shooter && canLaseEntity(e);
     }
 
 }

@@ -1,13 +1,9 @@
 package xyz.phanta.algane.lasergun.core;
 
-import io.github.phantamanta44.libnine.util.math.LinAlUtils;
-import io.github.phantamanta44.libnine.util.tuple.IPair;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
-import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import xyz.phanta.algane.Algane;
@@ -25,7 +21,6 @@ import xyz.phanta.algane.util.AlganeUtils;
 import xyz.phanta.algane.util.LasingUtils;
 
 import javax.annotation.Nullable;
-import java.util.Comparator;
 
 public class LaserGunCoreAsmd implements LaserGunCore {
 
@@ -43,13 +38,33 @@ public class LaserGunCoreAsmd implements LaserGunCore {
         LaserGunModifier mods = AlganeUtils.computeTotalMods(gun);
         float energyUse = AlganeUtils.consumeEnergy(gun, AlganeConfig.coreShock.baseEnergyUse, mods);
         if (energyUse > 0) {
-            Vec3d endPos = pos.add(dir.scale(AlganeConfig.coreShock.maxRange));
+            Vec3d endPos = LasingUtils.laseEntity(
+                    world, pos, dir, (float)AlganeConfig.coreSimple.maxRange, AlganeUtils.getLasingFilter(owner),
+                    hit -> {
+                        Vec3d hitPos = hit.getPositionVector();
+                        if (hit instanceof EntityShockOrb) {
+                            EntityShockOrb hitOrb = (EntityShockOrb)hit;
+                            float damage = (float)AlganeConfig.coreOrb.shockComboMultiplier * (hitOrb.getDamage()
+                                    + AlganeUtils.computeDamage((float)AlganeConfig.coreShock.baseDamage * energyUse, mods));
+                            hitOrb.detonate(SHOCK_COMBO_RADIUS, damage, DamageBlast.shockCombo(hitOrb, owner, stack));
+                            world.playSound(null, hitOrb.posX, hitOrb.posY, hitOrb.posZ,
+                                    AlganeSounds.GUN_ORB_COMBO, SoundCategory.MASTER, 1F, 1F);
+                            Algane.PROXY.spawnParticleShockBlast(world, hitPos, SHOCK_COMBO_RADIUS, 100F, BASE_COLOUR);
+                        } else {
+                            if (hit.attackEntityFrom(DamageHitscan.asmd(owner, stack),
+                                    AlganeUtils.computeDamage((float)AlganeConfig.coreShock.baseDamage * energyUse, mods))) {
+                                AlganeUtils.applyImpulse(
+                                        hit, (float)AlganeConfig.coreShock.knockbackFactor * energyUse, dir.scale(-1D));
+                            }
+                        }
+                    });
+            /*Vec3d endPos = pos.add(dir.scale(AlganeConfig.coreShock.maxRange));
             RayTraceResult trace = LasingUtils.traceLaser(world, pos, endPos, LasingUtils::isImpassible);
             if (trace != null) {
                 endPos = trace.hitVec;
             }
             endPos = LasingUtils.getEntitiesOnLine(Entity.class, world, pos, endPos)
-                    .filter(e -> e != owner && (e instanceof EntityLivingBase || e instanceof EntityShockOrb))
+                    .filter(e -> e != owner && (AlganeUtils.canLaseEntity(e) || e instanceof EntityShockOrb))
                     .map(e -> IPair.of(e, e.getDistanceSq(pos.x, pos.y, pos.z)))
                     .min(Comparator.comparing(IPair::getB))
                     .map(IPair::getA)
@@ -64,15 +79,14 @@ public class LaserGunCoreAsmd implements LaserGunCore {
                                     AlganeSounds.GUN_ORB_COMBO, SoundCategory.MASTER, 1F, 1F);
                             Algane.PROXY.spawnParticleShockBlast(world, hitPos, SHOCK_COMBO_RADIUS, 100F, BASE_COLOUR);
                         } else {
-                            EntityLivingBase hitLiving = (EntityLivingBase)hit;
-                            if (hitLiving.attackEntityFrom(DamageHitscan.asmd(owner, stack),
+                            if (hit.attackEntityFrom(DamageHitscan.asmd(owner, stack),
                                     AlganeUtils.computeDamage((float)AlganeConfig.coreShock.baseDamage * energyUse, mods))) {
                                 AlganeUtils.applyImpulse(
-                                        hitLiving, (float)AlganeConfig.coreShock.knockbackFactor * energyUse, dir.scale(-1D));
+                                        hit, (float)AlganeConfig.coreShock.knockbackFactor * energyUse, dir.scale(-1D));
                             }
                         }
                         return LinAlUtils.castOntoPlane(pos, dir, hitPos, dir);
-                    }).orElse(endPos);
+                    }).orElse(endPos);*/
             world.playSound(null, pos.x, pos.y, pos.z, AlganeSounds.GUN_SHOCK_FIRE, SoundCategory.MASTER, 1F, 1F);
             Algane.PROXY.spawnParticleAsmd(world, pos, endPos, owner != null ? owner.getUniqueID() : null, hand);
             AlganeUtils.incrementHeat(gun, AlganeUtils.computeHeat((float)AlganeConfig.coreShock.baseHeat, mods));

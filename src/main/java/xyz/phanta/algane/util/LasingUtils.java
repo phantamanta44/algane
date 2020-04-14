@@ -4,13 +4,13 @@ import io.github.phantamanta44.libnine.util.math.LinAlUtils;
 import io.github.phantamanta44.libnine.util.tuple.IPair;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.*;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
@@ -21,15 +21,15 @@ import java.util.stream.Stream;
 public class LasingUtils {
 
     public static Vec3d laseEntity(World world, Vec3d origin, Vec3d dir, float range,
-                                   @Nullable EntityLivingBase exclude, Consumer<EntityLivingBase> hitCallback) {
+                                   Predicate<Entity> filter, Consumer<Entity> hitCallback) {
         Vec3d endPos = origin.add(dir.scale(range));
         RayTraceResult trace = traceLaser(world, origin, endPos, LasingUtils::isOpaque);
         if (trace != null) {
             endPos = trace.hitVec;
         }
-        Optional<EntityLivingBase> hitOpt = getFirstEntityOnLine(EntityLivingBase.class, exclude, world, origin, endPos);
+        Optional<Entity> hitOpt = getFirstEntityOnLine(Entity.class, filter, world, origin, endPos);
         if (hitOpt.isPresent()) {
-            EntityLivingBase hit = hitOpt.get();
+            Entity hit = hitOpt.get();
             hitCallback.accept(hit);
             Vec3d hitPos = hit.getPositionVector();
             Vec3d toEntity = LinAlUtils.castOntoPlane(origin, dir, hitPos, dir);
@@ -42,18 +42,19 @@ public class LasingUtils {
         return endPos;
     }
 
-    public static <E extends Entity> Optional<E> getFirstEntityOnLine(Class<E> entityType, @Nullable Entity exclude,
+    public static <E extends Entity> Optional<E> getFirstEntityOnLine(Class<E> entityType, Predicate<Entity> filter,
                                                                       World world, Vec3d from, Vec3d to) {
-        return getEntitiesOnLine(entityType, world, from, to)
-                .filter(e -> e != exclude)
+        return getEntitiesOnLine(world, from, to).stream()
+                .filter(entityType::isInstance)
+                .map(entityType::cast)
+                .filter(filter)
                 .map(e -> IPair.of(e, e.getDistanceSq(from.x, from.y, from.z)))
                 .min(Comparator.comparing(IPair::getB))
                 .map(IPair::getA);
     }
 
-    public static <E extends Entity> Stream<E> getEntitiesOnLine(Class<E> entityType, World world, Vec3d from, Vec3d to) {
-        return world.getEntitiesWithinAABB(entityType, new AxisAlignedBB(from.x, from.y, from.z, to.x, to.y, to.z)).stream()
-                .filter(e -> LinAlUtils.intersectsLine(e.getEntityBoundingBox(), from, to));
+    public static List<Entity> getEntitiesOnLine(World world, Vec3d from, Vec3d to) {
+        return world.getEntitiesInAABBexcluding(null, new AxisAlignedBB(from.x, from.y, from.z, to.x, to.y, to.z), null);
     }
 
     @Nullable

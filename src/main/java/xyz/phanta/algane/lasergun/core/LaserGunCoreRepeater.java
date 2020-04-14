@@ -46,7 +46,8 @@ public class LaserGunCoreRepeater implements LaserGunCore {
                         .scale(world.rand.nextFloat()
                                 * Math.min(ticks * driftSlope / AlganeConfig.coreRepeater.driftMaxTime, driftSlope)));
             }
-            Vec3d endPos = LasingUtils.laseEntity(world, pos, dir, (float)AlganeConfig.coreRepeater.maxRange, owner,
+            Vec3d endPos = LasingUtils.laseEntity(
+                    world, pos, dir, (float)AlganeConfig.coreRepeater.maxRange, AlganeUtils.getLasingFilter(owner),
                     hit -> hit.attackEntityFrom(DamageHitscan.laser(owner, stack),
                             AlganeUtils.computeDamage((float)AlganeConfig.coreRepeater.baseDamage * energyUse, mods)));
             world.playSound(null, pos.x, pos.y, pos.z, AlganeSounds.GUN_REPEATER_FIRE, SoundCategory.MASTER, 0.75F, 1F);

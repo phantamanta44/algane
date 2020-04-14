@@ -35,7 +35,8 @@ public class LaserGunCoreSimple implements LaserGunCore {
         LaserGunModifier mods = AlganeUtils.computeTotalMods(gun);
         float energyUse = AlganeUtils.consumeEnergy(gun, AlganeConfig.coreSimple.baseEnergyUse, mods);
         if (energyUse > 0) {
-            Vec3d endPos = LasingUtils.laseEntity(world, pos, dir, (float)AlganeConfig.coreSimple.maxRange, owner,
+            Vec3d endPos = LasingUtils.laseEntity(
+                    world, pos, dir, (float)AlganeConfig.coreSimple.maxRange, AlganeUtils.getLasingFilter(owner),
                     hit -> hit.attackEntityFrom(DamageHitscan.laser(owner, stack),
                             AlganeUtils.computeDamage((float)AlganeConfig.coreSimple.baseDamage * energyUse, mods)));
             world.playSound(null, pos.x, pos.y, pos.z, AlganeSounds.GUN_SIMPLE_FIRE, SoundCategory.MASTER, 1F, 1F);

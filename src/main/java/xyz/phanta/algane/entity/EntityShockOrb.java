@@ -1,5 +1,6 @@
 package xyz.phanta.algane.entity;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.projectile.EntityFireball;
 import net.minecraft.item.ItemStack;
@@ -71,8 +72,9 @@ public class EntityShockOrb extends EntityFireball {
 
     public void detonate(float radius, float damage, DamageSource damageSrc) {
         float radiusSq = radius * radius;
-        for (EntityLivingBase hit : world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(
-                posX - radius, posY - radius, posZ - radius, posX + radius, posY + radius, posZ + radius))) {
+        for (Entity hit : world.getEntitiesInAABBexcluding(null, new AxisAlignedBB(
+                posX - radius, posY - radius, posZ - radius, posX + radius, posY + radius, posZ + radius),
+                e -> e != null && !e.isImmuneToExplosions())) {
             float dx = (float)(hit.posX - posX), dy = (float)(hit.posY - posY), dz = (float)(hit.posZ - posZ);
             float distSq = dx * dx + dy * dy + dz * dz;
             if (distSq <= radiusSq) {

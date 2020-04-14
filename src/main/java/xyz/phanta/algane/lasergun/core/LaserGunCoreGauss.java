@@ -42,7 +42,8 @@ public class LaserGunCoreGauss extends LaserGunCoreCharge {
     protected int discharge(ItemStack stack, LaserGun gun, World world, Vec3d pos, Vec3d dir, int ticks,
                             @Nullable EntityLivingBase owner, @Nullable EnumHand hand) {
         LaserGunModifier mods = AlganeUtils.computeTotalMods(gun);
-        Vec3d endPos = LasingUtils.laseEntity(world, pos, dir, (float)AlganeConfig.coreGauss.maxRange, owner,
+        Vec3d endPos = LasingUtils.laseEntity(
+                world, pos, dir, (float)AlganeConfig.coreGauss.maxRange,AlganeUtils.getLasingFilter(owner),
                 hit -> hit.attackEntityFrom(DamageHitscan.gauss(owner, stack),
                         AlganeUtils.computeDamage((float)AlganeConfig.coreGauss.baseDamage * ticks * ticks * ticks, mods)));
         world.playSound(null, pos.x, pos.y, pos.z, AlganeSounds.GUN_GAUSS_FIRE, SoundCategory.MASTER, 1F, 1F);
