@@ -11,7 +11,7 @@ apply plugin: 'net.minecraftforge.gradle.forge'
 //Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
 
 
-version = "1.0.0"
+version = "1.0.1"
 group = "xyz.phanta.algane"
 archivesBaseName = "algane-1.12.2"
 
@@ -40,7 +40,7 @@ repositories {
 }
 
 dependencies {
-    compile 'io.github.phantamanta44.libnine:libnine-1.12.2:1.1.1'
+    compile 'io.github.phantamanta44.libnine:libnine-1.12.2:1.1.7'
     deobfCompile "mekanism:Mekanism:1.12.2:9.7.8.379"
     deobfCompile "mekanism-generators:MekanismGenerators:1.12.2:9.7.8.379"
     deobfProvided "mezz.jei:jei_1.12.2:4.15.0.287:api"

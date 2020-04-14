@@ -9,7 +9,7 @@ import xyz.phanta.algane.lasergun.LaserGun;
 import xyz.phanta.algane.lasergun.LaserGunModifier;
 import xyz.phanta.algane.lasergun.core.base.LaserGunCore;
 
-@SuppressWarnings("NullableProblems")
+@SuppressWarnings("NotNullFieldNotInitialized")
 public class AlganeCaps {
 
     @CapabilityInject(LaserGun.class)

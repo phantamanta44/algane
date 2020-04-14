@@ -14,19 +14,19 @@ import xyz.phanta.algane.item.ItemLaserGun;
 public class Algane extends Virtue {
 
     public static final String MOD_ID = "algane";
-    public static final String VERSION = "1.0.0";
+    public static final String VERSION = "1.0.1";
 
-    @SuppressWarnings("NullableProblems")
+    @SuppressWarnings("NotNullFieldNotInitialized")
     @Mod.Instance(MOD_ID)
     public static Algane INSTANCE;
 
-    @SuppressWarnings("NullableProblems")
+    @SuppressWarnings("NotNullFieldNotInitialized")
     @SidedProxy(
             clientSide = "xyz.phanta.algane.client.ClientProxy",
             serverSide = "xyz.phanta.algane.CommonProxy")
     public static CommonProxy PROXY;
 
-    @SuppressWarnings("NullableProblems")
+    @SuppressWarnings("NotNullFieldNotInitialized")
     public static Logger LOGGER;
 
     public Algane() {

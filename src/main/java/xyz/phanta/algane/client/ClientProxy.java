@@ -1,6 +1,5 @@
 package xyz.phanta.algane.client;
 
-import io.github.phantamanta44.libnine.LibNine;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.EnumHand;
@@ -8,6 +7,7 @@ import net.minecraft.util.EnumHandSide;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import xyz.phanta.algane.CommonProxy;
 import xyz.phanta.algane.client.event.ModelRegistrationHandler;
@@ -37,11 +37,15 @@ public class ClientProxy extends CommonProxy {
         MinecraftForge.EVENT_BUS.register(new WeaponOverlayRenderer());
         MinecraftForge.EVENT_BUS.register(new ModelRegistrationHandler());
         MinecraftForge.EVENT_BUS.register(chargeHandler = new WeaponChargeHandler());
-        LibNine.PROXY.getRegistrar().queueItemColourHandlerReg(
+    }
+
+    @Override
+    public void onInit(FMLInitializationEvent event) {
+        super.onInit(event);
+        Minecraft.getMinecraft().getItemColors().registerItemColorHandler(
                 (s, i) -> i == 0 ? -1 : AlganeUtils.getLaserCore(AlganeUtils.getItemLaserGun(s))
                         .map(LaserGunCore::getDisplayColour).orElse(0x212121),
-                AlganeItems.LASER_GUN
-        );
+                AlganeItems.LASER_GUN);
     }
 
     @Override
