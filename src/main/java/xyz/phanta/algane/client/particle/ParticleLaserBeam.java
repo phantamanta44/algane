@@ -64,12 +64,12 @@ public class ParticleLaserBeam extends ParticleBeam {
         tess.draw();
 
         buf.begin(GL11.GL_TRIANGLES, DefaultVertexFormats.POSITION);
-        buf.pos(-dx, -r, 0);
-        buf.pos(dx, -r, 0);
-        buf.pos(0, dy, 0);
-        buf.pos(0, dy, length);
-        buf.pos(dx, -r, length);
-        buf.pos(-dx, -r, length);
+        buf.pos(-dx, -r, 0).endVertex();
+        buf.pos(0, dy, 0).endVertex();
+        buf.pos(dx, -r, 0).endVertex();
+        buf.pos(0, dy, length).endVertex();
+        buf.pos(-dx, -r, length).endVertex();
+        buf.pos(dx, -r, length).endVertex();
         tess.draw();
 
         GlStateManager.popMatrix();
