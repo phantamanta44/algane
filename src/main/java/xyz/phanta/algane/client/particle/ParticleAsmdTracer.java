@@ -22,11 +22,11 @@ public class ParticleAsmdTracer extends ParticleBeam {
 
     public ParticleAsmdTracer(World world, Vec3d from, Vec3d to, @Nullable EnumHandSide side) {
         super(world, from, to, side);
-        this.particleRed = 0.25882F;
-        this.particleGreen = 0.64706F;
-        this.particleBlue = 0.96078F;
+        this.particleRed = 0.11765F;
+        this.particleGreen = 0.53333F;
+        this.particleBlue = 0.89804F;
         this.particleMaxAge = 18;
-        this.auxCount = (length > 9 ? 9 : (int)Math.floor(length)) * 2;
+        this.auxCount = (int)Math.floor(length) * 2;
         this.auxDist = length / auxCount;
     }
 
@@ -46,10 +46,13 @@ public class ParticleAsmdTracer extends ParticleBeam {
 
     private void setUpRender() {
         ResConst.PARTICLE_RING.bind();
-        GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
+        GlStateManager.tryBlendFuncSeparate(
+                GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA,
+                GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
         GlStateManager.pushMatrix();
         GlStateManager.disableLighting();
         RenderUtils.enableFullBrightness();
+        GlStateManager.disableAlpha();
         GlStateManager.depthMask(false);
     }
 
@@ -64,10 +67,12 @@ public class ParticleAsmdTracer extends ParticleBeam {
         for (int i = 0; i < currentAuxCount; i += 2) {
             float auxFrac = Math.min((particleAge + partialTicks - i) / (float)(particleMaxAge - i), 1F);
             alpha(1F - auxFrac);
-            drawRing(tess, buf, auxFrac * 0.25F, i * auxDist);
+            // rational function 1/2 + x/(2x+4) lets nearer rings appear smaller
+            drawRing(tess, buf, auxFrac * 0.25F * (0.5F + i / (2F * i + 4)), i * auxDist);
         }
 
         GlStateManager.depthMask(true);
+        GlStateManager.enableAlpha();
         RenderUtils.restoreLightmap();
         GlStateManager.enableLighting();
         GlStateManager.popMatrix();
