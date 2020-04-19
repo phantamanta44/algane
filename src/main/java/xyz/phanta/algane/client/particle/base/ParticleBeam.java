@@ -1,10 +1,12 @@
 package xyz.phanta.algane.client.particle.base;
 
+import io.github.phantamanta44.libnine.util.math.LinAlUtils;
 import io.github.phantamanta44.libnine.util.math.MathUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.EnumHandSide;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import xyz.phanta.algane.client.particle.DelayedParticleRenderer;
@@ -68,7 +70,14 @@ public abstract class ParticleBeam extends DelayedParticleRenderer.DelayedPartic
         float fovV = mc.entityRenderer.getFOVModifier(partialTicks, true);
         float fovI = mc.entityRenderer.getFOVModifier(partialTicks, false);
         transformWorld(x, y, z);
-        GlStateManager.translate(side == EnumHandSide.LEFT ? 0.48F : -0.48F, -0.26F, 1.56F * fovI / fovV);
-    }
+        Vec3d handVec = new Vec3d(side == EnumHandSide.LEFT ? 0.14D : -0.14D, -0.075D, length - 0.4D * fovI / fovV);
+        Vec3d handAxis = handVec.crossProduct(LinAlUtils.Z_POS).normalize();
+        float handLen = (float)handVec.length();
+        float handAngle = (float)Math.acos(handVec.z / handLen);
+        GlStateManager.translate(0F, 0F, length);
+        GlStateManager.rotate(handAngle * MathUtils.R2D_F, (float)handAxis.x, (float)handAxis.y, (float)handAxis.z);
+        GlStateManager.scale(1F, 1F, handLen / length);
+        GlStateManager.translate(0F, 0F, -length);
+}
 
 }

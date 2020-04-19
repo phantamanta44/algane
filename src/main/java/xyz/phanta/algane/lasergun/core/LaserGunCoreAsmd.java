@@ -24,7 +24,7 @@ import javax.annotation.Nullable;
 
 public class LaserGunCoreAsmd implements LaserGunCore {
 
-    private static final int BASE_COLOUR = 0x2196F3;
+    private static final int BASE_COLOUR = 0x1565C0;
     private static final float SHOCK_COMBO_RADIUS = 7F;
 
     @Override

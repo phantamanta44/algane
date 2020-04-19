@@ -26,7 +26,7 @@ public class ParticleAsmdTracer extends ParticleBeam {
         this.particleGreen = 0.64706F;
         this.particleBlue = 0.96078F;
         this.particleMaxAge = 18;
-        this.auxCount = length > 9 ? 9 : (int)Math.floor(length);
+        this.auxCount = (length > 9 ? 9 : (int)Math.floor(length)) * 2;
         this.auxDist = length / auxCount;
     }
 
@@ -50,6 +50,7 @@ public class ParticleAsmdTracer extends ParticleBeam {
         GlStateManager.pushMatrix();
         GlStateManager.disableLighting();
         RenderUtils.enableFullBrightness();
+        GlStateManager.depthMask(false);
     }
 
     private void renderBeam(float frac, float partialTicks) {
@@ -63,9 +64,10 @@ public class ParticleAsmdTracer extends ParticleBeam {
         for (int i = 0; i < currentAuxCount; i += 2) {
             float auxFrac = Math.min((particleAge + partialTicks - i) / (float)(particleMaxAge - i), 1F);
             alpha(1F - auxFrac);
-            drawRing(tess, buf, auxFrac * 0.5F, i * auxDist);
+            drawRing(tess, buf, auxFrac * 0.25F, i * auxDist);
         }
 
+        GlStateManager.depthMask(true);
         RenderUtils.restoreLightmap();
         GlStateManager.enableLighting();
         GlStateManager.popMatrix();
