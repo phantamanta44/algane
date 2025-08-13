@@ -21,7 +21,7 @@ public class LaserItemEnergyDelegator implements IEnergyStorage {
     @Override
     public int extractEnergy(int maxExtract, boolean simulate) {
         return AlganeUtils.getLaserEnergy(AlganeUtils.getItemLaserGun(stack))
-                .map(e -> e.receiveEnergy(maxExtract, simulate)).orElse(0);
+                .map(e -> e.extractEnergy(maxExtract, simulate)).orElse(0);
     }
 
     @Override
