@@ -27,7 +27,7 @@ public class ParticleLaserBeam extends ParticleBeam {
 
     @Override
     protected void doRender(float x, float y, float z, float frac, float partialTicks) {
-        float r = (particleMaxAge - particleAge) / 80F, dx = r * 1.73205F, dy = 2 * r;
+        float r = Math.max(particleMaxAge - particleAge - partialTicks, 0F) / 80F, dx = r * 1.73205F, dy = 2 * r;
         Minecraft mc = Minecraft.getMinecraft();
         if (side == null || mc.gameSettings.thirdPersonView != 0) {
             setUpRender(1F - frac);
@@ -46,6 +46,7 @@ public class ParticleLaserBeam extends ParticleBeam {
         GlStateManager.color(particleRed, particleGreen, particleBlue, frac);
         GlStateManager.disableLighting();
         RenderUtils.enableFullBrightness();
+        GlStateManager.disableAlpha();
         GlStateManager.pushMatrix();
     }
 
@@ -77,6 +78,7 @@ public class ParticleLaserBeam extends ParticleBeam {
         GlStateManager.enableLighting();
         GlStateManager.color(1F, 1F, 1F, 1F);
         GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
+        GlStateManager.enableAlpha();
         GlStateManager.enableTexture2D();
     }
 
