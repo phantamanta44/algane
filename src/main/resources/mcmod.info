@@ -1,10 +1,10 @@
 [
 {
-  "modid": "algane",
+  "modid": "${modId}",
   "name": "Algane",
   "description": "A laser gun and nothing else.",
-  "version": "${version}",
-  "mcversion": "${mcversion}",
+  "version": "${modVersion}",
+  "mcversion": "${mcVersion}",
   "url": "",
   "updateUrl": "",
   "authorList": ["phantamanta44"],
@@ -12,6 +12,6 @@
   "screenshots": [],
   "useDependencyInformation": true,
   "dependencies": ["libnine", "mekanism", "mekanismgenerators", "patchouli"],
-  "requiredMods": ["libnine@[1.1.7,)", "mekanism", "mekanismgenerators"]
+  "requiredMods": ["libnine@[1.2.1,)", "mekanism", "mekanismgenerators"]
 }
 ]
